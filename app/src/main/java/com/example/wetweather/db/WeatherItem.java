@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
  * This class defines db structure
  */
 @Entity(tableName = "WeatherData")
-public class WeatherEntity {
+public class WeatherItem {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private long dateTimeMillis;
@@ -21,8 +21,8 @@ public class WeatherEntity {
     private double temperature;
 
     @Ignore
-    public WeatherEntity(long dateTimeMillis,String summary,String icon,double pressure,
-                         double humidity, double windSpeed,int windDirection,double temperature){
+    public WeatherItem(long dateTimeMillis, String summary, String icon, double pressure,
+                       double humidity, double windSpeed, int windDirection, double temperature){
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
         this.icon = icon;
@@ -33,8 +33,8 @@ public class WeatherEntity {
         this.temperature = temperature;
     }
 
-    public WeatherEntity(int id, long dateTimeMillis,String summary,String icon,double pressure,
-                         double humidity, double windSpeed,int windDirection,double temperature){
+    public WeatherItem(int id, long dateTimeMillis, String summary, String icon, double pressure,
+                       double humidity, double windSpeed, int windDirection, double temperature){
         this.id = id;
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;

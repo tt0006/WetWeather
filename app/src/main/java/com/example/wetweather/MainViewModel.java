@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.wetweather.db.WeatherDB;
-import com.example.wetweather.db.WeatherEntity;
+import com.example.wetweather.db.WeatherItem;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class MainViewModel extends AndroidViewModel {
     // Constant for logging
     private static final String TAG = MainViewModel.class.getSimpleName();
 
-    private LiveData<List<WeatherEntity>> weathers;
+    private LiveData<List<WeatherItem>> weathers;
 
     public MainViewModel(Application application) {
         super(application);
@@ -25,7 +25,7 @@ public class MainViewModel extends AndroidViewModel {
         weathers = database.weatherDao().loadAll();
     }
 
-    public LiveData<List<WeatherEntity>> getTasks() {
+    public LiveData<List<WeatherItem>> getTasks() {
         return weathers;
     }
 }
