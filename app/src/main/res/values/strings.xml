@@ -1,3 +1,76 @@
 <resources>
     <string name="app_name">Wet Weather</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Label for the location preference -->
+    <string name="pref_location_label">Location</string>
+
+
+    <!-- Key name for storing location in SharedPreferences -->
+    <string name="pref_location_key" translatable="false">location</string>
+
+    <!-- Default postal code for location preference -->
+    <string name="pref_location_default" translatable="false">Cork</string>
+
+    <!-- Label for the temperature units preference -->
+    <string name="pref_units_label">Units</string>
+
+    <!-- Label for metric option in temperature unit preference -->
+    <string name="pref_units_label_metric">Metric</string>
+
+    <!-- Label for imperial option in temperature unit preference -->
+    <string name="pref_units_label_imperial">Imperial</string>
+
+    <!-- Label for auto option in temperature unit preference -->
+    <string name="pref_units_label_auto">Automatic (based on location)</string>
+
+    <!-- Key name for temperature unit preference in SharedPreferences -->
+    <string name="pref_units_key" translatable="false">units</string>
+
+    <!-- Value in SharedPreferences for metric unit option -->
+    <string name="pref_units_metric" translatable="false">si</string>
+
+    <!-- Value in SharedPreferences for imperial unit option -->
+    <string name="pref_units_imperial" translatable="false">us</string>
+
+    <!-- Value in SharedPreferences for auto unit option -->
+    <string name="pref_units_auto" translatable="false">auto</string>
+
+
+    <!-- Label for the update interval preference -->
+    <string name="pref_update_interval_label">Update interval</string>
+
+    <!-- Label for 1 hour option in update interval preference -->
+    <string name="pref_update_interval_disabled">Disabled</string>
+
+    <!-- Label for 1 hour option in update interval preference -->
+    <string name="pref_update_interval_1_hour">1 hour</string>
+
+    <!-- Label for 1 hour option in update interval preference -->
+    <string name="pref_update_interval_2_hours">2 hours</string>
+
+    <!-- Label for 1 hour option in update interval preference -->
+    <string name="pref_update_interval_4_hours">4 hours</string>
+
+    <!-- Label for 1 hour option in update interval preference -->
+    <string name="pref_update_interval_6_hours">6 hours</string>
+
+    <!-- Key name for update interval preference in SharedPreferences -->
+    <string name="pref_update_interval_key" translatable="false">updateInterval</string>
+
+    <!-- Value in SharedPreferences for update interval option -->
+    <string name="pref_update_interval_value_0" translatable="false">0</string>
+
+    <!-- Value in SharedPreferences for update interval option -->
+    <string name="pref_update_interval_value_1" translatable="false">1</string>
+
+    <!-- Value in SharedPreferences for update interval option -->
+    <string name="pref_update_interval_value_2" translatable="false">2</string>
+
+    <!-- Value in SharedPreferences for update interval option -->
+    <string name="pref_update_interval_value_4" translatable="false">4</string>
+
+    <!-- Value in SharedPreferences for update interval option -->
+    <string name="pref_update_interval_value_6" translatable="false">6</string>
 </resources>

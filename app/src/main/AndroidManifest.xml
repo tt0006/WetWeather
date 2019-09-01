@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
 
+        <!--The manifest entry for our SettingsActivity. Each Activity requires a manifest entry-->
+        <activity android:name=".SettingsActivity"/>
+
         <!--This is required for immediate syncs -->
         <service
             android:name=".sync.WeatherSyncIntentService"
