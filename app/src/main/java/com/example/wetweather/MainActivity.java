@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void display(List<WeatherItem> weatherEntries){
+        Log.i("Array size:",weatherEntries.size()+"");
         if (weatherEntries.size()>0){
             WeatherItem ebt = weatherEntries.get(0);
             mWeather.setText(ebt.getSummary());

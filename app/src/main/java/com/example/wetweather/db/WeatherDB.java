@@ -7,7 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {WeatherItem.class}, version = 1)
+@Database(entities = {WeatherItem.class}, version = 3)
 public abstract class WeatherDB extends RoomDatabase {
 
     private static final String LOG_TAG = WeatherDB.class.getSimpleName();
@@ -21,6 +21,7 @@ public abstract class WeatherDB extends RoomDatabase {
                 Log.d(LOG_TAG, "Creating new database instance");
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         WeatherDB.class, WeatherDB.DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
                         .build();
             }
         }
