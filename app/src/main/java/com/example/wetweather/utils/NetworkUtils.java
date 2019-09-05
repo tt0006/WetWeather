@@ -113,7 +113,13 @@ public final class NetworkUtils {
         long sunriseTime;
         long sunsetTime;
         double windSpeed;
+        String windGust;
         int windDirection;
+        String temperatureHigh;
+        String temperatureLow;
+        String apparentTemperatureHigh;
+        String apparentTemperatureLow;
+        String apparentTemperature;
         String temperature;
 
         time = item.optLong("time");
@@ -127,11 +133,19 @@ public final class NetworkUtils {
         sunriseTime = item.optLong("sunriseTime");
         sunsetTime = item.optLong("sunsetTime");
         windSpeed = item.optDouble("windSpeed");
-        windDirection = item.optInt("windDirection");
+        windGust = item.optString("windGust");
+        windDirection = item.optInt("windBearing");
+        temperatureHigh = item.optString("temperatureHigh");
+        temperatureLow = item.optString("temperatureLow");
+        apparentTemperatureHigh = item.optString("apparentTemperatureHigh");
+        apparentTemperatureLow = item.optString("apparentTemperatureLow");
+        apparentTemperature = item.optString("apparentTemperature");
         temperature = item.optString("temperature");
 
         return new WeatherItem(time, summary, icon, pressure, humidity, precipIntensity,
-                precipProbability, precipType, sunriseTime, sunsetTime, windSpeed, windDirection, temperature);
+                precipProbability, precipType, sunriseTime, sunsetTime, windSpeed, windGust,
+                windDirection, temperatureHigh, temperatureLow, apparentTemperatureHigh,
+                apparentTemperatureLow, apparentTemperature, temperature);
 
     }
 

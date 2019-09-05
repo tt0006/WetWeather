@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -13,24 +15,42 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ProgressBar;
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.sync.WeatherSyncUtils;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler{
 
-    private TextView mWeather;
-    private TextView mTime;
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private ForecastAdapter mForecastAdapter;
+    private RecyclerView mRecyclerView;
+    private ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_forecast);
+        getSupportActionBar().setElevation(0f);
 
-        mWeather = findViewById(R.id.weathertext);
-        mTime = findViewById(R.id.time1);
+        mRecyclerView =findViewById(R.id.recyclerview_forecast);
+        mLoadingIndicator =findViewById(R.id.pb_loading_indicator);
+
+        LinearLayoutManager layoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        /* setLayoutManager associates the LayoutManager we created above with our RecyclerView */
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mForecastAdapter = new ForecastAdapter(this, this);
+
+        /* Setting the adapter attaches it to the RecyclerView in our layout. */
+        mRecyclerView.setAdapter(mForecastAdapter);
+
+        showLoading();
 
         setupViewModel();
 
@@ -45,18 +65,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
-                display(weatherEntries);
+                mForecastAdapter.setWeatherData(weatherEntries);
+                showWeatherDataView();
             }
         });
-    }
-
-    private void display(List<WeatherItem> weatherEntries){
-        Log.i("Array size:",weatherEntries.size()+"");
-        if (weatherEntries.size()>0){
-            WeatherItem ebt = weatherEntries.get(0);
-            mWeather.setText(ebt.getSummary());
-            mTime.setText(ebt.getDateTimeMillis()+"");
-        }
     }
 
     //Helper method to check network availability
@@ -65,6 +77,27 @@ public class MainActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void showWeatherDataView() {
+        /* First, hide the loading indicator */
+        mLoadingIndicator.setVisibility(View.INVISIBLE);
+        /* Finally, make sure the weather data is visible */
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * This method will make the loading indicator visible and hide the weather View and error
+     * message.
+     * <p>
+     * Since it is okay to redundantly set the visibility of a View, we don't need to check whether
+     * each view is currently visible or invisible.
+     */
+    private void showLoading() {
+        /* Then, hide the weather data */
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        /* Finally, show the loading indicator */
+        mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -100,4 +133,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(int position) {
+    //to do start new activity
+    }
 }

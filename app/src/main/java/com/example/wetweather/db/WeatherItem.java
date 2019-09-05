@@ -1,6 +1,4 @@
 package com.example.wetweather.db;
-
-import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -23,14 +21,22 @@ public class WeatherItem {
     private long sunriseTime;
     private long sunsetTime;
     private double windSpeed;
+    public String windGust;
     private int windDirection;
+    public String temperatureHigh;
+    public String temperatureLow;
+    public String apparentTemperatureHigh;
+    public String apparentTemperatureLow;
+    public String apparentTemperature;
     private String temperature;
 
     @Ignore
     public WeatherItem(long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
-                       int windDirection, String temperature){
+                       String windGust, int windDirection, String temperatureHigh,
+                       String temperatureLow, String apparentTemperatureHigh,
+                       String apparentTemperatureLow, String apparentTemperature, String temperature){
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
         this.icon = icon;
@@ -42,14 +48,22 @@ public class WeatherItem {
         this.sunriseTime = sunriseTime;
         this.sunsetTime=sunsetTime;
         this.windSpeed = windSpeed;
+        this.windGust = windGust;
         this.windDirection = windDirection;
+        this.temperatureHigh = temperatureHigh;
+        this.temperatureLow = temperatureLow;
+        this.apparentTemperatureHigh = apparentTemperatureHigh;
+        this.apparentTemperatureLow = apparentTemperatureLow;
+        this.apparentTemperature = apparentTemperature;
         this.temperature = temperature;
     }
 
     public WeatherItem(int id, long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
-                       int windDirection, String temperature){
+                       String windGust, int windDirection, String temperatureHigh,
+                       String temperatureLow, String apparentTemperatureHigh,
+                       String apparentTemperatureLow, String apparentTemperature, String temperature){
         this.id = id;
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
@@ -62,7 +76,13 @@ public class WeatherItem {
         this.sunriseTime = sunriseTime;
         this.sunsetTime=sunsetTime;
         this.windSpeed = windSpeed;
+        this.windGust = windGust;
         this.windDirection = windDirection;
+        this.temperatureHigh = temperatureHigh;
+        this.temperatureLow = temperatureLow;
+        this.apparentTemperatureHigh = apparentTemperatureHigh;
+        this.apparentTemperatureLow = apparentTemperatureLow;
+        this.apparentTemperature = apparentTemperature;
         this.temperature = temperature;
     }
 
