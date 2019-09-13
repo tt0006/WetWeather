@@ -63,9 +63,14 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         holder.dateView.setText(WetWeatherUtils.convertDate(mContext, weatherForThisDay.getDateTimeMillis()));
 
 
+        if (position == 0){
+            holder.dateView.setText("Now");
+            holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
+            holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
+        } else{
+        holder.dateView.setText(WetWeatherUtils.convertDate(mContext, weatherForThisDay.getDateTimeMillis()));
         holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
-
-        holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
+        holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));}
     }
 
     @Override

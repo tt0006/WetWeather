@@ -25,7 +25,7 @@ public class MainViewModel extends AndroidViewModel {
         weathers = database.weatherDao().loadAll();
     }
 
-    public LiveData<List<WeatherItem>> getTasks() {
+    public LiveData<List<WeatherItem>> getWeathers() {
         return weathers;
     }
 }

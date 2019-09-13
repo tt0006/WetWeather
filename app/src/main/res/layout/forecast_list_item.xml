@@ -39,8 +39,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/secondary_text"
         app:layout_constraintLeft_toLeftOf="@+id/date"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        tools:text="Rainy"/>
+        app:layout_constraintTop_toBottomOf="@+id/high_temperature"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Rainy da dfsdfsffs fsdfsf s df"/>
 
     <TextView
         android:id="@+id/high_temperature"

@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         setupViewModel();
 
         if (isNetworkAvailable()) {
-            WeatherSyncUtils.startImmediateSync(this);
+            WeatherSyncUtils.initialize(this);
         }
     }
 
     private void setupViewModel() {
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.getTasks().observe(this, new Observer<List<WeatherItem>>() {
+        viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     @Override
     public void onClick(int position) {
-    //to do start new activity
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("POSITION", position);
+        startActivity(intent);
     }
 }

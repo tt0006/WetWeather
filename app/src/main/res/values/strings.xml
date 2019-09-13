@@ -74,6 +74,8 @@
     <!-- Value in SharedPreferences for update interval option -->
     <string name="pref_update_interval_value_6" translatable="false">6</string>
 
+    <string name="title_activity_detail">Details</string>
+
 
     <!-- For labelling today's forecast -->
     <string name="today">Today</string>
@@ -88,8 +90,8 @@
 
     <string name="wind_label">Wind</string>
     <!-- Wind in kph -->
-    <string name="format_wind_kmh">
-        <xliff:g id="speed">%1$1.0f</xliff:g> km/h
+    <string name="format_wind_ms">
+        <xliff:g id="speed">%1$1.0f</xliff:g> m/s
         <xliff:g id="direction">%2$s</xliff:g>
     </string>
 

@@ -39,7 +39,6 @@ public class WetWeatherUtils {
 
         Date d = new Date(date*1000L);
 
-        ;
         if (DateUtils.isToday(date*1000L)){
             return context.getString(R.string.today);
         }
@@ -60,8 +59,8 @@ public class WetWeatherUtils {
      *
      * @return Wind String in the following form: "2 km/h SW"
      */
-    public static String getFormattedWind(Context context, float windSpeed, float degrees) {
-        int windFormat = R.string.format_wind_kmh;
+    public static String getFormattedWind(Context context, double windSpeed, double degrees) {
+        int windFormat = R.string.format_wind_ms;
 
         String direction = "Unknown";
         if (degrees >= 337.5 || degrees < 22.5) {
