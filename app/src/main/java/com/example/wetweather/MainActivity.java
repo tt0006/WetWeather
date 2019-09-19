@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -17,17 +19,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.sync.WeatherSyncUtils;
+
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler{
+public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private ForecastAdapter mForecastAdapter;
     private RecyclerView mRecyclerView;
     private ProgressBar mLoadingIndicator;
+    private Context mActivityContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
         mRecyclerView =findViewById(R.id.recyclerview_forecast);
         mLoadingIndicator =findViewById(R.id.pb_loading_indicator);
+        final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swiperefresh);
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         /* setLayoutManager associates the LayoutManager we created above with our RecyclerView */
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
+        mActivityContext = this;
 
         mForecastAdapter = new ForecastAdapter(this, this);
 
@@ -57,6 +64,17 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         if (isNetworkAvailable()) {
             WeatherSyncUtils.initialize(this);
         }
+
+        //set swipe to refresh
+        swipeToRefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        WeatherSyncUtils.startImmediateSync(mActivityContext);
+                        swipeToRefresh.setRefreshing(false);
+                    }
+                }
+        );
     }
 
     private void setupViewModel() {
@@ -102,9 +120,10 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     /**
      * This is where we inflate and set up the menu for this Activity
+     *
      * @param menu The options menu in which you place your items.
      * @return You must return true for the menu to be displayed;
-     *         if return false it will not be shown.
+     * if return false it will not be shown.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     /**
      * Callback invoked when a menu item was selected from this Activity's menu
+     *
      * @param item The menu item that was selected by the user
      * @return true if you handle the menu click here, false otherwise
      */

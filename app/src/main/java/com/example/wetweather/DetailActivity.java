@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.wetweather.db.WeatherDB;
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.utils.WetWeatherUtils;
 
@@ -27,8 +25,6 @@ public class DetailActivity extends AppCompatActivity {
 
         final int position = intent.getIntExtra("POSITION", 0);
 
-        Log.i("!!!", "position is "+position);
-
         final MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
@@ -43,7 +39,6 @@ public class DetailActivity extends AppCompatActivity {
 
     private void displayDetails(WeatherItem weatherForThisDay){
         if (weatherForThisDay == null){
-            Log.i("!!!", "weather is null");
             return;}
 
         //set icon
@@ -52,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //set Date
         TextView date = findViewById(R.id.date);
-        date.setText(WetWeatherUtils.convertDate(this, weatherForThisDay.getDateTimeMillis()));
+        date.setText(WetWeatherUtils.getDayName(this, weatherForThisDay.getDateTimeMillis()));
 
         //set description
         TextView description = findViewById(R.id.weather_description);
@@ -76,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //set humidity
         TextView humidity = findViewById(R.id.humidity);
-        String humidityString = getString(R.string.format_humidity, weatherForThisDay.getHumidity()*100);
+        String humidityString = getString(R.string.format_percent_value, weatherForThisDay.getHumidity()*100);
         humidity.setText(humidityString);
 
         //set pressure
@@ -88,6 +83,26 @@ public class DetailActivity extends AppCompatActivity {
         TextView wind = findViewById(R.id.wind_measurement);
         String windString = WetWeatherUtils.getFormattedWind(this, weatherForThisDay.getWindSpeed(), weatherForThisDay.getWindDirection());
         wind.setText(windString);
+
+        //set rain prob
+        TextView rainProb = findViewById(R.id.percip_prob_measurement);
+        String rainPr = getString(R.string.format_percent_value, weatherForThisDay.getPrecipProbability()*100);
+        rainProb.setText(rainPr);
+
+        //set rain intens
+        TextView rainIntens = findViewById(R.id.percip_inten_measurement);
+        String rainIn = ""+weatherForThisDay.getPrecipIntensity();
+        rainIntens.setText(rainIn);
+
+        //set sunrise
+        TextView sunrise = findViewById(R.id.sunrise_measurement);
+        String sunriseTime = WetWeatherUtils.getTime(this, weatherForThisDay.getSunriseTime());
+        sunrise.setText(sunriseTime);
+
+        //setSunset
+        TextView sunset = findViewById(R.id.sunset_measurement);
+        String sunsetTime = WetWeatherUtils.getTime(this, weatherForThisDay.getSunsetTime());
+        sunset.setText(sunsetTime);
 
     }
 }

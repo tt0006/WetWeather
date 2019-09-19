@@ -34,14 +34,15 @@
 
     <TextView
         android:id="@+id/weather_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginLeft="@dimen/list_item_date_left_margin"
         android:textColor="@color/secondary_text"
-        app:layout_constraintLeft_toLeftOf="@+id/date"
-        app:layout_constraintTop_toBottomOf="@+id/high_temperature"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="Rainy da dfsdfsffs fsdfsf s df"/>
+        android:singleLine="false"
+        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
+        app:layout_constraintRight_toLeftOf="@id/high_temperature"
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        tools:text="Невелика хмарність протягом всього дня."/>
 
     <TextView
         android:id="@+id/high_temperature"

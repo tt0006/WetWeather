@@ -30,8 +30,7 @@
             android:text="@string/humidity_label"
             app:layout_constraintBottom_toTopOf="@+id/pressure_label"
             app:layout_constraintLeft_toLeftOf="@+id/extra_details"
-            app:layout_constraintTop_toTopOf="@+id/extra_details"
-            app:layout_constraintVertical_bias="0.33"/>
+            app:layout_constraintTop_toTopOf="@+id/extra_details" />
 
         <!-- Humidity measurement -->
         <TextView
@@ -46,9 +45,9 @@
             android:id="@+id/pressure_label"
             style="@style/DetailLabel"
             android:text="@string/pressure_label"
-            app:layout_constraintBottom_toBottomOf="@+id/extra_details"
+            app:layout_constraintBottom_toTopOf="@+id/wind_label"
             app:layout_constraintLeft_toLeftOf="@+id/extra_details"
-            app:layout_constraintTop_toTopOf="@+id/extra_details"/>
+            app:layout_constraintTop_toBottomOf="@+id/humidity_label"/>
 
         <!-- Pressure measurement -->
         <TextView
@@ -63,10 +62,9 @@
             android:id="@+id/wind_label"
             style="@style/DetailLabel"
             android:text="@string/wind_label"
-            app:layout_constraintBottom_toBottomOf="@+id/extra_details"
+            app:layout_constraintBottom_toTopOf="@+id/percip_prob_label"
             app:layout_constraintLeft_toLeftOf="@+id/extra_details"
-            app:layout_constraintTop_toBottomOf="@+id/pressure_label"
-            app:layout_constraintVertical_bias="0.65999997"/>
+            app:layout_constraintTop_toBottomOf="@+id/pressure_label" />
 
         <!-- Wind measurement -->
         <TextView
@@ -75,6 +73,75 @@
             app:layout_constraintBottom_toBottomOf="@+id/wind_label"
             app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
             tools:text="4km/h NW"/>
+
+        <!-- percip prob label -->
+        <TextView
+            android:id="@+id/percip_prob_label"
+            style="@style/DetailLabel"
+            android:text="@string/percip_prob_label"
+            app:layout_constraintBottom_toTopOf="@+id/percip_inten_label"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/wind_label" />
+
+        <!-- percip prob measurement -->
+        <TextView
+            android:id="@+id/percip_prob_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/percip_prob_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="20 %"/>
+
+        <!-- percip inten label -->
+        <TextView
+            android:id="@+id/percip_inten_label"
+            style="@style/DetailLabel"
+            android:text="@string/percip_inten_label"
+            app:layout_constraintBottom_toTopOf="@+id/sunrise_label"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/percip_prob_label" />
+
+        <!-- percip inten measurement -->
+        <TextView
+            android:id="@+id/percip_inten_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/percip_inten_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="20 mm"/>
+
+        <!-- sunrise label -->
+        <TextView
+            android:id="@+id/sunrise_label"
+            style="@style/DetailLabel"
+            android:text="@string/sunrise_label"
+            app:layout_constraintBottom_toTopOf="@+id/sunset_label"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/percip_inten_label" />
+
+        <!-- sunrise measurement -->
+        <TextView
+            android:id="@+id/sunrise_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/sunrise_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="7:00"/>
+
+        <!-- sunrise label -->
+        <TextView
+            android:id="@+id/sunset_label"
+            style="@style/DetailLabel"
+            android:text="@string/sunset_label"
+            app:layout_constraintBottom_toBottomOf="@+id/extra_details"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/sunrise_label" />
+
+        <!-- sunrise measurement -->
+        <TextView
+            android:id="@+id/sunset_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/sunset_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="22:00"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

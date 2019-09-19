@@ -95,6 +95,18 @@
         <xliff:g id="direction">%2$s</xliff:g>
     </string>
 
+    <string name="percip_prob_label">Rain probability</string>
+
+    <string name="percip_inten_label">Rain intensity</string>
+
+    <string name="sunrise_label">Sunrise</string>
+
+    <string name="sunset_label">Sunset</string>
+
+    <string name="not_available_text">N/A</string>
+
+    <string name="updated_at_text">Updated at:</string>
+
     <!-- Wind in mph -->
     <string name="format_wind_mph">
         <xliff:g id="speed">%1$1.0f</xliff:g> mph
@@ -109,7 +121,9 @@
 
     <string name="humidity_label">Humidity</string>
     <!-- Humidity format -->
-    <string name="format_humidity">
+    <string name="format_percent_value">
         <xliff:g id="humidity">%1.0f</xliff:g> %%
     </string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

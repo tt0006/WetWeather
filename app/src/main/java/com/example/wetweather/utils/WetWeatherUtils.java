@@ -2,11 +2,11 @@ package com.example.wetweather.utils;
 
 import android.content.Context;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.example.wetweather.R;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WetWeatherUtils {
@@ -33,18 +33,6 @@ public class WetWeatherUtils {
 
         /* For presentation, assume the user doesn't care about tenths of a degree. */
         return String.format(context.getString(temperatureFormatResourceId), temp);
-    }
-
-    public static String convertDate(Context context, long date){
-
-        Date d = new Date(date*1000L);
-
-        if (DateUtils.isToday(date*1000L)){
-            return context.getString(R.string.today);
-        }
-
-        DateFormat df = DateFormat.getDateInstance();
-        return df.format(d);
     }
 
 
@@ -135,4 +123,41 @@ public class WetWeatherUtils {
                     return R.drawable.art_clear;
         }
 }
+    public static String getDayName(Context context, long dateInSeconds) {
+        /*
+         * If the date is today, return the localized version of "Today" instead of the actual
+         * day name.
+         */
+        long dateInMillis = dateInSeconds*1000L;
+
+        if (DateUtils.isToday(dateInMillis)) {
+            return context.getString(R.string.today);
+        }else{
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE, LLLL dd");
+            return dayFormat.format(dateInMillis);
+        }
+    }
+
+    public static String getUpdateTime(Context context, long date){
+
+        Date d = new Date(date*1000L);
+        DateFormat df;
+
+        if (DateUtils.isToday(date*1000L)){
+            df = DateFormat.getTimeInstance();
+        } else {
+            df = DateFormat.getDateTimeInstance();
+        }
+        return String.format("%1$s %2$s",context.getString(R.string.updated_at_text), df.format(d));
+    }
+
+    public static String getTime(Context context, long date){
+        if (date == 0L){
+            return context.getString(R.string.not_available_text);
+        }
+        Date d = new Date(date*1000L);
+        DateFormat df = DateFormat.getTimeInstance();
+        return df.format(d);
+    }
+
 }
