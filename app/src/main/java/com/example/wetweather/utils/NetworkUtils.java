@@ -115,6 +115,12 @@ public final class NetworkUtils {
         double windSpeed;
         String windGust;
         int windDirection;
+        String moonPhase;
+        String dewPoint;
+        double cloudCover;
+        String uvIndex;
+        double visibility;
+        double ozone;
         String temperatureHigh;
         String temperatureLow;
         String apparentTemperatureHigh;
@@ -135,6 +141,12 @@ public final class NetworkUtils {
         windSpeed = item.optDouble("windSpeed");
         windGust = item.optString("windGust");
         windDirection = item.optInt("windBearing");
+        moonPhase = item.optString("moonPhase");
+        dewPoint = item.optString("dewPoint");
+        cloudCover = item.optDouble("cloudCover");
+        uvIndex = item.optString("uvIndex");
+        visibility = item.optDouble("visibility");
+        ozone = item.optDouble("ozone");
         temperatureHigh = item.optString("temperatureHigh");
         temperatureLow = item.optString("temperatureLow");
         apparentTemperatureHigh = item.optString("apparentTemperatureHigh");
@@ -144,7 +156,8 @@ public final class NetworkUtils {
 
         return new WeatherItem(time, summary, icon, pressure, humidity, precipIntensity,
                 precipProbability, precipType, sunriseTime, sunsetTime, windSpeed, windGust,
-                windDirection, temperatureHigh, temperatureLow, apparentTemperatureHigh,
+                windDirection, moonPhase, dewPoint, cloudCover, uvIndex, visibility, ozone,
+                temperatureHigh, temperatureLow, apparentTemperatureHigh,
                 apparentTemperatureLow, apparentTemperature, temperature);
 
     }
@@ -161,7 +174,7 @@ public final class NetworkUtils {
         Uri weatherQueryUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                 .appendPath(key)
                 .appendPath(latitude+","+longitude)
-                .appendQueryParameter(LANG_PARAM, lang)
+                .appendQueryParameter(LANG_PARAM, WetWeatherPreferences.getPreferencesLanguage(context))
                 .appendQueryParameter(UNITS_PARAM, WetWeatherPreferences.getPreferencesUnits(context))
                 .build();
 

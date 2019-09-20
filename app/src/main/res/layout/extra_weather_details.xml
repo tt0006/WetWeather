@@ -62,7 +62,7 @@
             android:id="@+id/wind_label"
             style="@style/DetailLabel"
             android:text="@string/wind_label"
-            app:layout_constraintBottom_toTopOf="@+id/percip_prob_label"
+            app:layout_constraintBottom_toTopOf="@+id/cloud_cover_label"
             app:layout_constraintLeft_toLeftOf="@+id/extra_details"
             app:layout_constraintTop_toBottomOf="@+id/pressure_label" />
 
@@ -74,6 +74,24 @@
             app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
             tools:text="4km/h NW"/>
 
+        <!-- cloud cover label -->
+        <TextView
+            android:id="@+id/cloud_cover_label"
+            style="@style/DetailLabel"
+            android:text="@string/cloud_cover_label"
+            app:layout_constraintBottom_toTopOf="@+id/percip_prob_label"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/wind_label" />
+
+        <!-- cloud cover measurement -->
+        <TextView
+            android:id="@+id/cloud_cover_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/cloud_cover_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="12%"/>
+
+
         <!-- percip prob label -->
         <TextView
             android:id="@+id/percip_prob_label"
@@ -81,7 +99,7 @@
             android:text="@string/percip_prob_label"
             app:layout_constraintBottom_toTopOf="@+id/percip_inten_label"
             app:layout_constraintLeft_toLeftOf="@+id/extra_details"
-            app:layout_constraintTop_toBottomOf="@+id/wind_label" />
+            app:layout_constraintTop_toBottomOf="@+id/cloud_cover_label" />
 
         <!-- percip prob measurement -->
         <TextView
@@ -89,7 +107,7 @@
             style="@style/ExtraWeatherMeasurement"
             app:layout_constraintBottom_toBottomOf="@+id/percip_prob_label"
             app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
-            tools:text="20 %"/>
+            tools:text="20%"/>
 
         <!-- percip inten label -->
         <TextView
@@ -106,7 +124,7 @@
             style="@style/ExtraWeatherMeasurement"
             app:layout_constraintBottom_toBottomOf="@+id/percip_inten_label"
             app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
-            tools:text="20 mm"/>
+            tools:text="0.54 mm/h"/>
 
         <!-- sunrise label -->
         <TextView
@@ -130,7 +148,7 @@
             android:id="@+id/sunset_label"
             style="@style/DetailLabel"
             android:text="@string/sunset_label"
-            app:layout_constraintBottom_toBottomOf="@+id/extra_details"
+            app:layout_constraintBottom_toTopOf="@+id/uvindex_label"
             app:layout_constraintLeft_toLeftOf="@+id/extra_details"
             app:layout_constraintTop_toBottomOf="@+id/sunrise_label" />
 
@@ -141,6 +159,40 @@
             app:layout_constraintBottom_toBottomOf="@+id/sunset_label"
             app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
             tools:text="22:00"/>
+
+        <!-- uvindex label -->
+        <TextView
+            android:id="@+id/uvindex_label"
+            style="@style/DetailLabel"
+            android:text="@string/uvindex_label"
+            app:layout_constraintBottom_toTopOf="@+id/visibility_label"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/sunset_label" />
+
+        <!-- uvindex measurement -->
+        <TextView
+            android:id="@+id/uvindex_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/uvindex_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="2"/>
+
+        <!-- visibility label -->
+        <TextView
+            android:id="@+id/visibility_label"
+            style="@style/DetailLabel"
+            android:text="@string/visibility_label"
+            app:layout_constraintBottom_toBottomOf="@+id/extra_details"
+            app:layout_constraintLeft_toLeftOf="@+id/extra_details"
+            app:layout_constraintTop_toBottomOf="@+id/uvindex_label" />
+
+        <!-- visibility measurement -->
+        <TextView
+            android:id="@+id/visibility_measurement"
+            style="@style/ExtraWeatherMeasurement"
+            app:layout_constraintBottom_toBottomOf="@+id/visibility_label"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            tools:text="10 km"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

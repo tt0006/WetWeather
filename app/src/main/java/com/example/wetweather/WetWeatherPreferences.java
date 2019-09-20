@@ -26,4 +26,13 @@ public final class WetWeatherPreferences {
 
         return preferredUnits;
     }
+
+    public static String getPreferencesLanguage(Context context){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String keyForLanguage = context.getString(R.string.pref_language_key);
+        String defaultLanguage = context.getString(R.string.pref_language_en_value);
+
+        return sp.getString(keyForLanguage, defaultLanguage);
+    }
 }

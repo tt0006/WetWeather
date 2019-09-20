@@ -23,6 +23,12 @@ public class WeatherItem {
     private double windSpeed;
     public String windGust;
     private int windDirection;
+    public String moonPhase;
+    public String dewPoint;
+    public double cloudCover;
+    public String uvIndex;
+    public double visibility;
+    public double ozone;
     public String temperatureHigh;
     public String temperatureLow;
     public String apparentTemperatureHigh;
@@ -34,8 +40,9 @@ public class WeatherItem {
     public WeatherItem(long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
-                       String windGust, int windDirection, String temperatureHigh,
-                       String temperatureLow, String apparentTemperatureHigh,
+                       String windGust, int windDirection, String moonPhase, String dewPoint,
+                       double cloudCover, String uvIndex, double visibility, double ozone,
+                       String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
                        String apparentTemperatureLow, String apparentTemperature, String temperature){
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
@@ -50,6 +57,12 @@ public class WeatherItem {
         this.windSpeed = windSpeed;
         this.windGust = windGust;
         this.windDirection = windDirection;
+        this.moonPhase = moonPhase;
+        this.dewPoint = dewPoint;
+        this.cloudCover = cloudCover;
+        this.uvIndex = uvIndex;
+        this.visibility = visibility;
+        this.ozone = ozone;
         this.temperatureHigh = temperatureHigh;
         this.temperatureLow = temperatureLow;
         this.apparentTemperatureHigh = apparentTemperatureHigh;
@@ -61,8 +74,9 @@ public class WeatherItem {
     public WeatherItem(int id, long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
-                       String windGust, int windDirection, String temperatureHigh,
-                       String temperatureLow, String apparentTemperatureHigh,
+                       String windGust, int windDirection, String moonPhase, String dewPoint,
+                       double cloudCover, String uvIndex, double visibility, double ozone,
+                       String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
                        String apparentTemperatureLow, String apparentTemperature, String temperature){
         this.id = id;
         this.dateTimeMillis = dateTimeMillis;
@@ -74,10 +88,16 @@ public class WeatherItem {
         this.precipProbability = precipProbability;
         this.precipType = precipType;
         this.sunriseTime = sunriseTime;
-        this.sunsetTime=sunsetTime;
+        this.sunsetTime= sunsetTime;
         this.windSpeed = windSpeed;
         this.windGust = windGust;
         this.windDirection = windDirection;
+        this.moonPhase = moonPhase;
+        this.dewPoint = dewPoint;
+        this.cloudCover = cloudCover;
+        this.uvIndex = uvIndex;
+        this.visibility = visibility;
+        this.ozone = ozone;
         this.temperatureHigh = temperatureHigh;
         this.temperatureLow = temperatureLow;
         this.apparentTemperatureHigh = apparentTemperatureHigh;

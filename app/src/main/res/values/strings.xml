@@ -74,7 +74,18 @@
     <!-- Value in SharedPreferences for update interval option -->
     <string name="pref_update_interval_value_6" translatable="false">6</string>
 
+
+    <string name="pref_language_title">Language</string>
+    <string name="pref_language_key" translatable="false">language</string>
+    <string name="pref_language_en_label">English</string>
+    <string name="pref_language_uk_label">Ukrainian</string>
+    <string name="pref_language_en_value" translatable="false">en</string>
+    <string name="pref_language_uk_value" translatable="false">uk</string>
+
+
     <string name="title_activity_detail">Details</string>
+
+    <string name="cloud_cover_label">Cloud cover</string>
 
 
     <!-- For labelling today's forecast -->
@@ -89,10 +100,18 @@
     </string>
 
     <string name="wind_label">Wind</string>
-    <!-- Wind in kph -->
+    <!-- Wind in m/s -->
     <string name="format_wind_ms">
         <xliff:g id="speed">%1$1.0f</xliff:g> m/s
         <xliff:g id="direction">%2$s</xliff:g>
+    </string>
+
+    <string name="format_percip_intens">
+        <xliff:g id="precip">%1$.2f</xliff:g> mm/h
+    </string>
+
+    <string name="format_visibility">
+        <xliff:g id="visibility">%1$.3f</xliff:g> km
     </string>
 
     <string name="percip_prob_label">Rain probability</string>
@@ -102,6 +121,10 @@
     <string name="sunrise_label">Sunrise</string>
 
     <string name="sunset_label">Sunset</string>
+
+    <string name="uvindex_label">UV index</string>
+
+    <string name="visibility_label">Visibility</string>
 
     <string name="not_available_text">N/A</string>
 
@@ -122,7 +145,7 @@
     <string name="humidity_label">Humidity</string>
     <!-- Humidity format -->
     <string name="format_percent_value">
-        <xliff:g id="humidity">%1.0f</xliff:g> %%
+        <xliff:g id="humidity">%1.0f</xliff:g>%%
     </string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>

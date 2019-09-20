@@ -29,4 +29,15 @@
         <item>@string/pref_update_interval_value_6</item>
     </string-array>
 
+
+    <string-array name="language_options">
+        <item>@string/pref_language_en_label</item>
+        <item>@string/pref_language_uk_label</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>@string/pref_language_en_value</item>
+        <item>@string/pref_language_uk_value</item>
+    </string-array>
+
 </resources>

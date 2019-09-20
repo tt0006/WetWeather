@@ -81,17 +81,24 @@ public class DetailActivity extends AppCompatActivity {
 
         //set wind
         TextView wind = findViewById(R.id.wind_measurement);
-        String windString = WetWeatherUtils.getFormattedWind(this, weatherForThisDay.getWindSpeed(), weatherForThisDay.getWindDirection());
+        String windString = WetWeatherUtils.getFormattedWind(this,
+                weatherForThisDay.getWindSpeed(), weatherForThisDay.getWindDirection());
         wind.setText(windString);
+
+        //set cloud cover
+        TextView cloudCoverView = findViewById(R.id.cloud_cover_measurement);
+        String cloudCoverText = getString(R.string.format_percent_value, weatherForThisDay.cloudCover*100);
+        cloudCoverView.setText(cloudCoverText);
 
         //set rain prob
         TextView rainProb = findViewById(R.id.percip_prob_measurement);
-        String rainPr = getString(R.string.format_percent_value, weatherForThisDay.getPrecipProbability()*100);
+        String rainPr = getString(R.string.format_percent_value,
+                weatherForThisDay.getPrecipProbability()*100);
         rainProb.setText(rainPr);
 
         //set rain intens
         TextView rainIntens = findViewById(R.id.percip_inten_measurement);
-        String rainIn = ""+weatherForThisDay.getPrecipIntensity();
+        String rainIn = getString(R.string.format_percip_intens, weatherForThisDay.getPrecipIntensity());
         rainIntens.setText(rainIn);
 
         //set sunrise
@@ -103,6 +110,16 @@ public class DetailActivity extends AppCompatActivity {
         TextView sunset = findViewById(R.id.sunset_measurement);
         String sunsetTime = WetWeatherUtils.getTime(this, weatherForThisDay.getSunsetTime());
         sunset.setText(sunsetTime);
+
+        //set uvindex
+        TextView uvindexView = findViewById(R.id.uvindex_measurement);
+        String uvindexText = weatherForThisDay.uvIndex;
+        uvindexView.setText(uvindexText);
+
+        //set visibility
+        TextView visibilityView = findViewById(R.id.visibility_measurement);
+        String visibilityText = getString(R.string.format_visibility, weatherForThisDay.visibility);
+        visibilityView.setText(visibilityText);
 
     }
 }

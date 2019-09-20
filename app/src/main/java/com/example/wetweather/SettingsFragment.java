@@ -82,9 +82,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             // units have changed
             WeatherSyncUtils.startImmediateSync(activity);
 
-        } else if (key.equals((getString(R.string.pref_update_interval_key)))){
+        } else if (key.equals(getString(R.string.pref_update_interval_key))){
             //update interval changed
             ScheduledUpdateRun.scheduleWeatherUpdate(activity);
+        } else if (key.equals(getString(R.string.pref_language_key))){
+            //language changed
+            WeatherSyncUtils.startImmediateSync(activity);
         }
 
         Preference preference = findPreference(key);
