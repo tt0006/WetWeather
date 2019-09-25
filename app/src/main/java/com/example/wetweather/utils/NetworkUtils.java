@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public final class NetworkUtils {
@@ -23,8 +25,6 @@ public final class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getName();
 
     private static final String FORECAST_BASE_URL = "https://api.darksky.net/forecast";
-    /* The lang we want our API to return */
-    private static final String lang = "uk";
     //KEY
     private static final String key = "DEMO";
     /* The format parameter allows us to designate whether we want JSON or XML from our API */
@@ -51,17 +51,17 @@ public final class NetworkUtils {
 
             String jsonResponse = getResponseFromHttpUrl(requestUrl);
 
-            WeatherItem[] newData = extractJSONrequest(jsonResponse);
+            List<WeatherItem> weatherListArray = extractJSONrequest(jsonResponse);
 
             WeatherDB db = WeatherDB.getInstance(context);
-            if (newData != null) {
+            if (weatherListArray.size()>0) {
                 //delete all data in db
                 db.weatherDao().deleteAll();
             } else
                 return false;
 
-            for (int i = 0; i < newData.length; i++){
-                db.weatherDao().insertWeatherItem(newData[i]);
+            for (int i = 0; i < weatherListArray.size(); i++){
+                db.weatherDao().insertWeatherItem(weatherListArray.get(i));
             }
 
         } catch (Exception e) {
@@ -77,31 +77,44 @@ public final class NetworkUtils {
      * Return an {@link WeatherItem} array that has been built up from
      * parsing a JSON response.
      */
-    private static WeatherItem[] extractJSONrequest(String jsonRequest) {
-        WeatherItem[] arrayWeather = null;
+    private static List<WeatherItem> extractJSONrequest(String jsonRequest) {
+        List<WeatherItem> weatherListArray = new ArrayList<>();
         try {
 
             JSONObject root = new JSONObject(jsonRequest);
 
-            JSONArray dailyWeatherArray = root.getJSONObject("daily").getJSONArray("data");
-
-            arrayWeather = new WeatherItem[dailyWeatherArray.length()+1];
 
             JSONObject currently = root.getJSONObject("currently");
-            arrayWeather[0] = extractSingleItem(currently);
+            weatherListArray.add(extractSingleItem(currently, 0));
 
+            JSONObject minutelyInfo = root.getJSONObject("minutely");
+            weatherListArray.add(extractInfo(minutelyInfo));
+
+            JSONObject hourlyInfo = root.getJSONObject("hourly");
+            weatherListArray.add(extractInfo(hourlyInfo));
+
+            JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
+            for (int i=0; i< 24; i++) {
+                JSONObject item = hourlyWeatherArray.getJSONObject(i);
+                weatherListArray.add(extractSingleItem(item, 1));
+            }
+
+            JSONObject dailyInfo = root.getJSONObject("daily");
+            weatherListArray.add(extractInfo(dailyInfo));
+
+            JSONArray dailyWeatherArray = dailyInfo.getJSONArray("data");
             for (int i=0; i< dailyWeatherArray.length(); i++) {
                 JSONObject item = dailyWeatherArray.getJSONObject(i);
-                arrayWeather[i+1] = extractSingleItem(item);
+                weatherListArray.add(extractSingleItem(item, 2));
                 }
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing JSON results", e);
         }
-        return arrayWeather;
+        return weatherListArray;
     }
 
-    private static WeatherItem extractSingleItem(JSONObject item){
+    private static WeatherItem extractSingleItem(JSONObject item, int weatherType){
         long time;
         String summary;
         String icon;
@@ -154,12 +167,22 @@ public final class NetworkUtils {
         apparentTemperature = item.optString("apparentTemperature");
         temperature = item.optString("temperature");
 
-        return new WeatherItem(time, summary, icon, pressure, humidity, precipIntensity,
+        return new WeatherItem(weatherType, time, summary, icon, pressure, humidity, precipIntensity,
                 precipProbability, precipType, sunriseTime, sunsetTime, windSpeed, windGust,
                 windDirection, moonPhase, dewPoint, cloudCover, uvIndex, visibility, ozone,
                 temperatureHigh, temperatureLow, apparentTemperatureHigh,
                 apparentTemperatureLow, apparentTemperature, temperature);
 
+    }
+
+    private static WeatherItem extractInfo(JSONObject item){
+        String summary;
+        String icon;
+
+        summary = item.optString("summary");
+        icon = item.optString("icon");
+
+        return new WeatherItem(summary, icon);
     }
 
     /**

@@ -13,6 +13,9 @@ public interface WeatherDao {
     @Query("SELECT * FROM WeatherData")
     LiveData<List<WeatherItem>> loadAll();
 
+    @Query("SELECT * FROM WeatherData WHERE weatherType != 1")
+    LiveData<List<WeatherItem>> loadMainWeather();
+
     @Insert
     void insertWeatherItem(WeatherItem weatherItem);
 

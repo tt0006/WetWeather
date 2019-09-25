@@ -133,7 +133,7 @@ public class WetWeatherUtils {
         if (DateUtils.isToday(dateInMillis)) {
             return context.getString(R.string.today);
         }else{
-            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE, LLLL dd");
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE, LLLL d");
             return dayFormat.format(dateInMillis);
         }
     }

@@ -22,7 +22,7 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
         WeatherDB database = WeatherDB.getInstance(this.getApplication());
         Log.d(TAG, "Actively retrieving weather from the DataBase");
-        weathers = database.weatherDao().loadAll();
+        weathers = database.weatherDao().loadMainWeather();
     }
 
     public LiveData<List<WeatherItem>> getWeathers() {

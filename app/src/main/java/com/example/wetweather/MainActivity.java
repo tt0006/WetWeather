@@ -155,6 +155,9 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     @Override
     public void onClick(int position) {
+        if (position > 0 && position < 4){
+            return;
+        }
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra("POSITION", position);
         startActivity(intent);

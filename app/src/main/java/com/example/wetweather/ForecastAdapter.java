@@ -17,6 +17,10 @@ import java.util.List;
 
 class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
 
+    private static final int VIEW_TYPE_TODAY = 0;
+    private static final int VIEW_TYPE_FUTURE_DAY = 1;
+    private static final int VIEW_TYPE_INFO = 2;
+
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
 
@@ -43,10 +47,30 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     @NonNull
     @Override
     public ForecastAdapter.ForecastAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutIdForListItem = R.layout.forecast_list_item;
-        LayoutInflater inflater = LayoutInflater.from(mContext);
 
-        View view = inflater.inflate(layoutIdForListItem, parent, false);
+        int layoutId;
+
+        switch (viewType) {
+
+            case VIEW_TYPE_TODAY: {
+                layoutId = R.layout.list_item_forecast_today;
+                break;
+            }
+
+            case VIEW_TYPE_INFO:
+            case VIEW_TYPE_FUTURE_DAY: {
+                layoutId = R.layout.forecast_list_item;
+                break;
+            }
+
+            default:
+                throw new IllegalArgumentException("Invalid view type, value of " + viewType);
+        }
+
+        View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+
+        view.setFocusable(true);
+
         return new ForecastAdapterViewHolder(view);
     }
 
@@ -54,26 +78,67 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     public void onBindViewHolder(@NonNull ForecastAdapter.ForecastAdapterViewHolder holder, int position) {
         WeatherItem weatherForThisDay = mWeatherData.get(position);
 
+        int viewType = getItemViewType(position);
+
         //set icon
-        int weatherImageId = WetWeatherUtils.getSmallArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+        int weatherImageId;
+
+        switch (viewType) {
+
+            case VIEW_TYPE_TODAY:
+                weatherImageId = WetWeatherUtils
+                        .getLargeArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
+                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
+                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
+
+                break;
+
+            case VIEW_TYPE_FUTURE_DAY:
+                weatherImageId = WetWeatherUtils
+                        .getSmallArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
+                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
+                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
+
+                break;
+
+            case VIEW_TYPE_INFO:
+                weatherImageId = WetWeatherUtils
+                        .getSmallArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                if (position == 1){
+                    holder.dateView.setText(mContext.getString(R.string.next_hour_label));
+                } else if (position == 2){
+                    holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
+                } else if (position == 3){
+                    holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
+                }
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid view type, value of " + viewType);
+        }
         holder.iconView.setImageResource(weatherImageId);
 
+        //set description
         holder.descriptionView.setText(weatherForThisDay.getSummary());
-
-        if (position == 0){
-            holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
-            holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
-            holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
-        } else{
-        holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
-        holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
-        holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));}
     }
 
     @Override
     public int getItemCount() {
         if (null == mWeatherData) return 0;
         return mWeatherData.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_TYPE_TODAY;
+        } else if (position == 1 || position == 2 || position == 3 ){
+            return VIEW_TYPE_INFO;
+        } else {
+            return VIEW_TYPE_FUTURE_DAY;
+        }
     }
 
 

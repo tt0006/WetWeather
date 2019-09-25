@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 public class WeatherItem {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    public int weatherType;
     private long dateTimeMillis;
     private String summary;
     private String icon;
@@ -37,13 +38,14 @@ public class WeatherItem {
     private String temperature;
 
     @Ignore
-    public WeatherItem(long dateTimeMillis, String summary, String icon, double pressure,
+    public WeatherItem(int weatherType, long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
                        String windGust, int windDirection, String moonPhase, String dewPoint,
                        double cloudCover, String uvIndex, double visibility, double ozone,
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
                        String apparentTemperatureLow, String apparentTemperature, String temperature){
+        this.weatherType = weatherType;
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
         this.icon = icon;
@@ -71,7 +73,7 @@ public class WeatherItem {
         this.temperature = temperature;
     }
 
-    public WeatherItem(int id, long dateTimeMillis, String summary, String icon, double pressure,
+    public WeatherItem(int id, int weatherType, long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
                        String windGust, int windDirection, String moonPhase, String dewPoint,
@@ -79,6 +81,7 @@ public class WeatherItem {
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
                        String apparentTemperatureLow, String apparentTemperature, String temperature){
         this.id = id;
+        this.weatherType = weatherType;
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
         this.icon = icon;
@@ -104,6 +107,12 @@ public class WeatherItem {
         this.apparentTemperatureLow = apparentTemperatureLow;
         this.apparentTemperature = apparentTemperature;
         this.temperature = temperature;
+    }
+
+    @Ignore
+    public WeatherItem(String summary, String icon){
+        this.summary = summary;
+        this.icon = icon;
     }
 
     public int getId() {
