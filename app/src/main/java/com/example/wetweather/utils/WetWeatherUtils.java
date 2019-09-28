@@ -122,7 +122,35 @@ public class WetWeatherUtils {
                 default:
                     return R.drawable.art_clear;
         }
-}
+    }
+
+    public static int getResourceIdForWeatherCondition(String weatherIcon) {
+        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
+
+        switch (weatherIcon){
+            case "clear-day":
+                return R.drawable.ic_sun;
+            case "clear-night":
+                return R.drawable.ic_moon;
+            case "rain":
+                return R.drawable.ic_cloud_rain;
+            case "snow":
+                return R.drawable.ic_cloud_snow;
+            case "sleet":
+                return R.drawable.ic_cloud_snow_alt;
+            case "fog":
+                return R.drawable.ic_cloud_fog;
+            case "cloudy":
+                return R.drawable.ic_cloud;
+            case "partly-cloudy-day":
+                return R.drawable.ic_cloud_sun;
+            case "partly-cloudy-night":
+                return R.drawable.ic_cloud_moon;
+            default:
+                return R.drawable.art_clear;
+        }
+    }
+
     public static String getDayName(Context context, long dateInSeconds) {
         /*
          * If the date is today, return the localized version of "Today" instead of the actual

@@ -25,14 +25,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" /> <!-- The manifest entry for our SettingsActivity. Each Activity requires a manifest entry -->
+        <activity android:name=".SettingsActivity" />
+        <receiver android:name=".WeatherWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.wetweather.widgetUpdateIconClick" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver> <!-- The manifest entry for our SettingsActivity. Each Activity requires a manifest entry -->
         <!-- This is required for immediate syncs -->
         <service
             android:name=".sync.WeatherSyncIntentService"
             android:exported="false" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

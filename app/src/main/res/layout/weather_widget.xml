@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_weather"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    tools:background="@color/colorPrimaryDark"
+>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/widget_weather_layout"
+        android:paddingBottom="@dimen/list_item_padding_vertical"
+        android:paddingTop="@dimen/list_item_padding_vertical">
+
+        <ImageView
+            android:id="@+id/widget_weather_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:src="@drawable/ic_cloud_moon"/>
+
+        <TextView
+            android:id="@+id/widget_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/widget_weather_icon"
+            android:layout_toEndOf="@id/widget_weather_icon"
+            android:layout_marginLeft="@dimen/list_item_date_left_margin"
+            android:layout_marginStart="@dimen/list_item_date_start_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            tools:text="Cork"/>
+
+        <TextView
+            android:id="@+id/widget_weather_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/widget_date"
+            android:layout_toRightOf="@id/widget_weather_icon"
+            android:layout_toEndOf="@id/widget_weather_icon"
+            android:layout_toLeftOf="@id/widget_temperature"
+            android:layout_toStartOf="@id/widget_temperature"
+            android:layout_marginLeft="@dimen/list_item_date_left_margin"
+            android:layout_marginStart="@dimen/list_item_date_left_margin"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:singleLine="false"
+            tools:text="Хмарно"/>
+
+        <TextView
+            android:id="@+id/widget_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="end"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textStyle="bold"
+            android:textSize="60sp"
+            android:textColor="@color/white"
+            tools:text="10\u00b0" />
+
+        <ImageView
+            android:id="@+id/widget_update_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/widget_temperature"
+            android:src="@drawable/ic_icons8_refresh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/widget_temperature"
+            android:layout_toLeftOf="@id/widget_update_icon"
+            android:layout_toStartOf="@id/widget_update_icon"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:id="@+id/widget_updated_at"
+            tools:text="Updated: 21:09"/>
+    </RelativeLayout>
+</LinearLayout>

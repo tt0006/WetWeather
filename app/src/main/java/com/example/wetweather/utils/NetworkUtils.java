@@ -1,9 +1,12 @@
 package com.example.wetweather.utils;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.wetweather.WeatherWidget;
 import com.example.wetweather.WetWeatherPreferences;
 import com.example.wetweather.db.WeatherDB;
 import com.example.wetweather.db.WeatherItem;
@@ -69,6 +72,7 @@ public final class NetworkUtils {
             e.printStackTrace();
             return false;
         }
+        updateAllWidgets(context);
         return true;
     }
 
@@ -235,6 +239,15 @@ public final class NetworkUtils {
             return response;
         } finally {
             urlConnection.disconnect();
+        }
+    }
+
+    //Helper method to update widgets
+    private static void updateAllWidgets(Context context){
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
+        if (appWidgetIds.length > 0) {
+            new WeatherWidget().onUpdate(context, appWidgetManager, appWidgetIds);
         }
     }
 }
