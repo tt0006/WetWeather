@@ -85,10 +85,12 @@
 
     <string name="title_activity_detail">Details</string>
 
+    <string name="title_activity_hourly">Hourly Forecast</string>
+
     <string name="cloud_cover_label">Cloud cover</string>
 
     <string name="next_hour_label">Next hour</string>
-    <string name="next_24_hours_label">Next 24 hours</string>
+    <string name="next_24_hours_label">Next 48 hours</string>
     <string name="next_7_days_label">Next 7 days</string>
 
 
@@ -133,6 +135,8 @@
     <string name="not_available_text">N/A</string>
 
     <string name="updated_at_text">Updated:</string>
+
+    <string name="hourly_rain_prob_label">Rain:</string>
 
     <!-- Wind in mph -->
     <string name="format_wind_mph">

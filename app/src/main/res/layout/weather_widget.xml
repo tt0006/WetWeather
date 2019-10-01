@@ -12,14 +12,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/widget_weather_layout"
-        android:paddingBottom="@dimen/list_item_padding_vertical"
-        android:paddingTop="@dimen/list_item_padding_vertical">
+        android:id="@+id/widget_weather_layout">
 
         <ImageView
             android:id="@+id/widget_weather_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:scaleType="centerCrop"
             tools:src="@drawable/ic_cloud_moon"/>
 
         <TextView
@@ -56,14 +55,26 @@
             android:id="@+id/widget_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
             android:gravity="end"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:textStyle="bold"
-            android:textSize="60sp"
+            android:textSize="48sp"
             android:textColor="@color/white"
             tools:text="10\u00b0" />
+
+        <TextView
+            android:id="@+id/widget_rain_prob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_toRightOf="@id/widget_weather_icon"
+            android:layout_toEndOf="@id/widget_weather_icon"
+            android:layout_marginLeft="@dimen/list_item_date_left_margin"
+            android:layout_marginStart="@dimen/list_item_date_left_margin"
+            android:layout_below="@id/widget_weather_description"
+            tools:text="Rain: 20%"/>
 
         <ImageView
             android:id="@+id/widget_update_icon"

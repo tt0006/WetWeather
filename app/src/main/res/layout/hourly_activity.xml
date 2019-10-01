@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <!-- clipToPadding is false for
+      - RecyclerView to not resize the over-scrolling effect that happens when attempt to  -
+      - scroll past the end of the content.  -->
+    <ProgressBar
+        android:id="@+id/loading_indicator_hourly"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+
+    <!-- A progress bar that will be shown to users to indicate that weather data is loading -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_forecast_hourly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
+</FrameLayout>

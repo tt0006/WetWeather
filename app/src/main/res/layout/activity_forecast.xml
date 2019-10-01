@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-    <!-- clipToPadding is false for
-      - RecyclerView to not resize the over-scrolling effect that happens when attempt to  -
-      - scroll past the end of the content.  -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_forecast"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp"/>
+        android:background="@color/backgroundColor">
+
+        <!-- clipToPadding is false for
+          - RecyclerView to not resize the over-scrolling effect that happens when attempt to  -
+          - scroll past the end of the content.  -->
+        <ProgressBar
+            android:id="@+id/pb_loading_indicator"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
 
 
-    <!-- A progress bar that will be shown to users to indicate that weather data is loading -->
-    <ProgressBar
-        android:id="@+id/pb_loading_indicator"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
+        <!-- A progress bar that will be shown to users to indicate that weather data is loading -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_forecast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp" />
 
-</FrameLayout>
+    </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

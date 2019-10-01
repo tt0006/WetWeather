@@ -155,6 +155,10 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     @Override
     public void onClick(int position) {
+        if (position == 2){
+            Intent intent = new Intent(this, HourlyForecastActivity.class);
+            startActivity(intent);
+        }
         if (position > 0 && position < 4){
             return;
         }

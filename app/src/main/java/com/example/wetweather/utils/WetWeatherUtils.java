@@ -146,10 +146,20 @@ public class WetWeatherUtils {
                 return R.drawable.ic_cloud_sun;
             case "partly-cloudy-night":
                 return R.drawable.ic_cloud_moon;
+            case "wind":
+                return R.drawable.ic_wind;
             default:
                 return R.drawable.art_clear;
         }
     }
+
+
+    public static String getHourWithDay(Context context, long dateInSeconds){
+        long dateInMillis = dateInSeconds*1000L;
+        SimpleDateFormat dayFormat = new SimpleDateFormat("H:mm (E)");
+        return dayFormat.format(dateInMillis);
+    }
+
 
     public static String getDayName(Context context, long dateInSeconds) {
         /*

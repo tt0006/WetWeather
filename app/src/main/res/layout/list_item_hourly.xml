@@ -6,15 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/backgroundColor"
     android:minHeight="?android:attr/listPreferredItemHeight"
+    tools:background="@color/backgroundColor"
     android:paddingBottom="@dimen/list_item_padding_vertical"
     android:paddingLeft="@dimen/list_item_padding_horizontal"
     android:paddingRight="@dimen/list_item_padding_horizontal"
     android:paddingTop="@dimen/list_item_padding_vertical">
 
     <ImageView
-        android:id="@+id/weather_icon"
+        android:id="@+id/hourly_weather_icon"
         android:layout_width="@dimen/list_icon"
         android:layout_height="@dimen/list_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -23,32 +23,32 @@
         tools:src="@drawable/art_clouds"/>
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/hourly_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textStyle="bold"
         android:layout_marginLeft="@dimen/list_item_date_left_margin"
         android:layout_marginStart="@dimen/list_item_date_start_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
-        tools:text="Today, April 03"/>
+        app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        tools:text="19:00 (Sun)"/>
 
     <TextView
-        android:id="@+id/weather_description"
+        android:id="@+id/hourly_weather_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_item_date_left_margin"
         android:textColor="@color/white"
         android:singleLine="false"
-        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
-        app:layout_constraintRight_toLeftOf="@id/high_temperature"
-        app:layout_constraintTop_toBottomOf="@+id/date"
-        tools:text="Невелика хмарність протягом всього дня."/>
+        app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
+        app:layout_constraintRight_toLeftOf="@id/hourly_rain"
+        app:layout_constraintTop_toBottomOf="@+id/hourly_date"
+        tools:text="Невелика хмарність протягом  дня."/>
 
     <TextView
-        android:id="@+id/high_temperature"
+        android:id="@+id/hourly_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/forecast_temperature_space"
@@ -56,24 +56,23 @@
         android:fontFamily="sans-serif-light"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="@dimen/forecast_text_size"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintRight_toLeftOf="@+id/low_temperature"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="19\u00b0"/>
 
     <TextView
-        android:id="@+id/low_temperature"
-        android:layout_width="45dp"
+        android:id="@+id/hourly_rain"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:fontFamily="sans-serif-light"
         android:gravity="end"
-        android:textSize="@dimen/forecast_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        tools:text="10\u00b0"/>
+        tools:text="Rain: 20%"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

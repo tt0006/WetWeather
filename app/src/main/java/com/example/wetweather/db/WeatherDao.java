@@ -19,12 +19,12 @@ public interface WeatherDao {
     @Query("SELECT * FROM WeatherData WHERE weatherType == 0")
     List<WeatherItem> loadCurrentWeather();
 
+    @Query("SELECT * FROM WeatherData WHERE weatherType == 1")
+    LiveData<List<WeatherItem>> loadHourlyWeather();
+
     @Insert
     void insertWeatherItem(WeatherItem weatherItem);
 
     @Query("DELETE FROM WeatherData")
     void deleteAll();
-
-    @Delete
-    void deleteWeatherItem(WeatherItem weatherItem);
 }
