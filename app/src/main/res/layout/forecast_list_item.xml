@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        tools:src="@drawable/art_clouds"/>
+        tools:src="@drawable/ic_cloudy_vector"/>
 
     <TextView
         android:id="@+id/date"

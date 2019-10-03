@@ -3,6 +3,6 @@
     android:initialLayout="@layout/weather_widget"
     android:minWidth="180dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/ic_icons8_refresh"
+    android:previewImage="@drawable/ic_refresh_icon"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"/>

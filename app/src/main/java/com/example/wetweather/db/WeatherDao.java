@@ -13,13 +13,13 @@ public interface WeatherDao {
     @Query("SELECT * FROM WeatherData")
     LiveData<List<WeatherItem>> loadAll();
 
-    @Query("SELECT * FROM WeatherData WHERE weatherType != 1")
+    @Query("SELECT * FROM WeatherData WHERE weatherType NOT IN (2, 4)")
     LiveData<List<WeatherItem>> loadMainWeather();
 
-    @Query("SELECT * FROM WeatherData WHERE weatherType == 0")
+    @Query("SELECT * FROM WeatherData WHERE weatherType == 1")
     List<WeatherItem> loadCurrentWeather();
 
-    @Query("SELECT * FROM WeatherData WHERE weatherType == 1")
+    @Query("SELECT * FROM WeatherData WHERE weatherType == 2")
     LiveData<List<WeatherItem>> loadHourlyWeather();
 
     @Insert

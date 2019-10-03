@@ -1,6 +1,7 @@
 package com.example.wetweather;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,22 +21,16 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
     private static final int VIEW_TYPE_INFO = 2;
-
+    private static final int VIEW_TYPE_ALERTS = 3;
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
-
     private final ForecastAdapterOnClickHandler mClickHandler;
+    public boolean presentAlert;
     private List<WeatherItem> mWeatherData;
 
     /**
-     * The interface that receives onClick messages.
-     */
-    public interface ForecastAdapterOnClickHandler {
-        void onClick(int position);
-    }
-
-    /**
      * Creates a ForecastAdapter.
+     *
      * @param clickHandler The on-click handler for this adapter. This single handler is called
      *                     when an item is clicked.
      */
@@ -57,6 +52,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                 break;
             }
 
+            case VIEW_TYPE_ALERTS:
             case VIEW_TYPE_INFO:
                 layoutId = R.layout.list_item_info;
                 break;
@@ -90,7 +86,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
             case VIEW_TYPE_TODAY:
                 weatherImageId = WetWeatherUtils
-                        .getLargeArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
                 holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
@@ -99,7 +95,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
             case VIEW_TYPE_FUTURE_DAY:
                 weatherImageId = WetWeatherUtils
-                        .getSmallArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
                 holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
@@ -108,14 +104,38 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
             case VIEW_TYPE_INFO:
                 weatherImageId = WetWeatherUtils
-                        .getSmallArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
-                if (position == 1){
-                    holder.dateView.setText(mContext.getString(R.string.next_hour_label));
-                } else if (position == 2){
-                    holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
-                } else if (position == 3){
-                    holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+
+                if (presentAlert) {
+                    if (position == 2) {
+                        holder.dateView.setText(mContext.getString(R.string.next_hour_label));
+                    } else if (position == 3) {
+                        holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
+                    } else if (position == 4) {
+                        holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
+                    }
+                } else {
+
+                    if (position == 1) {
+                        holder.dateView.setText(mContext.getString(R.string.next_hour_label));
+                    } else if (position == 2) {
+                        holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
+                    } else if (position == 3) {
+                        holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
+                    }
                 }
+                break;
+
+            case VIEW_TYPE_ALERTS:
+                weatherImageId = R.drawable.ic_circle_warning;
+                holder.dateView.setText(String.format("%1$s %2$s", mContext.getString(R.string.alerts_label),
+                        weatherForThisDay.getIcon()));
+                holder.descriptionView.setText(weatherForThisDay.getSummary());
+
+                //set bacground color
+                View root = holder.dateView.getRootView();
+                //root.setBackgroundColor(mContext.getColor(R.color.warning_color));
+                root.setBackgroundColor(Color.RED);
                 break;
 
             default:
@@ -135,15 +155,45 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
     @Override
     public int getItemViewType(int position) {
+
+        WeatherItem weatherForThisDay = mWeatherData.get(position);
+
+        if (position == 0 && weatherForThisDay.weatherType == 0) {
+            presentAlert = true;
+            return VIEW_TYPE_ALERTS;
+        }
+
+        if (presentAlert) {
+            if (position == 2 || position == 3 || position == 4) {
+                return VIEW_TYPE_INFO;
+            } else if (position == 1) {
+                return VIEW_TYPE_TODAY;
+            } else {
+                return VIEW_TYPE_FUTURE_DAY;
+            }
+        }
+
         if (position == 0) {
             return VIEW_TYPE_TODAY;
-        } else if (position == 1 || position == 2 || position == 3 ){
+        } else if (position == 1 || position == 2 || position == 3) {
             return VIEW_TYPE_INFO;
         } else {
             return VIEW_TYPE_FUTURE_DAY;
         }
     }
 
+    public void setWeatherData(List<WeatherItem> weatherData) {
+        mWeatherData = weatherData;
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    public interface ForecastAdapterOnClickHandler {
+        void onClick(int position);
+    }
 
     /**
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
@@ -182,10 +232,5 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
             int adapterPosition = getAdapterPosition();
             mClickHandler.onClick(adapterPosition);
         }
-    }
-
-    public void setWeatherData(List<WeatherItem> weatherData) {
-        mWeatherData = weatherData;
-        notifyDataSetChanged();
     }
 }

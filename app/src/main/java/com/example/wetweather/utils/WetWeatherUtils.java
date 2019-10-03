@@ -73,81 +73,30 @@ public class WetWeatherUtils {
     }
 
 
-    /**
-     * Helper method to provide the icon resource id according to the weather condition
-     */
-    public static int getSmallArtResourceIdForWeatherCondition(String weatherIcon) {
-
-        switch (weatherIcon) {
-            case "clear-day":
-            case "clear-night":
-                return R.drawable.ic_clear;
-            case "rain":
-                return R.drawable.ic_rain;
-            case "snow":
-            case "sleet":
-                return R.drawable.ic_snow;
-            case "fog":
-                return R.drawable.ic_fog;
-            case "cloudy":
-                return R.drawable.ic_cloudy;
-            case "partly-cloudy-day":
-            case "partly-cloudy-night":
-                return R.drawable.ic_light_clouds;
-            default:
-                return R.drawable.ic_clear;
-
-        }
-    }
-
-    public static int getLargeArtResourceIdForWeatherCondition(String weatherIcon) {
+    public static int getResourceIconIdForWeatherCondition(String weatherIcon) {
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
 
         switch (weatherIcon){
             case "clear-day":
+                return R.drawable.ic_clear_day_vector;
             case "clear-night":
-                return R.drawable.art_clear;
+                return R.drawable.ic_clear_night_vector;
             case "rain":
-                return R.drawable.art_rain;
+                return R.drawable.ic_rain_vector;
             case "snow":
+                return R.drawable.ic_snow_vector;
             case "sleet":
-                return R.drawable.art_snow;
+                return R.drawable.ic_sleet_vector;
             case "fog":
-                return R.drawable.art_fog;
+                return R.drawable.ic_fog_vector;
             case "cloudy":
-                return R.drawable.art_clouds;
+                return R.drawable.ic_cloudy_vector;
             case "partly-cloudy-day":
+                return R.drawable.ic_partly_cloudy_day_vector;
             case "partly-cloudy-night":
-                return R.drawable.art_light_clouds;
-                default:
-                    return R.drawable.art_clear;
-        }
-    }
-
-    public static int getResourceIdForWeatherCondition(String weatherIcon) {
-        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
-
-        switch (weatherIcon){
-            case "clear-day":
-                return R.drawable.ic_sun;
-            case "clear-night":
-                return R.drawable.ic_moon;
-            case "rain":
-                return R.drawable.ic_cloud_rain;
-            case "snow":
-                return R.drawable.ic_cloud_snow;
-            case "sleet":
-                return R.drawable.ic_cloud_snow_alt;
-            case "fog":
-                return R.drawable.ic_cloud_fog;
-            case "cloudy":
-                return R.drawable.ic_cloud;
-            case "partly-cloudy-day":
-                return R.drawable.ic_cloud_sun;
-            case "partly-cloudy-night":
-                return R.drawable.ic_cloud_moon;
+                return R.drawable.ic_partly_cloudy_night_vector;
             case "wind":
-                return R.drawable.ic_wind;
+                return R.drawable.ic_wind_vector;
             default:
                 return R.drawable.art_clear;
         }

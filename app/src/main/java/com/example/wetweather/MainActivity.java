@@ -155,12 +155,24 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     @Override
     public void onClick(int position) {
+
+        if (mForecastAdapter.presentAlert){
+            if (position == 3){
+                Intent intent = new Intent(this, HourlyForecastActivity.class);
+                startActivity(intent);
+            }
+            if (position == 0 || (position > 1 && position < 5)){
+                return;
+            }
+        } else {
+
         if (position == 2){
             Intent intent = new Intent(this, HourlyForecastActivity.class);
             startActivity(intent);
         }
         if (position > 0 && position < 4){
             return;
+        }
         }
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra("POSITION", position);

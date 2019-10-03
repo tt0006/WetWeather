@@ -115,6 +115,18 @@ public class WeatherItem {
         this.icon = icon;
     }
 
+    @Ignore
+    public WeatherItem(int weatherType, String title, String severity, long time, long expires,
+                       String description, String uri){
+        this.weatherType = weatherType;
+        this.dewPoint = title;
+        this.moonPhase = severity;
+        this.dateTimeMillis = time;
+        this.sunriseTime = expires;
+        this.summary = description;
+        this.precipType = uri;
+    }
+
     public int getId() {
         return id;
     }

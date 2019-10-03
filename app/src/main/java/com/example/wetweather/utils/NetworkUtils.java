@@ -82,14 +82,29 @@ public final class NetworkUtils {
      * parsing a JSON response.
      */
     private static List<WeatherItem> extractJSONrequest(String jsonRequest) {
+        // weather types:
+        // 1 - currently
+        // 2 - hourly
+        // 3 - daily
+        // 4 - alerts
+
         List<WeatherItem> weatherListArray = new ArrayList<>();
         try {
 
             JSONObject root = new JSONObject(jsonRequest);
 
+            if (root.has("alerts")){
+                JSONArray alerts = root.getJSONArray("alerts");
+                weatherListArray.add(extractAlertSummary(alerts));
+                for (int i=0; i<alerts.length(); i++) {
+                    JSONObject item = alerts.getJSONObject(i);
+                    weatherListArray.add(extractAlerts(item, 4));
+                }
+            }
+
 
             JSONObject currently = root.getJSONObject("currently");
-            weatherListArray.add(extractSingleItem(currently, 0));
+            weatherListArray.add(extractSingleItem(currently, 1));
 
             JSONObject minutelyInfo = root.getJSONObject("minutely");
             weatherListArray.add(extractInfo(minutelyInfo));
@@ -100,7 +115,7 @@ public final class NetworkUtils {
             JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
             for (int i=0; i< hourlyWeatherArray.length(); i++) {
                 JSONObject item = hourlyWeatherArray.getJSONObject(i);
-                weatherListArray.add(extractSingleItem(item, 1));
+                weatherListArray.add(extractSingleItem(item, 2));
             }
 
             JSONObject dailyInfo = root.getJSONObject("daily");
@@ -109,7 +124,7 @@ public final class NetworkUtils {
             JSONArray dailyWeatherArray = dailyInfo.getJSONArray("data");
             for (int i=0; i< dailyWeatherArray.length(); i++) {
                 JSONObject item = dailyWeatherArray.getJSONObject(i);
-                weatherListArray.add(extractSingleItem(item, 2));
+                weatherListArray.add(extractSingleItem(item, 3));
                 }
 
         } catch (JSONException e) {
@@ -187,6 +202,37 @@ public final class NetworkUtils {
         icon = item.optString("icon");
 
         return new WeatherItem(summary, icon);
+    }
+
+    private static WeatherItem extractAlertSummary(JSONArray alerts) throws JSONException {
+
+        int count = alerts.length();
+
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<count; i++){
+            JSONObject item = alerts.getJSONObject(i);
+            sb.append(item.optString("title"));
+            sb.append("; ");
+        }
+        return new WeatherItem(sb.toString(), String.valueOf(count));
+    }
+
+    private static WeatherItem extractAlerts(JSONObject item, int weatherType){
+        String title;
+        String severity;
+        long time;
+        long expires;
+        String description;
+        String uri;
+
+        title = item.optString("title");
+        severity = item.optString("severity");
+        time = item.optLong("time");
+        expires = item.optLong("expires");
+        description = item.optString("description");
+        uri = item.optString("uri");
+
+        return new WeatherItem(weatherType, title, severity, time, expires, description, uri);
     }
 
     /**

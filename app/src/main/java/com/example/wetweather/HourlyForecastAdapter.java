@@ -88,7 +88,7 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
 
             case VIEW_TYPE_HOURLY:
                 weatherImageId = WetWeatherUtils
-                        .getResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
                 holder.dateView.setText(WetWeatherUtils.getHourWithDay(mContext,
                         weatherForThisDay.getDateTimeMillis()));
                 holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
@@ -101,7 +101,7 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
 
             case VIEW_TYPE_INFO:
                 weatherImageId = WetWeatherUtils
-                        .getSmallArtResourceIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
                 if (position == 0) {
                     holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
                 }

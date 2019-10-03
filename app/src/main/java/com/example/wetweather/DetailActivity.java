@@ -43,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //set icon
         ImageView icon = findViewById(R.id.weather_icon);
-        icon.setImageResource(WetWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherForThisDay.getIcon()));
+        icon.setImageResource(WetWeatherUtils.getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon()));
 
         //set Date
         TextView date = findViewById(R.id.date);
