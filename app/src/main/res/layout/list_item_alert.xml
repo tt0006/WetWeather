@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    tools:background="@color/backgroundColor"
+    android:paddingBottom="@dimen/list_item_padding_vertical"
+    android:paddingLeft="@dimen/list_item_padding_horizontal"
+    android:paddingRight="@dimen/list_item_padding_horizontal"
+    android:paddingTop="@dimen/list_item_padding_vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/alert_icon"
+        android:layout_width="@dimen/list_icon"
+        android:layout_height="@dimen/list_icon"
+        android:src="@drawable/ic_circle_warning"/>
+
+        <TextView
+            android:id="@+id/alert_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/alert_icon"
+            android:paddingLeft="@dimen/list_item_date_left_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            tools:text="Severe Wind Warning"/>
+
+        <TextView
+            android:id="@+id/alert_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/list_item_date_left_margin"
+            android:layout_toRightOf="@id/alert_icon"
+            android:layout_below="@id/alert_header"
+            android:textColor="@color/white"
+            android:singleLine="false"
+            tools:text="Starts: 23 Aug 12:45, ends: 24 Aug 12:50"/>
+</RelativeLayout>
+    <TextView
+        android:id="@+id/alert_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:paddingTop="@dimen/list_item_padding_vertical"
+        tools:text="Southwesterly winds veering westerly will reach mean speeds 65 to 80km/h with gusts generally of 100 to 130km/h, higher in coastal regions.\\nStorm surges will produce coastal flooding and damage.\n"/>
+
+</LinearLayout>

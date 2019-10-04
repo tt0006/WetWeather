@@ -137,6 +137,10 @@ public class WeatherItem {
     public long getDateTimeMillis() {return dateTimeMillis;}
     public void setDateTimeMillis(long dateTimeMillis) {this.dateTimeMillis = dateTimeMillis;}
 
+    public long getAlertStartTime() {return  dateTimeMillis;}
+    public long getAlertEntTime() {return sunriseTime;}
+    public String getAlertTitle() {return dewPoint;}
+
     public String getSummary() {return summary;}
     public void setSummary(String summary) {this.summary = summary;}
 

@@ -23,8 +23,11 @@ public class WetWeatherUtils {
      * "21°"
      */
     public static String formatTemperature(Context context, String temperature) {
+        if (null == temperature){
+            return "";
+        }
         int temperatureFormatResourceId = R.string.format_temperature;
-        Double temp;
+        double temp;
         try{
             temp = Double.parseDouble(temperature);
         } catch (NumberFormatException e){

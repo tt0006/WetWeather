@@ -87,6 +87,8 @@
 
     <string name="title_activity_hourly">Hourly Forecast</string>
 
+    <string name="title_activity_alerts">Weather alerts</string>
+
     <string name="cloud_cover_label">Cloud cover</string>
 
     <string name="next_hour_label">Next hour</string>

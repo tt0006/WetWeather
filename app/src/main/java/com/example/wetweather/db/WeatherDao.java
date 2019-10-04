@@ -22,6 +22,9 @@ public interface WeatherDao {
     @Query("SELECT * FROM WeatherData WHERE weatherType == 2")
     LiveData<List<WeatherItem>> loadHourlyWeather();
 
+    @Query("SELECT * FROM WeatherData WHERE weatherType == 4")
+    LiveData<List<WeatherItem>> loadAlerts();
+
     @Insert
     void insertWeatherItem(WeatherItem weatherItem);
 

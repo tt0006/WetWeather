@@ -16,11 +16,11 @@ import com.example.wetweather.db.WeatherItem;
 
 import java.util.List;
 
-public class HourlyForecastActivity extends AppCompatActivity implements HourlyForecastAdapter.HourlyForecastAdapterOnClickHandler {
+public class AlertActivity extends AppCompatActivity {
 
-    private static final String TAG = HourlyForecastActivity.class.getSimpleName();
+    private static final String TAG = AlertActivity.class.getSimpleName();
 
-    private HourlyForecastAdapter mForecastAdapter;
+    private AlertAdapter mAlertAdapter;
     private RecyclerView mRecyclerView;
     private ProgressBar mLoadingIndicator;
 
@@ -40,10 +40,10 @@ public class HourlyForecastActivity extends AppCompatActivity implements HourlyF
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mForecastAdapter = new HourlyForecastAdapter(this, this);
+        mAlertAdapter = new AlertAdapter(this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
-        mRecyclerView.setAdapter(mForecastAdapter);
+        mRecyclerView.setAdapter(mAlertAdapter);
 
         showLoading();
 
@@ -51,13 +51,13 @@ public class HourlyForecastActivity extends AppCompatActivity implements HourlyF
     }
 
     private void setupViewModel() {
-        final HourlyViewModel viewModel = ViewModelProviders.of(this).get(HourlyViewModel.class);
-        viewModel.getHourlyWeather().observe(this, new Observer<List<WeatherItem>>() {
+        final AlertViewModel viewModel = ViewModelProviders.of(this).get(AlertViewModel.class);
+        viewModel.getAlerts().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 //viewModel.getHourlyWeather().removeObserver(this);
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
-                mForecastAdapter.setWeatherData(weatherEntries);
+                mAlertAdapter.setWeatherData(weatherEntries);
                 showWeatherDataView();
             }
         });
@@ -77,8 +77,4 @@ public class HourlyForecastActivity extends AppCompatActivity implements HourlyF
         mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onClick(int position) {
-
-    }
 }

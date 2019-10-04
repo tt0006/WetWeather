@@ -1,7 +1,6 @@
 package com.example.wetweather;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
      * @param clickHandler The on-click handler for this adapter. This single handler is called
      *                     when an item is clicked.
      */
-    public HourlyForecastAdapter(Context context, HourlyForecastAdapterOnClickHandler clickHandler) {
+    HourlyForecastAdapter(Context context, HourlyForecastAdapterOnClickHandler clickHandler) {
         mContext = context;
         mClickHandler = clickHandler;
     }
@@ -77,7 +76,6 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
     @Override
     public void onBindViewHolder(@NonNull HourlyForecastAdapter.HourlyForecastAdapterViewHolder holder, int position) {
         WeatherItem weatherForThisDay = mWeatherData.get(position);
-        Log.i("!!!", weatherForThisDay.getSummary());
 
         int viewType = getItemViewType(position);
 
@@ -171,9 +169,8 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         }
     }
 
-    public void setWeatherData(List<WeatherItem> weatherData) {
+    void setWeatherData(List<WeatherItem> weatherData) {
         mWeatherData = weatherData;
-        Log.i("!!!", "" + weatherData.size());
         notifyDataSetChanged();
     }
 }

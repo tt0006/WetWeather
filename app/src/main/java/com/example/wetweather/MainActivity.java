@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         setContentView(R.layout.activity_forecast);
         getSupportActionBar().setElevation(0f);
 
-        mRecyclerView =findViewById(R.id.recyclerview_forecast);
-        mLoadingIndicator =findViewById(R.id.pb_loading_indicator);
+        mRecyclerView = findViewById(R.id.recyclerview_forecast);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
         final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swiperefresh);
 
         LinearLayoutManager layoutManager =
@@ -155,24 +155,29 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
     @Override
     public void onClick(int position) {
-
-        if (mForecastAdapter.presentAlert){
-            if (position == 3){
+        if (mForecastAdapter.presentAlert) {
+            if (position == 0) {
+                Intent intent = new Intent(this, AlertActivity.class);
+                startActivity(intent);
+                return;
+            }
+            if (position == 3) {
                 Intent intent = new Intent(this, HourlyForecastActivity.class);
                 startActivity(intent);
             }
-            if (position == 0 || (position > 1 && position < 5)){
+            if (position > 1 && position < 5) {
                 return;
             }
         } else {
 
-        if (position == 2){
-            Intent intent = new Intent(this, HourlyForecastActivity.class);
-            startActivity(intent);
-        }
-        if (position > 0 && position < 4){
-            return;
-        }
+            if (position == 2) {
+                Intent intent = new Intent(this, HourlyForecastActivity.class);
+                startActivity(intent);
+                return;
+            }
+            if (position > 0 && position < 4) {
+                return;
+            }
         }
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra("POSITION", position);

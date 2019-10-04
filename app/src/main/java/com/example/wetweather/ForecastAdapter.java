@@ -2,6 +2,7 @@ package com.example.wetweather;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,9 +131,11 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                 weatherImageId = R.drawable.ic_circle_warning;
                 holder.dateView.setText(String.format("%1$s %2$s", mContext.getString(R.string.alerts_label),
                         weatherForThisDay.getIcon()));
+                holder.descriptionView.setSingleLine(true);
+                holder.descriptionView.setEllipsize(TextUtils.TruncateAt.END);
                 holder.descriptionView.setText(weatherForThisDay.getSummary());
 
-                //set bacground color
+                //set background color
                 View root = holder.dateView.getRootView();
                 //root.setBackgroundColor(mContext.getColor(R.color.warning_color));
                 root.setBackgroundColor(Color.RED);

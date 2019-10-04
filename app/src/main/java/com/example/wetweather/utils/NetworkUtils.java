@@ -253,7 +253,7 @@ public final class NetworkUtils {
 
         try {
             URL weatherQueryUrl = new URL(weatherQueryUri.toString());
-            Log.i(LOG_TAG, "URL: " + weatherQueryUrl);
+            Log.d(LOG_TAG, "URL: " + weatherQueryUrl);
             return weatherQueryUrl;
         } catch (MalformedURLException e) {
             e.printStackTrace();
