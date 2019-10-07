@@ -17,101 +17,80 @@ import java.util.List;
 
 class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.HourlyForecastAdapterViewHolder> {
 
-    private static final int VIEW_TYPE_INFO = 0;
-    private static final int VIEW_TYPE_HOURLY = 1;
-
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
 
-    private final HourlyForecastAdapterOnClickHandler mClickHandler;
     private List<WeatherItem> mWeatherData;
 
-    /**
-     * The interface that receives onClick messages.
-     */
-    public interface HourlyForecastAdapterOnClickHandler {
-        void onClick(int position);
-    }
 
     /**
      * Creates a ForecastAdapter.
-     *
-     * @param clickHandler The on-click handler for this adapter. This single handler is called
-     *                     when an item is clicked.
      */
-    HourlyForecastAdapter(Context context, HourlyForecastAdapterOnClickHandler clickHandler) {
+    HourlyForecastAdapter(Context context) {
         mContext = context;
-        mClickHandler = clickHandler;
     }
 
     @NonNull
     @Override
     public HourlyForecastAdapter.HourlyForecastAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        int layoutId;
-
-        switch (viewType) {
-
-            case VIEW_TYPE_INFO: {
-                layoutId = R.layout.forecast_list_item;
-                break;
-            }
-
-            case VIEW_TYPE_HOURLY: {
-                layoutId = R.layout.list_item_hourly;
-                break;
-            }
-
-            default:
-                throw new IllegalArgumentException("Invalid view type, value of " + viewType);
-        }
-
-        View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
-
+        View view = LayoutInflater.from(mContext).inflate(R.layout.list_item_hourly, parent, false);
         view.setFocusable(true);
-
         return new HourlyForecastAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HourlyForecastAdapter.HourlyForecastAdapterViewHolder holder, int position) {
-        WeatherItem weatherForThisDay = mWeatherData.get(position);
+    public void onBindViewHolder(@NonNull HourlyForecastAdapter.HourlyForecastAdapterViewHolder holder, final int position) {
+        final WeatherItem weatherForThisDay = mWeatherData.get(position);
 
-        int viewType = getItemViewType(position);
+        holder.entireHourlyLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the current state of the item
+                boolean expanded = weatherForThisDay.isExpanded();
+                // Change the state
+                weatherForThisDay.setExpanded(!expanded);
+                // Notify the adapter that item has changed
+                HourlyForecastAdapter.this.notifyItemChanged(position);
+            }
+        });
 
-        //set icon
-        int weatherImageId;
+        // Get the state
+        boolean expanded = weatherForThisDay.isExpanded();
+        // Set the visibility based on state
+        holder.detailsHourlyChildLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
-        switch (viewType) {
-
-            case VIEW_TYPE_HOURLY:
-                weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
-                holder.dateView.setText(WetWeatherUtils.getHourWithDay(mContext,
-                        weatherForThisDay.getDateTimeMillis()));
-                holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
-                        weatherForThisDay.getTemperature()));
-                holder.rainProb.setText(String.format("%1$s %2$s",mContext.getString(
-                        R.string.hourly_rain_prob_label), mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.getPrecipProbability()*100)));
-
-                break;
-
-            case VIEW_TYPE_INFO:
-                weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
-                if (position == 0) {
-                    holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
-                }
-                break;
-
-            default:
-                throw new IllegalArgumentException("Invalid view type, value of " + viewType);
-        }
-        holder.iconView.setImageResource(weatherImageId);
-
-        //set description
+        holder.iconView.setImageResource(WetWeatherUtils.getResourceIconIdForWeatherCondition(
+                weatherForThisDay.getIcon()));
         holder.descriptionView.setText(weatherForThisDay.getSummary());
+        holder.dateView.setText(WetWeatherUtils.getHourWithDay(mContext,
+                weatherForThisDay.getDateTimeMillis()));
+        holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
+                weatherForThisDay.getTemperature()));
+        holder.rainProb.setText(String.format("%1$s %2$s", mContext.getString(
+                R.string.hourly_rain_prob_label),
+                mContext.getString(R.string.format_percent_value,
+                        weatherForThisDay.getPrecipProbability() * 100)));
+
+        holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
+        holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
+                weatherForThisDay.getWindSpeed()));
+        holder.windGustDetails.setText(String.format("%1$s %2$s",
+                weatherForThisDay.windGust, mContext.getString(R.string.speed_ms_label)));
+
+        holder.cloudsDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+                weatherForThisDay.cloudCover * 100));
+
+        holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
+                weatherForThisDay.getPrecipProbability() * 100));
+        holder.rainDetailsIntens.setText(mContext.getString(R.string.format_percip_intens,
+                weatherForThisDay.getPrecipIntensity()));
+
+        holder.humidityDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+                weatherForThisDay.getHumidity() * 100));
+
+        holder.pressureDetailsValue.setText(mContext.getString(R.string.format_pressure,
+                weatherForThisDay.getPressure()));
     }
 
     @Override
@@ -120,28 +99,27 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         return mWeatherData.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == -1) {
-            return VIEW_TYPE_INFO;
-        } else {
-            return VIEW_TYPE_HOURLY;
-        }
-    }
-
-
     /**
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
-     * a cache of the child views for a forecast item. It's also a convenient place to set an
-     * OnClickListener, since it has access to the adapter and the views.
+     * a cache of the child views for a forecast item.
      */
-    class HourlyForecastAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class HourlyForecastAdapterViewHolder extends RecyclerView.ViewHolder {
         final ImageView iconView;
 
         final TextView dateView;
         final TextView descriptionView;
         final TextView tempView;
         final TextView rainProb;
+        final View entireHourlyLayout;
+        final View detailsHourlyChildLayout;
+        final TextView rainDetailsProb;
+        final TextView rainDetailsIntens;
+        final ImageView windIcon;
+        final TextView windSpeedDetails;
+        final TextView windGustDetails;
+        final TextView cloudsDetailsValue;
+        final TextView humidityDetailsValue;
+        final TextView pressureDetailsValue;
 
         HourlyForecastAdapterViewHolder(View view) {
             super(view);
@@ -152,20 +130,22 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
             tempView = view.findViewById(R.id.hourly_temperature);
             rainProb = view.findViewById(R.id.hourly_rain);
 
-            view.setOnClickListener(this);
-        }
+            entireHourlyLayout = view.findViewById(R.id.entire_hourly_layout);
 
-        /**
-         * This gets called by the child views during a click. We fetch position that has been
-         * selected, and then call the onClick handler registered with this adapter, passing that
-         * position.
-         *
-         * @param v the View that was clicked
-         */
-        @Override
-        public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
-            mClickHandler.onClick(adapterPosition);
+            detailsHourlyChildLayout = view.findViewById(R.id.details_hourly);
+
+            rainDetailsProb = view.findViewById(R.id.rain_details_probability);
+            rainDetailsIntens = view.findViewById(R.id.rain_details_intensity);
+
+            windIcon = view.findViewById(R.id.wind_icon);
+            windSpeedDetails = view.findViewById(R.id.wind_details_speed);
+            windGustDetails = view.findViewById(R.id.wind_details_gust);
+
+            cloudsDetailsValue = view.findViewById(R.id.cloud_details);
+
+            humidityDetailsValue = view.findViewById(R.id.humidity_details_value);
+
+            pressureDetailsValue = view.findViewById(R.id.pressure_details_value);
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {WeatherItem.class}, version = 9, exportSchema = false)
+@Database(entities = {WeatherItem.class}, version = 10, exportSchema = false)
 public abstract class WeatherDB extends RoomDatabase {
 
     private static final String LOG_TAG = WeatherDB.class.getSimpleName();

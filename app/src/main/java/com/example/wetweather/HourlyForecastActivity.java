@@ -16,7 +16,7 @@ import com.example.wetweather.db.WeatherItem;
 
 import java.util.List;
 
-public class HourlyForecastActivity extends AppCompatActivity implements HourlyForecastAdapter.HourlyForecastAdapterOnClickHandler {
+public class HourlyForecastActivity extends AppCompatActivity {
 
     private static final String TAG = HourlyForecastActivity.class.getSimpleName();
 
@@ -40,7 +40,7 @@ public class HourlyForecastActivity extends AppCompatActivity implements HourlyF
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mForecastAdapter = new HourlyForecastAdapter(this, this);
+        mForecastAdapter = new HourlyForecastAdapter(this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
@@ -75,10 +75,5 @@ public class HourlyForecastActivity extends AppCompatActivity implements HourlyF
         mRecyclerView.setVisibility(View.INVISIBLE);
         /* Finally, show the loading indicator */
         mLoadingIndicator.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onClick(int position) {
-
     }
 }

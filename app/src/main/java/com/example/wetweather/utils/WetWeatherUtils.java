@@ -76,6 +76,38 @@ public class WetWeatherUtils {
     }
 
 
+    /**
+     * This method uses the wind direction in degrees to determine compass direction as icon.
+     *
+     * @param degrees   Degrees as measured on a compass
+     *
+     * @return Wind direction icon
+     */
+    public static int getWindIcon(double degrees) {
+        int windIcon = R.drawable.ic_wind_icon;
+
+        if (degrees >= 337.5 || degrees < 22.5) {
+            windIcon = R.drawable.ic_wind_north;
+        } else if (degrees >= 22.5 && degrees < 67.5) {
+            windIcon = R.drawable.ic_wind_ne;
+        } else if (degrees >= 67.5 && degrees < 112.5) {
+            windIcon = R.drawable.ic_wind_east;
+        } else if (degrees >= 112.5 && degrees < 157.5) {
+            windIcon = R.drawable.ic_wind_se;
+        } else if (degrees >= 157.5 && degrees < 202.5) {
+            windIcon = R.drawable.ic_wind_south;
+        } else if (degrees >= 202.5 && degrees < 247.5) {
+            windIcon = R.drawable.ic_wind_sw;
+        } else if (degrees >= 247.5 && degrees < 292.5) {
+            windIcon = R.drawable.ic_wind_west;
+        } else if (degrees >= 292.5 && degrees < 337.5) {
+            windIcon = R.drawable.ic_wind_nw;
+        }
+
+        return windIcon;
+    }
+
+
     public static int getResourceIconIdForWeatherCondition(String weatherIcon) {
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
 

@@ -92,7 +92,7 @@
     <string name="cloud_cover_label">Cloud cover</string>
 
     <string name="next_hour_label">Next hour</string>
-    <string name="next_24_hours_label">Next 48 hours</string>
+    <string name="next_24_hours_label">Next 24 hours</string>
     <string name="next_7_days_label">Next 7 days</string>
 
     <string name="alerts_label">Weather alerts:</string>
@@ -117,7 +117,7 @@
     </string>
 
     <string name="format_percip_intens">
-        <xliff:g id="precip">%1$.2f</xliff:g> mm/h
+        <xliff:g id="precip">%1$.2f</xliff:g> mm
     </string>
 
     <string name="format_visibility">
@@ -142,6 +142,12 @@
 
     <string name="hourly_rain_prob_label">Rain:</string>
 
+    <string name="cloud_details_label">Clouds</string>
+
+    <string name="speed_ms_label">m/s</string>
+
+    <string name="network_not_available">Network is not available!</string>
+
     <!-- Wind in mph -->
     <string name="format_wind_mph">
         <xliff:g id="speed">%1$1.0f</xliff:g> mph
@@ -159,5 +165,10 @@
     <string name="format_percent_value">
         <xliff:g id="humidity">%1.0f</xliff:g>%%
     </string>
+
+    <string name="format_wind_speed">
+        <xliff:g id="speed">%1$1.0f</xliff:g> m/s
+    </string>
+
     <string name="add_widget">Add widget</string>
 </resources>

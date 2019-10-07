@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.sync.WeatherSyncUtils;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
 
         if (isNetworkAvailable()) {
             WeatherSyncUtils.initialize(this);
+        } else{
+            Toast.makeText(mActivityContext, R.string.network_not_available, Toast.LENGTH_SHORT).show();
         }
 
         //set swipe to refresh
@@ -70,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
+                        if (isNetworkAvailable()) {
                         WeatherSyncUtils.startImmediateSync(mActivityContext);
+                        } else {
+                            Toast.makeText(mActivityContext, R.string.network_not_available,
+                                    Toast.LENGTH_SHORT).show();
+                        }
                         swipeToRefresh.setRefreshing(false);
                     }
                 }

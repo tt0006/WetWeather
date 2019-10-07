@@ -113,7 +113,7 @@ public final class NetworkUtils {
             weatherListArray.add(extractInfo(hourlyInfo));
 
             JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
-            for (int i=0; i< hourlyWeatherArray.length(); i++) {
+            for (int i=0; i<24; i++) {
                 JSONObject item = hourlyWeatherArray.getJSONObject(i);
                 weatherListArray.add(extractSingleItem(item, 2));
             }

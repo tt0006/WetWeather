@@ -36,6 +36,7 @@ public class WeatherItem {
     public String apparentTemperatureLow;
     public String apparentTemperature;
     private String temperature;
+    private boolean expanded;
 
     @Ignore
     public WeatherItem(int weatherType, long dateTimeMillis, String summary, String icon, double pressure,
@@ -176,4 +177,7 @@ public class WeatherItem {
 
     public String getTemperature() {return temperature;}
     public void setTemperature(String temperature){this.temperature = temperature;}
+
+    public boolean isExpanded() {return expanded;}
+    public void setExpanded(boolean state){ this.expanded = state; }
 }
