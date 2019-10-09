@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/today_touch_selector"
+    android:id="@+id/entire_details_layout"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/today_forecast_list_item_vertical_padding"
@@ -28,7 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -92,3 +97,316 @@
         tools:text="10\u00b0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/details_set"
+        android:paddingTop="@dimen/list_item_padding_vertical"
+        android:paddingBottom="@dimen/list_item_padding_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/rain_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/wind_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_rain"/>
+        <TextView
+            android:id="@+id/rain_details_probability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rain_icon"
+            app:layout_constraintLeft_toLeftOf="@id/rain_icon"
+            app:layout_constraintRight_toRightOf="@id/rain_icon"
+            android:textColor="@color/white"
+            tools:text="20%"/>
+        <TextView
+            android:id="@+id/rain_details_intensity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rain_details_probability"
+            app:layout_constraintLeft_toLeftOf="@id/rain_icon"
+            app:layout_constraintRight_toRightOf="@id/rain_icon"
+            android:textColor="@color/white"
+            tools:text="12 mm"/>
+
+
+        <ImageView
+            android:id="@+id/wind_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_wind_icon"
+            app:layout_constraintLeft_toRightOf="@id/rain_icon"
+            app:layout_constraintRight_toLeftOf="@id/cloud_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wind_details_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/wind_icon"
+            app:layout_constraintRight_toRightOf="@id/wind_icon"
+            app:layout_constraintTop_toBottomOf="@id/wind_icon"
+            tools:text="2 m/s" />
+
+        <TextView
+            android:id="@+id/wind_details_gust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/wind_icon"
+            app:layout_constraintRight_toRightOf="@id/wind_icon"
+            app:layout_constraintTop_toBottomOf="@id/wind_details_speed"
+            tools:text="5 m/s" />
+
+        <ImageView
+            android:id="@+id/cloud_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_cloudy_vector"
+            app:layout_constraintLeft_toRightOf="@id/wind_icon"
+            app:layout_constraintRight_toLeftOf="@id/humidity_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cloud_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/cloud_icon"
+            app:layout_constraintRight_toRightOf="@id/cloud_icon"
+            app:layout_constraintTop_toBottomOf="@id/cloud_icon"
+            tools:text="79%" />
+
+        <TextView
+            android:id="@+id/cloud_details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/cloud_icon"
+            app:layout_constraintRight_toRightOf="@id/cloud_icon"
+            app:layout_constraintTop_toBottomOf="@id/cloud_details"
+            android:text="@string/cloud_details_label" />
+
+
+        <ImageView
+            android:id="@+id/humidity_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_humidity"
+            app:layout_constraintLeft_toRightOf="@id/cloud_icon"
+            app:layout_constraintRight_toLeftOf="@id/pressure_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/humidity_details_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
+            app:layout_constraintRight_toRightOf="@id/humidity_icon"
+            app:layout_constraintTop_toBottomOf="@id/humidity_icon"
+            tools:text="68%" />
+
+        <TextView
+            android:id="@+id/humidity_details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
+            app:layout_constraintRight_toRightOf="@id/humidity_icon"
+            app:layout_constraintTop_toBottomOf="@id/humidity_details_value"
+            android:text="@string/humidity_label" />
+
+
+        <ImageView
+            android:id="@+id/pressure_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_zeppelin"
+            app:layout_constraintLeft_toRightOf="@id/humidity_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pressure_details_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
+            app:layout_constraintRight_toRightOf="@id/pressure_icon"
+            app:layout_constraintTop_toBottomOf="@id/pressure_icon"
+            tools:text="1029 hpa" />
+
+        <TextView
+            android:id="@+id/pressure_details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
+            app:layout_constraintRight_toRightOf="@id/pressure_icon"
+            app:layout_constraintTop_toBottomOf="@id/pressure_details_value"
+            android:text="@string/pressure_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/extra_details_set"
+        android:paddingTop="@dimen/list_item_padding_vertical"
+        android:paddingBottom="@dimen/list_item_padding_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/sunrise_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/sunset_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_sunrise_icon"/>
+
+        <TextView
+            android:id="@+id/sunrise_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sunrise_icon"
+            app:layout_constraintLeft_toLeftOf="@id/sunrise_icon"
+            app:layout_constraintRight_toRightOf="@id/sunrise_icon"
+            android:textColor="@color/white"
+            tools:text="7:30"/>
+
+        <TextView
+            android:id="@+id/sunrise_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sunrise_value"
+            app:layout_constraintLeft_toLeftOf="@id/sunrise_icon"
+            app:layout_constraintRight_toRightOf="@id/sunrise_icon"
+            android:textColor="@color/white"
+            android:text="@string/sunrise_label"/>
+
+
+        <ImageView
+            android:id="@+id/sunset_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_sunset_icon"
+            app:layout_constraintLeft_toRightOf="@id/sunrise_icon"
+            app:layout_constraintRight_toLeftOf="@id/uv_index_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sunset_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/sunset_icon"
+            app:layout_constraintRight_toRightOf="@id/sunset_icon"
+            app:layout_constraintTop_toBottomOf="@id/sunset_icon"
+            tools:text="19:45" />
+
+        <TextView
+            android:id="@+id/sunset_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/sunset_icon"
+            app:layout_constraintRight_toRightOf="@id/sunset_icon"
+            app:layout_constraintTop_toBottomOf="@id/sunset_value"
+            android:text="@string/sunset_label" />
+
+        <ImageView
+            android:id="@+id/uv_index_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_uv_index"
+            app:layout_constraintLeft_toRightOf="@id/sunset_icon"
+            app:layout_constraintRight_toLeftOf="@id/dew_point_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/uv_index_details_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/uv_index_icon"
+            app:layout_constraintRight_toRightOf="@id/uv_index_icon"
+            app:layout_constraintTop_toBottomOf="@id/uv_index_icon"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/uv_index_details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/uv_index_icon"
+            app:layout_constraintRight_toRightOf="@id/uv_index_icon"
+            app:layout_constraintTop_toBottomOf="@id/uv_index_details_value"
+            android:text="@string/uvindex_label" />
+
+
+        <ImageView
+            android:id="@+id/dew_point_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_icon_raindrops"
+            app:layout_constraintLeft_toRightOf="@id/uv_index_icon"
+            app:layout_constraintRight_toLeftOf="@id/visibility_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dew_point_details_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/dew_point_icon"
+            app:layout_constraintRight_toRightOf="@id/dew_point_icon"
+            app:layout_constraintTop_toBottomOf="@id/dew_point_icon"
+            tools:text="7" />
+
+        <TextView
+            android:id="@+id/dew_point_details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/dew_point_icon"
+            app:layout_constraintRight_toRightOf="@id/dew_point_icon"
+            app:layout_constraintTop_toBottomOf="@id/dew_point_details_value"
+            android:text="@string/dew_point_label" />
+
+
+        <ImageView
+            android:id="@+id/visibility_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_eye"
+            app:layout_constraintLeft_toRightOf="@id/dew_point_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/visibility_details_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/visibility_icon"
+            app:layout_constraintRight_toRightOf="@id/visibility_icon"
+            app:layout_constraintTop_toBottomOf="@id/visibility_icon"
+            tools:text="10 km" />
+
+        <TextView
+            android:id="@+id/visibility_details_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/visibility_icon"
+            app:layout_constraintRight_toRightOf="@id/visibility_icon"
+            app:layout_constraintTop_toBottomOf="@id/visibility_details_value"
+            android:text="@string/visibility_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>

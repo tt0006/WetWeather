@@ -26,7 +26,7 @@ import com.example.wetweather.sync.WeatherSyncUtils;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
-        getSupportActionBar().setElevation(0f);
 
         mRecyclerView = findViewById(R.id.recyclerview_forecast);
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         mRecyclerView.setHasFixedSize(true);
         mActivityContext = this;
 
-        mForecastAdapter = new ForecastAdapter(this, this);
+        mForecastAdapter = new ForecastAdapter(this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
@@ -159,36 +158,5 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(int position) {
-        if (mForecastAdapter.presentAlert) {
-            if (position == 0) {
-                Intent intent = new Intent(this, AlertActivity.class);
-                startActivity(intent);
-                return;
-            }
-            if (position == 3) {
-                Intent intent = new Intent(this, HourlyForecastActivity.class);
-                startActivity(intent);
-            }
-            if (position > 1 && position < 5) {
-                return;
-            }
-        } else {
-
-            if (position == 2) {
-                Intent intent = new Intent(this, HourlyForecastActivity.class);
-                startActivity(intent);
-                return;
-            }
-            if (position > 0 && position < 4) {
-                return;
-            }
-        }
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("POSITION", position);
-        startActivity(intent);
     }
 }

@@ -148,6 +148,8 @@
 
     <string name="network_not_available">Network is not available!</string>
 
+    <string name="dew_point_label">Dew point</string>
+
     <!-- Wind in mph -->
     <string name="format_wind_mph">
         <xliff:g id="speed">%1$1.0f</xliff:g> mph

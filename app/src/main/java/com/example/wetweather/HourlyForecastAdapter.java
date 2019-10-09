@@ -40,20 +40,11 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HourlyForecastAdapter.HourlyForecastAdapterViewHolder holder, final int position) {
-        final WeatherItem weatherForThisDay = mWeatherData.get(position);
+    public void onBindViewHolder(@NonNull HourlyForecastAdapter.HourlyForecastAdapterViewHolder holder, int position) {
 
-        holder.entireHourlyLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the current state of the item
-                boolean expanded = weatherForThisDay.isExpanded();
-                // Change the state
-                weatherForThisDay.setExpanded(!expanded);
-                // Notify the adapter that item has changed
-                HourlyForecastAdapter.this.notifyItemChanged(position);
-            }
-        });
+        WeatherItem weatherForThisDay = mWeatherData.get(position);
+
+        holder.entireHourlyLayout.setOnClickListener(new HourlyClickHandler(position, weatherForThisDay));
 
         // Get the state
         boolean expanded = weatherForThisDay.isExpanded();
@@ -152,5 +143,25 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
     void setWeatherData(List<WeatherItem> weatherData) {
         mWeatherData = weatherData;
         notifyDataSetChanged();
+    }
+
+    class HourlyClickHandler implements View.OnClickListener{
+        int mPosition;
+        WeatherItem mWeatherForThisDay;
+
+        HourlyClickHandler(int position, WeatherItem weatherForThisDay){
+            mPosition = position;
+            mWeatherForThisDay = weatherForThisDay;
+        }
+
+        @Override
+        public void onClick(View v) {
+            // Get the current state of the item
+            boolean expanded = mWeatherForThisDay.isExpanded();
+            // Change the state
+            mWeatherForThisDay.setExpanded(!expanded);
+            // Notify the adapter that item has changed
+            HourlyForecastAdapter.this.notifyItemChanged(mPosition);
+        }
     }
 }

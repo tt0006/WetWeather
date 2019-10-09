@@ -1,6 +1,7 @@
 package com.example.wetweather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,21 +24,15 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
     private static final int VIEW_TYPE_INFO = 2;
     private static final int VIEW_TYPE_ALERTS = 3;
-    /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
-    private final ForecastAdapterOnClickHandler mClickHandler;
-    public boolean presentAlert;
+    private boolean presentAlert;
     private List<WeatherItem> mWeatherData;
 
     /**
      * Creates a ForecastAdapter.
-     *
-     * @param clickHandler The on-click handler for this adapter. This single handler is called
-     *                     when an item is clicked.
      */
-    public ForecastAdapter(Context context, ForecastAdapterOnClickHandler clickHandler) {
+    ForecastAdapter(Context context) {
         mContext = context;
-        mClickHandler = clickHandler;
     }
 
     @NonNull
@@ -68,33 +63,63 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         }
 
         View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
-
         view.setFocusable(true);
-
         return new ForecastAdapterViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ForecastAdapter.ForecastAdapterViewHolder holder, int position) {
+
         WeatherItem weatherForThisDay = mWeatherData.get(position);
-
         int viewType = getItemViewType(position);
-
-        //set icon
         int weatherImageId;
 
         switch (viewType) {
 
             case VIEW_TYPE_TODAY:
+                holder.entireDetailsLayout.setOnClickListener(new TodayClickHandler(position, weatherForThisDay));
+
+                // Get the state
+                boolean expanded = weatherForThisDay.isExpanded();
+                // Set the visibility based on state
+                holder.entireDetailsSet.setVisibility(expanded ? View.VISIBLE : View.GONE);
+
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
                 holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
 
+                holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
+                holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
+                        weatherForThisDay.getWindSpeed()));
+                holder.windGustDetails.setText(String.format("%1$s %2$s",
+                        weatherForThisDay.windGust, mContext.getString(R.string.speed_ms_label)));
+
+                holder.cloudsDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+                        weatherForThisDay.cloudCover * 100));
+
+                holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
+                        weatherForThisDay.getPrecipProbability() * 100));
+                holder.rainDetailsIntens.setText(mContext.getString(R.string.format_percip_intens,
+                        weatherForThisDay.getPrecipIntensity()));
+
+                holder.humidityDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+                        weatherForThisDay.getHumidity() * 100));
+
+                holder.pressureDetailsValue.setText(mContext.getString(R.string.format_pressure,
+                        weatherForThisDay.getPressure()));
+
+                holder.sunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
+                holder.sunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
+                holder.uvindexView.setText(weatherForThisDay.uvIndex);
+                holder.dewPointValue.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.dewPoint));
+                holder.visibilityView.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.visibility));
+
                 break;
 
             case VIEW_TYPE_FUTURE_DAY:
+                holder.entireDetailsLayout.setOnClickListener(new FutureDayClickHandler(position));
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
                 holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
@@ -111,6 +136,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                     if (position == 2) {
                         holder.dateView.setText(mContext.getString(R.string.next_hour_label));
                     } else if (position == 3) {
+                        holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
                         holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
                     } else if (position == 4) {
                         holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
@@ -120,6 +146,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                     if (position == 1) {
                         holder.dateView.setText(mContext.getString(R.string.next_hour_label));
                     } else if (position == 2) {
+                        holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
                         holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
                     } else if (position == 3) {
                         holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
@@ -128,6 +155,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                 break;
 
             case VIEW_TYPE_ALERTS:
+                holder.entireDetailsLayout.setOnClickListener(new AlertClickHandler());
                 weatherImageId = R.drawable.ic_circle_warning;
                 holder.dateView.setText(String.format("%1$s %2$s", mContext.getString(R.string.alerts_label),
                         weatherForThisDay.getIcon()));
@@ -144,9 +172,9 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
             default:
                 throw new IllegalArgumentException("Invalid view type, value of " + viewType);
         }
-        holder.iconView.setImageResource(weatherImageId);
 
-        //set description
+        //set common
+        holder.iconView.setImageResource(weatherImageId);
         holder.descriptionView.setText(weatherForThisDay.getSummary());
     }
 
@@ -185,31 +213,39 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         }
     }
 
-    public void setWeatherData(List<WeatherItem> weatherData) {
+    void setWeatherData(List<WeatherItem> weatherData) {
         mWeatherData = weatherData;
         notifyDataSetChanged();
     }
 
-
-    /**
-     * The interface that receives onClick messages.
-     */
-    public interface ForecastAdapterOnClickHandler {
-        void onClick(int position);
-    }
-
     /**
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
-     * a cache of the child views for a forecast item. It's also a convenient place to set an
-     * OnClickListener, since it has access to the adapter and the views.
+     * a cache of the child views for a forecast item.
      */
-    class ForecastAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ForecastAdapterViewHolder extends RecyclerView.ViewHolder {
         final ImageView iconView;
 
         final TextView dateView;
         final TextView descriptionView;
         final TextView highTempView;
         final TextView lowTempView;
+
+        final View entireDetailsLayout;
+        final View entireDetailsSet;
+
+        final TextView rainDetailsProb;
+        final TextView rainDetailsIntens;
+        final ImageView windIcon;
+        final TextView windSpeedDetails;
+        final TextView windGustDetails;
+        final TextView cloudsDetailsValue;
+        final TextView humidityDetailsValue;
+        final TextView pressureDetailsValue;
+        final TextView sunrise;
+        final TextView sunset;
+        final TextView uvindexView;
+        final TextView dewPointValue;
+        final TextView visibilityView;
 
         ForecastAdapterViewHolder(View view) {
             super(view);
@@ -220,20 +256,84 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
             highTempView = view.findViewById(R.id.high_temperature);
             lowTempView = view.findViewById(R.id.low_temperature);
 
-            view.setOnClickListener(this);
+            entireDetailsLayout = view.findViewById(R.id.entire_details_layout);
+            entireDetailsSet = view.findViewById(R.id.extra_details_set);
+
+            rainDetailsProb = view.findViewById(R.id.rain_details_probability);
+            rainDetailsIntens = view.findViewById(R.id.rain_details_intensity);
+
+            windIcon = view.findViewById(R.id.wind_icon);
+            windSpeedDetails = view.findViewById(R.id.wind_details_speed);
+            windGustDetails = view.findViewById(R.id.wind_details_gust);
+
+            cloudsDetailsValue = view.findViewById(R.id.cloud_details);
+
+            humidityDetailsValue = view.findViewById(R.id.humidity_details_value);
+
+            pressureDetailsValue = view.findViewById(R.id.pressure_details_value);
+
+            sunrise = view.findViewById(R.id.sunrise_value);
+            sunset = view.findViewById(R.id.sunset_value);
+            uvindexView = view.findViewById(R.id.uv_index_details_value);
+            dewPointValue = view.findViewById(R.id.dew_point_details_value);
+            visibilityView = view.findViewById(R.id.visibility_details_value);
+        }
+    }
+
+    //Helper click handler classes
+
+    class TodayClickHandler implements View.OnClickListener{
+        int mPosition;
+        WeatherItem mWeatherForThisDay;
+
+        TodayClickHandler(int position, WeatherItem weatherForThisDay){
+            mPosition = position;
+            mWeatherForThisDay = weatherForThisDay;
         }
 
-        /**
-         * This gets called by the child views during a click. We fetch position that has been
-         * selected, and then call the onClick handler registered with this adapter, passing that
-         * position.
-         *
-         * @param v the View that was clicked
-         */
         @Override
         public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
-            mClickHandler.onClick(adapterPosition);
+            // Get the current state of the item
+            boolean expanded = mWeatherForThisDay.isExpanded();
+            // Change the state
+            mWeatherForThisDay.setExpanded(!expanded);
+            // Notify the adapter that item has changed
+            ForecastAdapter.this.notifyItemChanged(mPosition);
+
+        }
+    }
+
+    class FutureDayClickHandler implements View.OnClickListener{
+        int mPosition;
+
+        FutureDayClickHandler(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(mContext, DetailActivity.class);
+            intent.putExtra("POSITION", mPosition);
+            mContext.startActivity(intent);
+        }
+    }
+
+    class HourlyClickHandler implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(mContext, HourlyForecastActivity.class);
+            mContext.startActivity(intent);
+        }
+    }
+
+    class AlertClickHandler implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(mContext, AlertActivity.class);
+            mContext.startActivity(intent);
         }
     }
 }
+

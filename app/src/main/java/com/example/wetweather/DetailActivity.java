@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.list_item_forecast_today);
         Intent intent = getIntent();
 
         final int position = intent.getIntExtra("POSITION", 0);
@@ -40,6 +42,9 @@ public class DetailActivity extends AppCompatActivity {
     private void displayDetails(WeatherItem weatherForThisDay){
         if (weatherForThisDay == null){
             return;}
+        //make view height match parent
+        View entireLayout = findViewById(R.id.entire_details_layout);
+        entireLayout.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
 
         //set icon
         ImageView icon = findViewById(R.id.weather_icon);
@@ -69,57 +74,58 @@ public class DetailActivity extends AppCompatActivity {
         }
         lTemperature.setText(WetWeatherUtils.formatTemperature(this, lTemper));
 
-        //set humidity
-        TextView humidity = findViewById(R.id.humidity);
-        String humidityString = getString(R.string.format_percent_value, weatherForThisDay.getHumidity()*100);
-        humidity.setText(humidityString);
-
-        //set pressure
-        TextView pressure = findViewById(R.id.pressure);
-        String pressureString = getString(R.string.format_pressure, weatherForThisDay.getPressure());
-        pressure.setText(pressureString);
-
-        //set wind
-        TextView wind = findViewById(R.id.wind_measurement);
-        String windString = WetWeatherUtils.getFormattedWind(this,
-                weatherForThisDay.getWindSpeed(), weatherForThisDay.getWindDirection());
-        wind.setText(windString);
-
-        //set cloud cover
-        TextView cloudCoverView = findViewById(R.id.cloud_cover_measurement);
-        String cloudCoverText = getString(R.string.format_percent_value, weatherForThisDay.cloudCover*100);
-        cloudCoverView.setText(cloudCoverText);
-
         //set rain prob
-        TextView rainProb = findViewById(R.id.percip_prob_measurement);
-        String rainPr = getString(R.string.format_percent_value,
-                weatherForThisDay.getPrecipProbability()*100);
-        rainProb.setText(rainPr);
+        TextView rainProb = findViewById(R.id.rain_details_probability);
+        rainProb.setText(getString(R.string.format_percent_value,
+                weatherForThisDay.getPrecipProbability()*100));
 
         //set rain intens
-        TextView rainIntens = findViewById(R.id.percip_inten_measurement);
-        String rainIn = getString(R.string.format_percip_intens, weatherForThisDay.getPrecipIntensity());
-        rainIntens.setText(rainIn);
+        TextView rainIntens = findViewById(R.id.rain_details_intensity);
+        rainIntens.setText(getString(R.string.format_percip_intens, weatherForThisDay.getPrecipIntensity()));
+
+        //set wind
+        ImageView windIcon = findViewById(R.id.wind_icon);
+        TextView windSpeed = findViewById(R.id.wind_details_speed);
+        TextView windGustDetails = findViewById(R.id.wind_details_gust);
+        windSpeed.setText(getString(R.string.format_wind_speed,
+                weatherForThisDay.getWindSpeed()));
+        windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
+        windGustDetails.setText(String.format("%1$s %2$s",
+                weatherForThisDay.windGust, getString(R.string.speed_ms_label)));
+
+        //set clouds
+        TextView cloudsDetailsValue = findViewById(R.id.cloud_details);
+        cloudsDetailsValue.setText(getString(R.string.format_percent_value,
+                weatherForThisDay.cloudCover * 100));
+
+        //set humidity
+        TextView humidityDetailsValue = findViewById(R.id.humidity_details_value);
+        humidityDetailsValue.setText(getString(R.string.format_percent_value,
+                weatherForThisDay.getHumidity() * 100));
+
+        //set pressure
+        TextView pressureDetailsValue = findViewById(R.id.pressure_details_value);
+        pressureDetailsValue.setText(getString(R.string.format_pressure,
+                weatherForThisDay.getPressure()));
 
         //set sunrise
-        TextView sunrise = findViewById(R.id.sunrise_measurement);
-        String sunriseTime = WetWeatherUtils.getTime(this, weatherForThisDay.getSunriseTime());
-        sunrise.setText(sunriseTime);
+        TextView sunrise = findViewById(R.id.sunrise_value);
+        sunrise.setText(WetWeatherUtils.getTime(this, weatherForThisDay.getSunriseTime()));
 
         //setSunset
-        TextView sunset = findViewById(R.id.sunset_measurement);
-        String sunsetTime = WetWeatherUtils.getTime(this, weatherForThisDay.getSunsetTime());
-        sunset.setText(sunsetTime);
+        TextView sunset = findViewById(R.id.sunset_value);
+        sunset.setText(WetWeatherUtils.getTime(this, weatherForThisDay.getSunsetTime()));
 
         //set uvindex
-        TextView uvindexView = findViewById(R.id.uvindex_measurement);
-        String uvindexText = weatherForThisDay.uvIndex;
-        uvindexView.setText(uvindexText);
+        TextView uvindexView = findViewById(R.id.uv_index_details_value);
+        uvindexView.setText(weatherForThisDay.uvIndex);
+
+        //set dew point
+        TextView dewPointValue = findViewById(R.id.dew_point_details_value);
+        dewPointValue.setText(WetWeatherUtils.formatTemperature(this, weatherForThisDay.dewPoint));
 
         //set visibility
-        TextView visibilityView = findViewById(R.id.visibility_measurement);
-        String visibilityText = getString(R.string.format_visibility, weatherForThisDay.visibility);
-        visibilityView.setText(visibilityText);
-
+        TextView visibilityView = findViewById(R.id.visibility_details_value);
+        visibilityView.setText(getString(R.string.format_visibility, weatherForThisDay.visibility));
     }
 }
