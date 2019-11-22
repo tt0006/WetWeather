@@ -30,16 +30,14 @@ public class WeatherWidget extends AppWidgetProvider {
         Intent startMainActivityIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, startMainActivityIntent, 0);
 
-        //Define intent to start sync whhen refresh button is clicked
+        //Define intent to start sync when refresh button is clicked
         Intent startSyncIntent = new Intent(context, WeatherWidget.class);
         startSyncIntent.setAction(UPDATE_CLICKED);
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
-        remoteViews.setOnClickPendingIntent(R.id.widget_weather_layout, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.widget_weather_icon, pendingIntent);
 
         remoteViews.setOnClickPendingIntent(R.id.widget_update_icon, PendingIntent.getBroadcast(context, 0, startSyncIntent, 0));
-
-        remoteViews.setOnClickPendingIntent(R.id.widget_weather_layout, pendingIntent);
 
         remoteViews.setTextViewText(R.id.widget_date, "Cork");
         remoteViews.setTextViewText(R.id.widget_weather_description, weatherData.getSummary());
@@ -55,7 +53,7 @@ public class WeatherWidget extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         loadWeatherFromDB(context, appWidgetManager, appWidgetIds);
     }
 

@@ -25,7 +25,6 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     private static final int VIEW_TYPE_INFO = 2;
     private static final int VIEW_TYPE_ALERTS = 3;
     private final Context mContext;
-    private boolean presentAlert;
     private List<WeatherItem> mWeatherData;
 
     /**
@@ -132,26 +131,20 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
 
-                if (presentAlert) {
-                    if (position == 2) {
-                        holder.dateView.setText(mContext.getString(R.string.next_hour_label));
-                    } else if (position == 3) {
-                        holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
-                        holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
-                    } else if (position == 4) {
-                        holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
-                    }
-                } else {
+                int infoType = weatherForThisDay.weatherType;
+                String description = "";
 
-                    if (position == 1) {
-                        holder.dateView.setText(mContext.getString(R.string.next_hour_label));
-                    } else if (position == 2) {
-                        holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
-                        holder.dateView.setText(mContext.getString(R.string.next_24_hours_label));
-                    } else if (position == 3) {
-                        holder.dateView.setText(mContext.getString(R.string.next_7_days_label));
-                    }
+                if (infoType == 6){
+                    description = mContext.getString(R.string.next_7_days_label);
+                } else if (infoType == 7){
+                    description = mContext.getString(R.string.next_24_hours_label);
+                    holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
+                } else if (infoType == 8){
+                    description = mContext.getString(R.string.next_hour_label);
                 }
+
+                holder.dateView.setText(description);
+
                 break;
 
             case VIEW_TYPE_ALERTS:
@@ -187,30 +180,28 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     @Override
     public int getItemViewType(int position) {
 
+        int view = 0;
+
         WeatherItem weatherForThisDay = mWeatherData.get(position);
 
-        if (position == 0 && weatherForThisDay.weatherType == 0) {
-            presentAlert = true;
-            return VIEW_TYPE_ALERTS;
+        switch (weatherForThisDay.weatherType){
+
+            case 1: view = VIEW_TYPE_TODAY;
+            break;
+
+            case 3: view = VIEW_TYPE_FUTURE_DAY;
+            break;
+
+            case 5: view = VIEW_TYPE_ALERTS;
+            break;
+
+            case 6:
+            case 7:
+            case 8: view = VIEW_TYPE_INFO;
+            break;
         }
 
-        if (presentAlert) {
-            if (position == 2 || position == 3 || position == 4) {
-                return VIEW_TYPE_INFO;
-            } else if (position == 1) {
-                return VIEW_TYPE_TODAY;
-            } else {
-                return VIEW_TYPE_FUTURE_DAY;
-            }
-        }
-
-        if (position == 0) {
-            return VIEW_TYPE_TODAY;
-        } else if (position == 1 || position == 2 || position == 3) {
-            return VIEW_TYPE_INFO;
-        } else {
-            return VIEW_TYPE_FUTURE_DAY;
-        }
+        return view;
     }
 
     void setWeatherData(List<WeatherItem> weatherData) {

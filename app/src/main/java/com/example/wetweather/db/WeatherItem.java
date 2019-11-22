@@ -111,7 +111,8 @@ public class WeatherItem {
     }
 
     @Ignore
-    public WeatherItem(String summary, String icon){
+    public WeatherItem(int weatherType, String summary, String icon){
+        this.weatherType = weatherType;
         this.summary = summary;
         this.icon = icon;
     }

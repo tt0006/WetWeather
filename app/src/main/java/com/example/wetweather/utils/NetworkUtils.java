@@ -86,7 +86,11 @@ public final class NetworkUtils {
         // 1 - currently
         // 2 - hourly
         // 3 - daily
-        // 4 - alerts
+        // 4 - alerts array
+        // 5 - alerts summary
+        // 6 - info daily
+        // 7 - info hourly
+        // 8 - info minutely
 
         List<WeatherItem> weatherListArray = new ArrayList<>();
         try {
@@ -95,7 +99,7 @@ public final class NetworkUtils {
 
             if (root.has("alerts")){
                 JSONArray alerts = root.getJSONArray("alerts");
-                weatherListArray.add(extractAlertSummary(alerts));
+                weatherListArray.add(extractAlertSummary(alerts, 5));
                 for (int i=0; i<alerts.length(); i++) {
                     JSONObject item = alerts.getJSONObject(i);
                     weatherListArray.add(extractAlerts(item, 4));
@@ -107,10 +111,10 @@ public final class NetworkUtils {
             weatherListArray.add(extractSingleItem(currently, 1));
 
             JSONObject minutelyInfo = root.getJSONObject("minutely");
-            weatherListArray.add(extractInfo(minutelyInfo));
+            weatherListArray.add(extractInfo(minutelyInfo, 8));
 
             JSONObject hourlyInfo = root.getJSONObject("hourly");
-            weatherListArray.add(extractInfo(hourlyInfo));
+            weatherListArray.add(extractInfo(hourlyInfo, 7));
 
             JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
             for (int i=0; i<24; i++) {
@@ -119,7 +123,7 @@ public final class NetworkUtils {
             }
 
             JSONObject dailyInfo = root.getJSONObject("daily");
-            weatherListArray.add(extractInfo(dailyInfo));
+            weatherListArray.add(extractInfo(dailyInfo, 6));
 
             JSONArray dailyWeatherArray = dailyInfo.getJSONArray("data");
             for (int i=0; i< dailyWeatherArray.length(); i++) {
@@ -194,17 +198,17 @@ public final class NetworkUtils {
 
     }
 
-    private static WeatherItem extractInfo(JSONObject item){
+    private static WeatherItem extractInfo(JSONObject item, int weatherType){
         String summary;
         String icon;
 
         summary = item.optString("summary");
         icon = item.optString("icon");
 
-        return new WeatherItem(summary, icon);
+        return new WeatherItem(weatherType, summary, icon);
     }
 
-    private static WeatherItem extractAlertSummary(JSONArray alerts) throws JSONException {
+    private static WeatherItem extractAlertSummary(JSONArray alerts, int weatherType) throws JSONException {
 
         int count = alerts.length();
 
@@ -214,7 +218,7 @@ public final class NetworkUtils {
             sb.append(item.optString("title"));
             sb.append("; ");
         }
-        return new WeatherItem(sb.toString(), String.valueOf(count));
+        return new WeatherItem(weatherType, sb.toString(), String.valueOf(count));
     }
 
     private static WeatherItem extractAlerts(JSONObject item, int weatherType){

@@ -2,6 +2,7 @@ package com.example.wetweather.sync;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -27,6 +28,10 @@ public class WeatherSyncUtils {
      */
     public static void startImmediateSync(@NonNull final Context context) {
         Intent intentToSyncImmediately = new Intent(context, WeatherSyncIntentService.class);
-        context.startService(intentToSyncImmediately);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            context.startForegroundService(intentToSyncImmediately);}
+        else {
+            context.startService(intentToSyncImmediately);
+        }
     }
 }
