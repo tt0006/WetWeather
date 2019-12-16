@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
@@ -85,7 +86,9 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
-                holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
+                holder.dateView.setText(String.format("%1$s (%2$s)",
+                        WetWeatherPreferences.getPreferencesLocationName(mContext),
+                        WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis())));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
 

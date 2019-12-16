@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.wetweather.WeatherWidget;
-import com.example.wetweather.WetWeatherPreferences;
+import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.db.WeatherDB;
 import com.example.wetweather.db.WeatherItem;
 
@@ -44,7 +44,8 @@ public final class NetworkUtils {
      */
     public static boolean updateWeatherData(Context context){
 
-        URL requestUrl = buildUrlWithLatitudeLongitude(context,51.896893,-8.486316);
+        String coordinates = WetWeatherPreferences.getPreferencesLatitudeLongitude(context);
+        URL requestUrl = buildUrlWithLatitudeLongitude(context, coordinates);
 
         if (requestUrl == null){
             return false;
@@ -106,30 +107,35 @@ public final class NetworkUtils {
                 }
             }
 
+            if (root.has("currently")){
+                JSONObject currently = root.getJSONObject("currently");
+                weatherListArray.add(extractSingleItem(currently, 1));}
 
-            JSONObject currently = root.getJSONObject("currently");
-            weatherListArray.add(extractSingleItem(currently, 1));
+            if (root.has("minutely")){
+                JSONObject minutelyInfo = root.getJSONObject("minutely");
+                weatherListArray.add(extractInfo(minutelyInfo, 8));}
 
-            JSONObject minutelyInfo = root.getJSONObject("minutely");
-            weatherListArray.add(extractInfo(minutelyInfo, 8));
+            if (root.has("hourly")){
+                JSONObject hourlyInfo = root.getJSONObject("hourly");
+                weatherListArray.add(extractInfo(hourlyInfo, 7));
 
-            JSONObject hourlyInfo = root.getJSONObject("hourly");
-            weatherListArray.add(extractInfo(hourlyInfo, 7));
-
-            JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
-            for (int i=0; i<24; i++) {
-                JSONObject item = hourlyWeatherArray.getJSONObject(i);
-                weatherListArray.add(extractSingleItem(item, 2));
+                JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
+                for (int i=0; i<24; i++) {
+                    JSONObject item = hourlyWeatherArray.getJSONObject(i);
+                    weatherListArray.add(extractSingleItem(item, 2));
+                }
             }
 
-            JSONObject dailyInfo = root.getJSONObject("daily");
-            weatherListArray.add(extractInfo(dailyInfo, 6));
+            if (root.has("daily")) {
+                JSONObject dailyInfo = root.getJSONObject("daily");
+                weatherListArray.add(extractInfo(dailyInfo, 6));
 
-            JSONArray dailyWeatherArray = dailyInfo.getJSONArray("data");
-            for (int i=0; i< dailyWeatherArray.length(); i++) {
-                JSONObject item = dailyWeatherArray.getJSONObject(i);
-                weatherListArray.add(extractSingleItem(item, 3));
+                JSONArray dailyWeatherArray = dailyInfo.getJSONArray("data");
+                for (int i = 0; i < dailyWeatherArray.length(); i++) {
+                    JSONObject item = dailyWeatherArray.getJSONObject(i);
+                    weatherListArray.add(extractSingleItem(item, 3));
                 }
+            }
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing JSON results", e);
@@ -243,14 +249,13 @@ public final class NetworkUtils {
      * Builds the URL used to talk to the weather server using latitude and longitude of a
      * location.
      *
-     * @param latitude  The latitude of the location
-     * @param longitude The longitude of the location
+     * @param coordinates The latitude ad longitude of the location
      * @return The Url to use to query the weather server.
      */
-    private static URL buildUrlWithLatitudeLongitude(Context context, Double latitude, Double longitude) {
+    private static URL buildUrlWithLatitudeLongitude(Context context, String coordinates) {
         Uri weatherQueryUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                 .appendPath(key)
-                .appendPath(latitude+","+longitude)
+                .appendPath(coordinates)
                 .appendQueryParameter(LANG_PARAM, WetWeatherPreferences.getPreferencesLanguage(context))
                 .appendQueryParameter(UNITS_PARAM, WetWeatherPreferences.getPreferencesUnits(context))
                 .build();

@@ -7,6 +7,12 @@
     <string name="pref_location_label">Location</string>
 
 
+    <!-- Key name for storing latitude in SharedPreferences -->
+    <string name="pref_latitude_key" translatable="false">latitude</string>
+
+    <!-- Key name for storing longitude in SharedPreferences -->
+    <string name="pref_longitude_key" translatable="false">longitude</string>
+
     <!-- Key name for storing location in SharedPreferences -->
     <string name="pref_location_key" translatable="false">location</string>
 
@@ -173,4 +179,5 @@
     </string>
 
     <string name="add_widget">Add widget</string>
+    <string name="title_activity_places">PlacesActivity</string>
 </resources>

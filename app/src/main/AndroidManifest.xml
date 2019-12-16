@@ -2,50 +2,67 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wetweather">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".DetailActivity"
-            android:label="@string/title_activity_detail"
-            android:parentActivityName=".MainActivity"
+        <activity android:name=".AddLocationActivity">
+            android:parentActivityName=".PlacesActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".PlacesActivity" />
         </activity>
-
-        <activity
-            android:name=".HourlyForecastActivity"
-            android:label="@string/title_activity_hourly"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".AlertActivity"
-            android:label="@string/title_activity_alerts"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <activity android:name=".MainActivity">
+        <activity android:name=".PlacesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".WeatherActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WeatherActivity" />
+        </activity>
+        <activity
+            android:name=".HourlyForecastActivity"
+            android:label="@string/title_activity_hourly"
+            android:parentActivityName=".WeatherActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WeatherActivity" />
+        </activity>
+        <activity
+            android:name=".AlertActivity"
+            android:label="@string/title_activity_alerts"
+            android:parentActivityName=".WeatherActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WeatherActivity" />
+        </activity>
+        <activity
+            android:name=".WeatherActivity"
+            android:parentActivityName=".PlacesActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PlacesActivity" />
+        </activity>
+        <activity android:name=".prefs.SettingsActivity" />
+
         <receiver android:name=".WeatherWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -60,9 +77,8 @@
         <service
             android:name=".sync.WeatherSyncIntentService"
             android:exported="false" />
+        <service android:name=".AddressesByNameIntentService"
+            android:exported="false"></service>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

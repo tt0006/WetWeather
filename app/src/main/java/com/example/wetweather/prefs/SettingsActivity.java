@@ -1,9 +1,11 @@
-package com.example.wetweather;
+package com.example.wetweather.prefs;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.wetweather.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

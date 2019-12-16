@@ -4,8 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
@@ -18,53 +16,63 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.prefs.SettingsActivity;
+import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.sync.WeatherSyncUtils;
+import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class PlacesActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    private ForecastAdapter mForecastAdapter;
-    private RecyclerView mRecyclerView;
-    private ProgressBar mLoadingIndicator;
+    private static final String TAG = PlacesActivity.class.getSimpleName();
     private Context mActivityContext;
+    ImageView iconView;
+    TextView dateView, descriptionView, highTempView, lowTempView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forecast);
+        setContentView(R.layout.activity_places);
 
-        mRecyclerView = findViewById(R.id.recyclerview_forecast);
-        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
-        final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swiperefresh);
+        Button addLocation = findViewById(R.id.add_location_button);
+        addLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addLocIntet = new Intent(PlacesActivity.this, AddLocationActivity.class);
+                startActivity(addLocIntet);
+            }
+        });
 
-        LinearLayoutManager layoutManager =
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        View embended = findViewById(R.id.location_0);
+        embended.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent showWeather = new Intent(PlacesActivity.this, WeatherActivity.class);
+                startActivity(showWeather);
+            }
+        });
 
-        /* setLayoutManager associates the LayoutManager we created above with our RecyclerView */
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
+        iconView = findViewById(R.id.weather_icon);
+        dateView = findViewById(R.id.date);
+        descriptionView = findViewById(R.id.weather_description);
+        highTempView = findViewById(R.id.high_temperature);
+        lowTempView = findViewById(R.id.low_temperature);
         mActivityContext = this;
-
-        mForecastAdapter = new ForecastAdapter(this);
-
-        /* Setting the adapter attaches it to the RecyclerView in our layout. */
-        mRecyclerView.setAdapter(mForecastAdapter);
-
-        showLoading();
+        final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swipeToRefresh);
 
         setupViewModel();
 
         if (isNetworkAvailable()) {
             WeatherSyncUtils.initialize(this);
         } else{
-            Toast.makeText(mActivityContext, R.string.network_not_available, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.network_not_available, Toast.LENGTH_SHORT).show();
         }
 
         //set swipe to refresh
@@ -73,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onRefresh() {
                         if (isNetworkAvailable()) {
-                        WeatherSyncUtils.startImmediateSync(mActivityContext);
+                            WeatherSyncUtils.startImmediateSync(mActivityContext);
                         } else {
                             Toast.makeText(mActivityContext, R.string.network_not_available,
                                     Toast.LENGTH_SHORT).show();
@@ -90,10 +98,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
-                mForecastAdapter.setWeatherData(weatherEntries);
-                showWeatherDataView();
+                setWeatherData(weatherEntries);
             }
         });
+    }
+
+    private void setWeatherData(List<WeatherItem> weatherEntries){
+
+        WeatherItem weatherForThisDay = weatherEntries.get(0);
+        if (weatherForThisDay.weatherType == 5){
+            weatherForThisDay = weatherEntries.get(1);
+        }
+
+        Log.i(TAG, weatherForThisDay.getSummary());
+        int weatherImageId = WetWeatherUtils
+                .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+        dateView.setText(String.format("%1$s (%2$s)",
+                WetWeatherPreferences.getPreferencesLocationName(this),
+                WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeMillis())));
+        highTempView.setText(WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature()));
+        lowTempView.setText(WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature));
+        iconView.setImageResource(weatherImageId);
+        descriptionView.setText(weatherForThisDay.getSummary());
+
     }
 
     //Helper method to check network availability
@@ -102,27 +129,6 @@ public class MainActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    private void showWeatherDataView() {
-        /* First, hide the loading indicator */
-        mLoadingIndicator.setVisibility(View.INVISIBLE);
-        /* Finally, make sure the weather data is visible */
-        mRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * This method will make the loading indicator visible and hide the weather View and error
-     * message.
-     * <p>
-     * Since it is okay to redundantly set the visibility of a View, we don't need to check whether
-     * each view is currently visible or invisible.
-     */
-    private void showLoading() {
-        /* Then, hide the weather data */
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        /* Finally, show the loading indicator */
-        mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -159,4 +165,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

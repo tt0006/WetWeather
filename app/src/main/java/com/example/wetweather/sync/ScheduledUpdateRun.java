@@ -7,7 +7,7 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.wetweather.WetWeatherPreferences;
+import com.example.wetweather.prefs.WetWeatherPreferences;
 
 import java.util.concurrent.TimeUnit;
 

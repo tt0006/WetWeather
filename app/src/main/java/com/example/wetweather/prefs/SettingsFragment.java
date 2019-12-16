@@ -1,4 +1,4 @@
-package com.example.wetweather;
+package com.example.wetweather.prefs;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -9,6 +9,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
+import com.example.wetweather.R;
 import com.example.wetweather.sync.ScheduledUpdateRun;
 import com.example.wetweather.sync.WeatherSyncUtils;
 

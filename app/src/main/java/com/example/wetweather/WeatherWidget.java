@@ -10,6 +10,7 @@ import android.widget.RemoteViews;
 
 import com.example.wetweather.db.WeatherDB;
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.sync.WeatherSyncUtils;
 import com.example.wetweather.utils.WetWeatherUtils;
 
@@ -27,7 +28,7 @@ public class WeatherWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         //Define intent to start main activity from widget
-        Intent startMainActivityIntent = new Intent(context, MainActivity.class);
+        Intent startMainActivityIntent = new Intent(context, WeatherActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, startMainActivityIntent, 0);
 
         //Define intent to start sync when refresh button is clicked
@@ -39,7 +40,7 @@ public class WeatherWidget extends AppWidgetProvider {
 
         remoteViews.setOnClickPendingIntent(R.id.widget_update_icon, PendingIntent.getBroadcast(context, 0, startSyncIntent, 0));
 
-        remoteViews.setTextViewText(R.id.widget_date, "Cork");
+        remoteViews.setTextViewText(R.id.widget_date, WetWeatherPreferences.getPreferencesLocationName(context));
         remoteViews.setTextViewText(R.id.widget_weather_description, weatherData.getSummary());
         remoteViews.setTextViewText(R.id.widget_temperature, WetWeatherUtils.formatTemperature(context ,weatherData.getTemperature()));
         remoteViews.setImageViewResource(R.id.widget_weather_icon, WetWeatherUtils.getResourceIconIdForWeatherCondition(weatherData.getIcon()));
