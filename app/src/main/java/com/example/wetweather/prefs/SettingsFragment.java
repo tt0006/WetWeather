@@ -1,6 +1,6 @@
 package com.example.wetweather.prefs;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.preference.CheckBoxPreference;
@@ -73,22 +73,23 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Activity activity = getActivity();
+        // getting Application context for long running processes
+        Context context = getContext().getApplicationContext();
+        if (context == null) return;
 
         if (key.equals(getString(R.string.pref_location_key))) {
             // we've changed the location
-            //to do
-            WeatherSyncUtils.startImmediateSync(activity);
+            WeatherSyncUtils.startImmediateSync(context);
         } else if (key.equals(getString(R.string.pref_units_key))) {
             // units have changed
-            WeatherSyncUtils.startImmediateSync(activity);
+            WeatherSyncUtils.startImmediateSync(context);
 
         } else if (key.equals(getString(R.string.pref_update_interval_key))){
             //update interval changed
-            ScheduledUpdateRun.scheduleWeatherUpdate(activity);
+            ScheduledUpdateRun.scheduleWeatherUpdate(context);
         } else if (key.equals(getString(R.string.pref_language_key))){
             //language changed
-            WeatherSyncUtils.startImmediateSync(activity);
+            WeatherSyncUtils.startImmediateSync(context);
         }
 
         Preference preference = findPreference(key);

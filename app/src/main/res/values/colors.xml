@@ -2,8 +2,10 @@
 <resources>
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ff6f00</color>
+    <color name="colorAccent">#ff8f00</color>
     <color name="colorPrimaryLight">#484848</color>
+
+    <color name="colorLayoutBackground">#121212</color>
 
     <color name="backgroundColor">#060606</color>
 
@@ -13,11 +15,4 @@
     <color name="secondary_text">#727272</color>
 
     <color name="warning_color">#d50000</color>
-
-    <!--our detail accent colors -->
-    <color name="detail_accent_pane_background">#455A64</color>
-    <color name="detail_accent_label">#90A4AE</color>
-
-    <!-- the activated state color for a forecast list item -->
-    <color name="activated">#E0E0E0</color>
 </resources>

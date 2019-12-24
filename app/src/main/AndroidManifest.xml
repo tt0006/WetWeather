@@ -3,6 +3,7 @@
     package="com.example.wetweather">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,20 +13,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddLocationActivity">
+
+        <activity android:name=".PlacesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AddLocationActivity"
             android:parentActivityName=".PlacesActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PlacesActivity" />
         </activity>
-        <activity android:name=".PlacesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
@@ -35,6 +39,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".WeatherActivity" />
         </activity>
+
         <activity
             android:name=".HourlyForecastActivity"
             android:label="@string/title_activity_hourly"
@@ -44,6 +49,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".WeatherActivity" />
         </activity>
+
         <activity
             android:name=".AlertActivity"
             android:label="@string/title_activity_alerts"
@@ -53,6 +59,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".WeatherActivity" />
         </activity>
+
         <activity
             android:name=".WeatherActivity"
             android:parentActivityName=".PlacesActivity"
@@ -61,6 +68,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PlacesActivity" />
         </activity>
+
         <activity android:name=".prefs.SettingsActivity" />
 
         <receiver android:name=".WeatherWidget">
@@ -72,13 +80,17 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/new_app_widget_info" />
-        </receiver> <!-- The manifest entry for our SettingsActivity. Each Activity requires a manifest entry -->
+        </receiver>
+
         <!-- This is required for immediate syncs -->
         <service
-            android:name=".sync.WeatherSyncIntentService"
+            android:name=".sync.WeatherSyncJobIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
         <service android:name=".AddressesByNameIntentService"
-            android:exported="false"></service>
+            android:exported="false"/>
+
     </application>
 
 </manifest>

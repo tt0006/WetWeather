@@ -24,7 +24,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            tools:text="Cork"/>
+            tools:text="Cork (23%\u2602)"/>
 
         <ImageView
             android:id="@+id/widget_weather_icon"
@@ -39,11 +39,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textAlignment="center"
             android:layout_below="@id/widget_date"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:singleLine="false"
-            tools:text="Cloudy (rain: 23%)"/>
+            tools:text="Cloudy"/>
 
         <TextView
             android:id="@+id/widget_temperature"
@@ -55,29 +56,19 @@
             android:textColor="@color/white"
             tools:text="10\u00b0" />
 
-        <TextView
-            android:id="@+id/widget_rain_prob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_below="@id/widget_temperature"
-            android:layout_centerHorizontal="true"
-            tools:text="Rain: 20%"/>
-
         <ImageView
             android:id="@+id/widget_update_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_toRightOf="@id/widget_updated_at"
             android:layout_marginLeft="3dp"
-            android:layout_below="@id/widget_rain_prob"
+            android:layout_below="@id/widget_temperature"
             android:src="@drawable/ic_refresh_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/widget_rain_prob"
+            android:layout_below="@id/widget_temperature"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
             android:textSize="15sp"

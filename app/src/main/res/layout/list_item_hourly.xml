@@ -10,8 +10,7 @@
     android:paddingLeft="@dimen/list_item_padding_horizontal"
     android:paddingTop="@dimen/list_item_padding_vertical"
     android:paddingRight="@dimen/list_item_padding_horizontal"
-    android:paddingBottom="@dimen/list_item_padding_vertical"
-    tools:background="@color/backgroundColor">
+    android:paddingBottom="@dimen/list_item_padding_vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hourly_layout_main"
@@ -34,7 +33,6 @@
             android:layout_marginStart="@dimen/list_item_date_start_margin"
             android:layout_marginLeft="@dimen/list_item_date_left_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
@@ -46,7 +44,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/list_item_date_left_margin"
             android:singleLine="false"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
             app:layout_constraintRight_toLeftOf="@id/hourly_rain"
             app:layout_constraintTop_toBottomOf="@+id/hourly_date"
@@ -58,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/forecast_temperature_space"
             android:layout_marginRight="@dimen/forecast_temperature_space"
-            android:textColor="@color/white"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -71,7 +67,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -107,7 +102,6 @@
             app:layout_constraintTop_toBottomOf="@id/rain_icon"
             app:layout_constraintLeft_toLeftOf="@id/rain_icon"
             app:layout_constraintRight_toRightOf="@id/rain_icon"
-            android:textColor="@color/white"
             tools:text="20%"/>
         <TextView
             android:id="@+id/rain_details_intensity"
@@ -116,7 +110,6 @@
             app:layout_constraintTop_toBottomOf="@id/rain_details_probability"
             app:layout_constraintLeft_toLeftOf="@id/rain_icon"
             app:layout_constraintRight_toRightOf="@id/rain_icon"
-            android:textColor="@color/white"
             tools:text="12 mm"/>
 
 
@@ -133,7 +126,6 @@
             android:id="@+id/wind_details_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/wind_icon"
             app:layout_constraintRight_toRightOf="@id/wind_icon"
             app:layout_constraintTop_toBottomOf="@id/wind_icon"
@@ -143,7 +135,6 @@
             android:id="@+id/wind_details_gust"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/wind_icon"
             app:layout_constraintRight_toRightOf="@id/wind_icon"
             app:layout_constraintTop_toBottomOf="@id/wind_details_speed"
@@ -162,7 +153,6 @@
             android:id="@+id/cloud_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/cloud_icon"
             app:layout_constraintRight_toRightOf="@id/cloud_icon"
             app:layout_constraintTop_toBottomOf="@id/cloud_icon"
@@ -172,7 +162,6 @@
             android:id="@+id/cloud_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/cloud_icon"
             app:layout_constraintRight_toRightOf="@id/cloud_icon"
             app:layout_constraintTop_toBottomOf="@id/cloud_details"
@@ -192,7 +181,6 @@
             android:id="@+id/humidity_details_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
             app:layout_constraintRight_toRightOf="@id/humidity_icon"
             app:layout_constraintTop_toBottomOf="@id/humidity_icon"
@@ -202,7 +190,6 @@
             android:id="@+id/humidity_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
             app:layout_constraintRight_toRightOf="@id/humidity_icon"
             app:layout_constraintTop_toBottomOf="@id/humidity_details_value"
@@ -222,7 +209,6 @@
             android:id="@+id/pressure_details_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
             app:layout_constraintRight_toRightOf="@id/pressure_icon"
             app:layout_constraintTop_toBottomOf="@id/pressure_icon"
@@ -232,7 +218,6 @@
             android:id="@+id/pressure_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
             app:layout_constraintRight_toRightOf="@id/pressure_icon"
             app:layout_constraintTop_toBottomOf="@id/pressure_details_value"

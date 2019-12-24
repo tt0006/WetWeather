@@ -105,8 +105,10 @@ public class PlacesActivity extends AppCompatActivity {
 
     private void setWeatherData(List<WeatherItem> weatherEntries){
 
+        if (weatherEntries.size() == 0) return;
+
         WeatherItem weatherForThisDay = weatherEntries.get(0);
-        if (weatherForThisDay.weatherType == 5){
+        if (weatherForThisDay.weatherType == 5 & weatherEntries.size() >1){
             weatherForThisDay = weatherEntries.get(1);
         }
 

@@ -1,14 +1,15 @@
 package com.example.wetweather.utils;
 
+import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.wetweather.WeatherRepository;
 import com.example.wetweather.WeatherWidget;
 import com.example.wetweather.prefs.WetWeatherPreferences;
-import com.example.wetweather.db.WeatherDB;
 import com.example.wetweather.db.WeatherItem;
 
 import org.json.JSONArray;
@@ -36,11 +37,11 @@ public final class NetworkUtils {
     private static final String UNITS_PARAM = "units";
 
     /**
-     * Processing method which combines multiple actios:
+     * Processing method which combines multiple actions:
      * make network request using getResponseFromHttpUrl method
      * parse response using extractJSONrequest method
-     * insert new data to db
-     * Return true if success or false if not
+     * insert new data to db using WeatherRepository class
+     * Return true if success or false if not (used for scheduled updates worker class)
      */
     public static boolean updateWeatherData(Context context){
 
@@ -57,16 +58,7 @@ public final class NetworkUtils {
 
             List<WeatherItem> weatherListArray = extractJSONrequest(jsonResponse);
 
-            WeatherDB db = WeatherDB.getInstance(context);
-            if (weatherListArray.size()>0) {
-                //delete all data in db
-                db.weatherDao().deleteAll();
-            } else
-                return false;
-
-            for (int i = 0; i < weatherListArray.size(); i++){
-                db.weatherDao().insertWeatherItem(weatherListArray.get(i));
-            }
+            WeatherRepository.getInstance(context).insertData(weatherListArray);
 
         } catch (Exception e) {
             /* Server probably invalid */

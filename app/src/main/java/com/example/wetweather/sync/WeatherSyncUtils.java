@@ -2,7 +2,6 @@ package com.example.wetweather.sync;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -21,17 +20,13 @@ public class WeatherSyncUtils {
         startImmediateSync(context);
     }
     /**
-     * Helper method to perform a sync immediately using an IntentService for asynchronous
+     * Helper method to perform a sync immediately using an JobIntentService for asynchronous
      * execution.
      *
-     * @param context The Context used to start the IntentService for the sync.
+     * @param context The Context used to start the JobIntentService for the sync.
      */
     public static void startImmediateSync(@NonNull final Context context) {
-        Intent intentToSyncImmediately = new Intent(context, WeatherSyncIntentService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            context.startForegroundService(intentToSyncImmediately);}
-        else {
-            context.startService(intentToSyncImmediately);
-        }
+        Intent intentToSyncImmediately = new Intent(context, WeatherSyncJobIntentService.class);
+        WeatherSyncJobIntentService.enqueueWork(context, intentToSyncImmediately);
     }
 }

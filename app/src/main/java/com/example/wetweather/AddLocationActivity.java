@@ -18,6 +18,7 @@ import android.os.ResultReceiver;
 import android.widget.Toast;
 
 import com.example.wetweather.prefs.WetWeatherPreferences;
+import com.example.wetweather.sync.WeatherSyncUtils;
 
 import java.util.ArrayList;
 
@@ -103,6 +104,8 @@ public class AddLocationActivity extends AppCompatActivity {
                 WetWeatherPreferences.setLatitudeLongitude(mCotext, lat, lng);
 
                 showResults(addressList);
+
+                WeatherSyncUtils.startImmediateSync(mCotext);
                 finish();
             }
         }
