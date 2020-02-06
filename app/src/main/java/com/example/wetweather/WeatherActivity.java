@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.prefs.WetWeatherPreferences;
+
 import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -25,6 +27,8 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
+        //set activity title using location name
+        setTitle(WetWeatherPreferences.getPreferencesLocationName(this));
 
         mRecyclerView = findViewById(R.id.recyclerview_forecast);
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);

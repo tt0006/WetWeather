@@ -91,6 +91,8 @@
 
     <string name="title_activity_detail">Details</string>
 
+    <string name="title_activity_locations">Places</string>
+
     <string name="title_activity_hourly">Hourly Forecast</string>
 
     <string name="title_activity_alerts">Weather alerts</string>

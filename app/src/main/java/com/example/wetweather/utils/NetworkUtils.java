@@ -1,6 +1,5 @@
 package com.example.wetweather.utils;
 
-import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,7 +28,7 @@ public final class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getName();
 
     private static final String FORECAST_BASE_URL = "https://api.darksky.net/forecast";
-    //KEY
+    //KEY. replace DEMO with actual api key.
     private static final String key = "DEMO";
     /* The format parameter allows us to designate whether we want JSON or XML from our API */
     private static final String LANG_PARAM = "lang";

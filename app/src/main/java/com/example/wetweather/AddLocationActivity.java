@@ -27,7 +27,7 @@ public class AddLocationActivity extends AppCompatActivity {
     private AddLocationActivity.AddressListResultReceiver addressResultReceiver;
     private EditText addressNameTv;
     private ListView addressListView;
-    private Context mCotext;
+    private Context mContext;
     private static final String TAG = AddLocationActivity.class.getSimpleName();
 
     @Override
@@ -38,7 +38,7 @@ public class AddLocationActivity extends AppCompatActivity {
         addressNameTv = findViewById(R.id.address_hint);
         addressListView = findViewById(R.id.addresses_lst);
         addressResultReceiver = new AddressListResultReceiver(new Handler());
-        mCotext = getApplicationContext();
+        mContext = getApplicationContext();
     }
 
     public void getAddressesByName(View view){
@@ -100,12 +100,12 @@ public class AddLocationActivity extends AppCompatActivity {
                 double lat = address.getLatitude();
                 double lng = address.getLongitude();
 
-                WetWeatherPreferences.updateLocationName(mCotext, address.getLocality());
-                WetWeatherPreferences.setLatitudeLongitude(mCotext, lat, lng);
+                WetWeatherPreferences.updateLocationName(mContext, address.getLocality());
+                WetWeatherPreferences.setLatitudeLongitude(mContext, lat, lng);
 
                 showResults(addressList);
 
-                WeatherSyncUtils.startImmediateSync(mCotext);
+                WeatherSyncUtils.startImmediateSync(mContext);
                 finish();
             }
         }

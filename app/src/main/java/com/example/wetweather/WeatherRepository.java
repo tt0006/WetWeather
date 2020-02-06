@@ -9,16 +9,21 @@ import com.example.wetweather.db.WeatherItem;
 
 import java.util.List;
 
+/**
+ * Helper class to deal with data needed for weather app
+ */
 public class WeatherRepository {
 
     private WeatherDao mDao;
-    private LiveData<List<WeatherItem>> mWeatherItemsList;
+    private LiveData<List<WeatherItem>> mMainWeatherList, mHourlyWeatherList, mAlertsList;
     private static WeatherRepository sInstance;
 
     private WeatherRepository(Context context){
         WeatherDB db = WeatherDB.getInstance(context);
         mDao = db.weatherDao();
-        mWeatherItemsList = mDao.loadMainWeather();
+        mMainWeatherList = mDao.loadMainWeather();
+        mHourlyWeatherList = mDao.loadHourlyWeather();
+        mAlertsList = mDao.loadAlerts();
     }
 
     public static WeatherRepository getInstance(final Context context) {
@@ -33,7 +38,15 @@ public class WeatherRepository {
     }
 
     LiveData<List<WeatherItem>> getMainWeather(){
-        return mWeatherItemsList;
+        return mMainWeatherList;
+    }
+
+    LiveData<List<WeatherItem>> getHourlyWeather(){
+        return mHourlyWeatherList;
+    }
+
+    LiveData<List<WeatherItem>> getAlerts(){
+        return mAlertsList;
     }
 
     public void insertData(List<WeatherItem> weatherListArray){
