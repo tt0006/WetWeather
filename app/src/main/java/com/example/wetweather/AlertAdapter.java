@@ -21,7 +21,7 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertAdapter
     private List<WeatherItem> mWeatherData;
 
     /**
-     * Creates a ForecastAdapter.
+     * Creates an AlertAdapter.
      */
     AlertAdapter(Context context) {
         mContext = context;

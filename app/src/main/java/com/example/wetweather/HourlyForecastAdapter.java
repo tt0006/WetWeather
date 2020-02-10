@@ -24,7 +24,7 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
 
 
     /**
-     * Creates a ForecastAdapter.
+     * Creates a LocationAdapter.
      */
     HourlyForecastAdapter(Context context) {
         mContext = context;

@@ -54,7 +54,7 @@ public class PlacesActivity extends AppCompatActivity {
         embended.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent showWeather = new Intent(PlacesActivity.this, WeatherActivity.class);
+                Intent showWeather = new Intent(PlacesActivity.this, LocationActivity.class);
                 startActivity(showWeather);
             }
         });
@@ -93,7 +93,7 @@ public class PlacesActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        LocationViewModel viewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {

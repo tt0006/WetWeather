@@ -14,12 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wetweather.db.WeatherItem;
-import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
 
-class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
+class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapterViewHolder> {
 
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
@@ -29,15 +28,15 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     private List<WeatherItem> mWeatherData;
 
     /**
-     * Creates a ForecastAdapter.
+     * Creates a LocationAdapter.
      */
-    ForecastAdapter(Context context) {
+    LocationAdapter(Context context) {
         mContext = context;
     }
 
     @NonNull
     @Override
-    public ForecastAdapter.ForecastAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LocationAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         int layoutId;
 
@@ -64,11 +63,11 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
         View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         view.setFocusable(true);
-        return new ForecastAdapterViewHolder(view);
+        return new LocationAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ForecastAdapter.ForecastAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LocationAdapterViewHolder holder, int position) {
 
         WeatherItem weatherForThisDay = mWeatherData.get(position);
         int viewType = getItemViewType(position);
@@ -214,7 +213,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
      * a cache of the child views for a forecast item.
      */
-    class ForecastAdapterViewHolder extends RecyclerView.ViewHolder {
+    class LocationAdapterViewHolder extends RecyclerView.ViewHolder {
         final ImageView iconView;
 
         final TextView dateView;
@@ -239,7 +238,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         final TextView dewPointValue;
         final TextView visibilityView;
 
-        ForecastAdapterViewHolder(View view) {
+        LocationAdapterViewHolder(View view) {
             super(view);
 
             iconView = view.findViewById(R.id.weather_icon);
@@ -290,7 +289,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
             // Change the state
             mWeatherForThisDay.setExpanded(!expanded);
             // Notify the adapter that item has changed
-            ForecastAdapter.this.notifyItemChanged(mPosition);
+            LocationAdapter.this.notifyItemChanged(mPosition);
 
         }
     }

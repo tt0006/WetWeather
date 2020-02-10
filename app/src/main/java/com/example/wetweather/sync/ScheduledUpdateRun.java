@@ -13,6 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ScheduledUpdateRun {
 
+    /**
+     * Method to create scheduled weather updates with provided update interval from preferences
+     * @param context
+     */
     public static void scheduleWeatherUpdate(Context context){
 
         String interval = WetWeatherPreferences.getPreferencesUpdateInterval(context);

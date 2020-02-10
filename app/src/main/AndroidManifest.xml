@@ -35,35 +35,35 @@
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".WeatherActivity"
+            android:parentActivityName=".LocationActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WeatherActivity" />
+                android:value=".LocationActivity" />
         </activity>
 
         <activity
             android:name=".HourlyForecastActivity"
             android:label="@string/title_activity_hourly"
-            android:parentActivityName=".WeatherActivity"
+            android:parentActivityName=".LocationActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WeatherActivity" />
+                android:value=".LocationActivity" />
         </activity>
 
         <activity
             android:name=".AlertActivity"
             android:label="@string/title_activity_alerts"
-            android:parentActivityName=".WeatherActivity"
+            android:parentActivityName=".LocationActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".WeatherActivity" />
+                android:value=".LocationActivity" />
         </activity>
 
         <activity
-            android:name=".WeatherActivity"
+            android:name=".LocationActivity"
             android:parentActivityName=".PlacesActivity"
             android:theme="@style/AppTheme">
             <meta-data

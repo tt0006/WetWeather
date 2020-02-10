@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
 
         final int position = intent.getIntExtra("POSITION", 0);
 
-        final MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        final LocationViewModel viewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {

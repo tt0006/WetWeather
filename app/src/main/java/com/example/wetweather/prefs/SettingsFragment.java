@@ -16,7 +16,7 @@ import com.example.wetweather.sync.WeatherSyncUtils;
 /**
  * The SettingsFragment serves as the display for all of the user's settings. the
  * user will be able to change their preference for units of measurement from metric to imperial,
- * set their preferred weather location
+ * rename weather location, set or change update interval, set weather language
  */
 public class SettingsFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener {

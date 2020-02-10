@@ -11,12 +11,11 @@ import java.util.List;
 public class AlertViewModel extends AndroidViewModel {
 
     private LiveData<List<WeatherItem>> mWeathers;
-    private WeatherRepository mRepository;
 
     public AlertViewModel(Application application) {
         super(application);
-        mRepository = WeatherRepository.getInstance(application.getApplicationContext());
-        mWeathers = mRepository.getAlerts();
+        WeatherRepository repository = WeatherRepository.getInstance(application.getApplicationContext());
+        mWeathers = repository.getAlerts();
     }
 
     public LiveData<List<WeatherItem>> getAlerts() {

@@ -15,11 +15,11 @@ import com.example.wetweather.prefs.WetWeatherPreferences;
 
 import java.util.List;
 
-public class WeatherActivity extends AppCompatActivity {
+public class LocationActivity extends AppCompatActivity {
 
-    private static final String TAG = WeatherActivity.class.getSimpleName();
+    private static final String TAG = LocationActivity.class.getSimpleName();
 
-    private ForecastAdapter mForecastAdapter;
+    private LocationAdapter mLocationAdapter;
     private RecyclerView mRecyclerView;
     private ProgressBar mLoadingIndicator;
 
@@ -40,10 +40,10 @@ public class WeatherActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mForecastAdapter = new ForecastAdapter(this);
+        mLocationAdapter = new LocationAdapter(this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
-        mRecyclerView.setAdapter(mForecastAdapter);
+        mRecyclerView.setAdapter(mLocationAdapter);
 
         showLoading();
 
@@ -51,12 +51,12 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        LocationViewModel viewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
-                mForecastAdapter.setWeatherData(weatherEntries);
+                mLocationAdapter.setWeatherData(weatherEntries);
                 showWeatherDataView();
             }
         });

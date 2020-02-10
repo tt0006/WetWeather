@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class AddLocationActivity extends AppCompatActivity {
 
     private AddLocationActivity.AddressListResultReceiver addressResultReceiver;
-    private EditText addressNameTv;
+    private EditText addressName;
     private ListView addressListView;
     private Context mContext;
     private static final String TAG = AddLocationActivity.class.getSimpleName();
@@ -35,14 +35,14 @@ public class AddLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_location);
 
-        addressNameTv = findViewById(R.id.address_hint);
+        addressName = findViewById(R.id.address_hint);
         addressListView = findViewById(R.id.addresses_lst);
         addressResultReceiver = new AddressListResultReceiver(new Handler());
         mContext = getApplicationContext();
     }
 
     public void getAddressesByName(View view){
-        getAddresses(addressNameTv.getText().toString());
+        getAddresses(addressName.getText().toString());
     }
 
     private void getAddresses(String addName) {
@@ -91,7 +91,6 @@ public class AddLocationActivity extends AppCompatActivity {
                 }
                 addressList[j] = TextUtils.join(System.getProperty("line.separator"),
                         addressInfo);
-                Log.d(TAG,addressList[j]);
                 j++;
             }
 

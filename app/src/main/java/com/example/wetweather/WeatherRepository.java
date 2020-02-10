@@ -10,7 +10,9 @@ import com.example.wetweather.db.WeatherItem;
 import java.util.List;
 
 /**
- * Helper class to deal with data needed for weather app
+ * Repository is a class that abstracts access to multiple data sources.
+ * Used for code separation and architecture. A Repository class handles data operations.
+ * It provides a clean API to the rest of the app for app data.
  */
 public class WeatherRepository {
 

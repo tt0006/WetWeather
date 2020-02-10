@@ -108,6 +108,13 @@ public class WetWeatherUtils {
     }
 
 
+    /**
+     * This method uses the weather description to determine its icon.
+     *
+     * @param weatherIcon weather description as per API documentation
+     *
+     * @return Weather icon
+     */
     public static int getResourceIconIdForWeatherCondition(String weatherIcon) {
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
 

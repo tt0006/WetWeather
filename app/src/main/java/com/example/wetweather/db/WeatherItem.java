@@ -4,10 +4,11 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
- * This class defines db structure
+ * Part of Room database, entity is an annotated class that describes a database table.
  */
 @Entity(tableName = "WeatherData")
 public class WeatherItem {
+    // fields represent table columns
     @PrimaryKey(autoGenerate = true)
     private int id;
     public int weatherType;
@@ -38,6 +39,9 @@ public class WeatherItem {
     private String temperature;
     private boolean expanded;
 
+    /**
+     * Constructor for currently weather, daily and hourly forecast objects.
+     */
     @Ignore
     public WeatherItem(int weatherType, long dateTimeMillis, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
@@ -110,6 +114,9 @@ public class WeatherItem {
         this.temperature = temperature;
     }
 
+    /**
+     * Constructor for info and alert summary objects
+     */
     @Ignore
     public WeatherItem(int weatherType, String summary, String icon){
         this.weatherType = weatherType;
@@ -117,6 +124,9 @@ public class WeatherItem {
         this.icon = icon;
     }
 
+    /**
+     * Constructor for alerts objects
+     */
     @Ignore
     public WeatherItem(int weatherType, String title, String severity, long time, long expires,
                        String description, String uri){
@@ -129,12 +139,11 @@ public class WeatherItem {
         this.precipType = uri;
     }
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+
+    // public getters and setters for fields
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public long getDateTimeMillis() {return dateTimeMillis;}
     public void setDateTimeMillis(long dateTimeMillis) {this.dateTimeMillis = dateTimeMillis;}

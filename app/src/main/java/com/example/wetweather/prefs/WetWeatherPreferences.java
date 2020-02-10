@@ -7,8 +7,18 @@ import android.util.Log;
 
 import com.example.wetweather.R;
 
+/**
+ * Helper class to read and set preferences for app
+ */
 public final class WetWeatherPreferences {
 
+    /**
+     * Returns the update interval currently set in Preferences. The default is 0, which means no
+     * need to automatically update weather
+     *
+     * @param context Context used to access SharedPreferences
+     * @return update interval as String
+     */
     public static String getPreferencesUpdateInterval(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -19,6 +29,13 @@ public final class WetWeatherPreferences {
         return preferredUpdateInterval;
     }
 
+    /**
+     * Returns the units currently set in Preferences. The default is "auto", which means server
+     * returns data in units default to location (based on latitude and longitude in request)
+     *
+     * @param context Context used to access SharedPreferences
+     * @return units as String
+     */
     public static String getPreferencesUnits(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -29,6 +46,13 @@ public final class WetWeatherPreferences {
         return preferredUnits;
     }
 
+    /**
+     * Returns the language currently set in Preferences. The default is "en" for English.
+     * Language is used as parameter in request for server to return result in specified language.
+     *
+     * @param context Context used to access SharedPreferences
+     * @return language as String
+     */
     public static String getPreferencesLanguage(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -38,6 +62,13 @@ public final class WetWeatherPreferences {
         return sp.getString(keyForLanguage, defaultLanguage);
     }
 
+    /**
+     * Returns the location name set in Preferences. The default is "Cork".
+     * Language is used as parameter in request for server to return result in specified language.
+     *
+     * @param context Context used to access SharedPreferences
+     * @return location as String
+     */
     public static String getPreferencesLocationName(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -47,6 +78,13 @@ public final class WetWeatherPreferences {
         return sp.getString(keyForLocation, defaultLocation);
     }
 
+    /**
+     * Returns latitude and longitude set in Preferences. The default is empty string "".
+     * Used as parameter in request for server to return result for specified location.
+     *
+     * @param context Context used to access SharedPreferences
+     * @return latitude and longitude as String
+     */
     public static String getPreferencesLatitudeLongitude(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -55,6 +93,12 @@ public final class WetWeatherPreferences {
         return sp.getString(keyForLatitude, "")+","+sp.getString(keyForLogitude, "");
     }
 
+    /**
+     * Update location name in Preferences. In case user wants to rename the location.
+     *
+     * @param context Context used to access SharedPreferences
+     * @param locName String with new name
+     */
     public static void updateLocationName(Context context, String locName){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
@@ -62,6 +106,13 @@ public final class WetWeatherPreferences {
         editor.apply();
     }
 
+    /**
+     * Set latitude and longitude in Preferences.
+     *
+     * @param context Context used to access SharedPreferences
+     * @param latitude double latitude value
+     * @param longitude double longitude value
+     */
     public static void setLatitudeLongitude(Context context, double latitude, double longitude){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();

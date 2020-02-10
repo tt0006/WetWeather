@@ -20,7 +20,7 @@ public class WeatherSyncUtils {
         startImmediateSync(context);
     }
     /**
-     * Helper method to perform a sync immediately using an JobIntentService for asynchronous
+     * Helper method to perform a sync immediately using a JobIntentService for asynchronous
      * execution.
      *
      * @param context The Context used to start the JobIntentService for the sync.
