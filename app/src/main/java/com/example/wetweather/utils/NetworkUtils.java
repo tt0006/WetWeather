@@ -30,7 +30,7 @@ public final class NetworkUtils {
     private static final String FORECAST_BASE_URL = "https://api.darksky.net/forecast";
     //KEY. replace DEMO with actual api key.
     private static final String key = "DEMO";
-    /* The format parameter allows us to designate whether we want JSON or XML from our API */
+    /* The language parameter allows us to choose language for response from our API */
     private static final String LANG_PARAM = "lang";
     /* The units parameter allows us to designate whether we want metric units or imperial units */
     private static final String UNITS_PARAM = "units";

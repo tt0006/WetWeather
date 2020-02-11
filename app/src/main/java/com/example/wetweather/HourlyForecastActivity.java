@@ -56,7 +56,6 @@ public class HourlyForecastActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 //viewModel.getHourlyWeather().removeObserver(this);
-                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mForecastAdapter.setWeatherData(weatherEntries);
                 showWeatherDataView();
             }

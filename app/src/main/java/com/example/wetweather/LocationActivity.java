@@ -55,7 +55,6 @@ public class LocationActivity extends AppCompatActivity {
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
-                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mLocationAdapter.setWeatherData(weatherEntries);
                 showWeatherDataView();
             }

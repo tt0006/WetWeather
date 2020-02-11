@@ -97,7 +97,6 @@ public class PlacesActivity extends AppCompatActivity {
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
-                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 setWeatherData(weatherEntries);
             }
         });
@@ -112,7 +111,6 @@ public class PlacesActivity extends AppCompatActivity {
             weatherForThisDay = weatherEntries.get(1);
         }
 
-        Log.i(TAG, weatherForThisDay.getSummary());
         int weatherImageId = WetWeatherUtils
                 .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
         dateView.setText(String.format("%1$s (%2$s)",
@@ -136,8 +134,8 @@ public class PlacesActivity extends AppCompatActivity {
     /**
      * This is where we inflate and set up the menu for this Activity
      *
-     * @param menu The options menu in which you place your items.
-     * @return You must return true for the menu to be displayed;
+     * @param menu The options menu in which we place our items.
+     * @return We must return true for the menu to be displayed;
      * if return false it will not be shown.
      */
     @Override
@@ -154,7 +152,7 @@ public class PlacesActivity extends AppCompatActivity {
      * Callback invoked when a menu item was selected from this Activity's menu
      *
      * @param item The menu item that was selected by the user
-     * @return true if you handle the menu click here, false otherwise
+     * @return true if we handle the menu click here, false otherwise
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

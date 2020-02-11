@@ -27,7 +27,7 @@ public class WeatherWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        //Define intent to start main activity from widget
+        //Define intent to start location activity from widget
         Intent startMainActivityIntent = new Intent(context, LocationActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, startMainActivityIntent, 0);
 

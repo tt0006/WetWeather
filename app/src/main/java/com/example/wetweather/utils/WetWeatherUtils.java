@@ -2,11 +2,16 @@ package com.example.wetweather.utils;
 
 import android.content.Context;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.example.wetweather.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 public class WetWeatherUtils {
@@ -154,13 +159,17 @@ public class WetWeatherUtils {
 
     public static String getDayName(Context context, long dateInSeconds) {
         /*
-         * If the date is today, return the localized version of "Today" instead of the actual
-         * day name.
+         * If the date is today or tomorrow, return the localized version of "Today" or "Tomorrow"
+         * instead of the actual day name.
          */
         long dateInMillis = dateInSeconds*1000L;
 
-        if (DateUtils.isToday(dateInMillis)) {
+        LocalDate day = LocalDateTime.ofEpochSecond(dateInSeconds, 0, ZoneOffset.UTC).toLocalDate();
+        LocalDate today = LocalDate.now();
+        if (day.isEqual(today)){
             return context.getString(R.string.today);
+        } else if(day.isEqual(today.plusDays(1))){
+            return context.getString(R.string.tomorrow);
         }else{
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE, LLLL d");
             return dayFormat.format(dateInMillis);

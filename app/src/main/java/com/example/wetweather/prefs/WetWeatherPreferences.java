@@ -64,7 +64,7 @@ public final class WetWeatherPreferences {
 
     /**
      * Returns the location name set in Preferences. The default is "Cork".
-     * Language is used as parameter in request for server to return result in specified language.
+     * Location ame is displayed in app and widget
      *
      * @param context Context used to access SharedPreferences
      * @return location as String
