@@ -45,8 +45,8 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertAdapter
         holder.descriptionView.setText(alertItem.getSummary().trim());
 
         String alertTime = String.format("Starts: %1$s, Ends: %2$s",
-                WetWeatherUtils.getHourWithDay(mContext, alertItem.getAlertStartTime()),
-                WetWeatherUtils.getHourWithDay(mContext, alertItem.getAlertEntTime()));
+                WetWeatherUtils.getHourWithDay(alertItem.getAlertStartTime()),
+                WetWeatherUtils.getHourWithDay(alertItem.getAlertEntTime()));
         holder.alertTime.setText(alertTime);
 
     }

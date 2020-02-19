@@ -14,6 +14,7 @@ import com.example.wetweather.db.WeatherItem;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -37,17 +38,18 @@ public final class NetworkUtils {
 
     /**
      * Processing method which combines multiple actions:
-     * make network request using getResponseFromHttpUrl method
-     * parse response using extractJSONrequest method
-     * insert new data to db using WeatherRepository class
-     * Return true if success or false if not (used for scheduled updates worker class)
+     * make network request using getResponseFromHttpUrl method, parse response using
+     * extractJSONresponse method amd insert new data to db using WeatherRepository class.
+     *
+     * @param context Android Context to access utility methods and Shared Preferences
+     * @return true if success or false if not (used for scheduled updates worker class)
      */
-    public static boolean updateWeatherData(Context context){
+    synchronized public static boolean updateWeatherData(Context context) {
 
         String coordinates = WetWeatherPreferences.getPreferencesLatitudeLongitude(context);
         URL requestUrl = buildUrlWithLatitudeLongitude(context, coordinates);
 
-        if (requestUrl == null){
+        if (requestUrl == null) {
             return false;
         }
 
@@ -55,7 +57,7 @@ public final class NetworkUtils {
 
             String jsonResponse = getResponseFromHttpUrl(requestUrl);
 
-            List<WeatherItem> weatherListArray = extractJSONrequest(jsonResponse);
+            List<WeatherItem> weatherListArray = extractJSONresponse(jsonResponse);
 
             WeatherRepository.getInstance(context).insertData(weatherListArray);
 
@@ -70,48 +72,54 @@ public final class NetworkUtils {
 
 
     /**
-     * Return an {@link WeatherItem} array that has been built up from
-     * parsing a JSON response.
+     * Helper method to parse jsonResponse
+     *
+     * @param jsonResponse Whole response from server as Strings
+     * @return an {@link WeatherItem} array that has been built up from parsing a JSON response.
      */
-    private static List<WeatherItem> extractJSONrequest(String jsonRequest) {
-        // weather types:
-        // 1 - currently
-        // 2 - hourly
-        // 3 - daily
-        // 4 - alerts array
-        // 5 - alerts summary
-        // 6 - info daily
-        // 7 - info hourly
-        // 8 - info minutely
+    private static List<WeatherItem> extractJSONresponse(String jsonResponse) {
+        /*
+        weather types:
+        1 - currently
+        2 - hourly
+        3 - daily
+        4 - alerts array
+        5 - alerts summary
+        6 - info daily
+        7 - info hourly
+        8 - info minutely
+         */
 
         List<WeatherItem> weatherListArray = new ArrayList<>();
         try {
 
-            JSONObject root = new JSONObject(jsonRequest);
+            JSONObject root = new JSONObject(jsonResponse);
 
-            if (root.has("alerts")){
+            if (root.has("alerts")) {
                 JSONArray alerts = root.getJSONArray("alerts");
                 weatherListArray.add(extractAlertSummary(alerts, 5));
-                for (int i=0; i<alerts.length(); i++) {
+                for (int i = 0; i < alerts.length(); i++) {
                     JSONObject item = alerts.getJSONObject(i);
                     weatherListArray.add(extractAlerts(item, 4));
                 }
             }
 
-            if (root.has("currently")){
+            if (root.has("currently")) {
                 JSONObject currently = root.getJSONObject("currently");
-                weatherListArray.add(extractSingleItem(currently, 1));}
+                weatherListArray.add(extractSingleItem(currently, 1));
+            }
 
-            if (root.has("minutely")){
+            if (root.has("minutely")) {
                 JSONObject minutelyInfo = root.getJSONObject("minutely");
-                weatherListArray.add(extractInfo(minutelyInfo, 8));}
+                weatherListArray.add(extractInfo(minutelyInfo, 8));
+            }
 
-            if (root.has("hourly")){
+            if (root.has("hourly")) {
                 JSONObject hourlyInfo = root.getJSONObject("hourly");
                 weatherListArray.add(extractInfo(hourlyInfo, 7));
 
                 JSONArray hourlyWeatherArray = hourlyInfo.getJSONArray("data");
-                for (int i=0; i<24; i++) {
+                for (int i = 0; i < 24; i++) {
                     JSONObject item = hourlyWeatherArray.getJSONObject(i);
                     weatherListArray.add(extractSingleItem(item, 2));
                 }
@@ -134,7 +142,14 @@ public final class NetworkUtils {
         return weatherListArray;
     }
 
-    private static WeatherItem extractSingleItem(JSONObject item, int weatherType){
+    /**
+     * This method extracts data from single JSONObject
+     *
+     * @param item        JSONObject to extract data from
+     * @param weatherType value to determine type of the weather data
+     * @return an {@link WeatherItem} object that has been built up from extracted data
+     */
+    private static WeatherItem extractSingleItem(JSONObject item, int weatherType) {
         long time;
         String summary;
         String icon;
@@ -195,7 +210,14 @@ public final class NetworkUtils {
 
     }
 
-    private static WeatherItem extractInfo(JSONObject item, int weatherType){
+    /**
+     * This method extracts data from JSON info section
+     *
+     * @param item        JSONObject to extract info from
+     * @param weatherType value to determine type of the weather data
+     * @return an {@link WeatherItem} object that has been built up from extracted data
+     */
+    private static WeatherItem extractInfo(JSONObject item, int weatherType) {
         String summary;
         String icon;
 
@@ -205,12 +227,20 @@ public final class NetworkUtils {
         return new WeatherItem(weatherType, summary, icon);
     }
 
+    /**
+     * This method extracts alert summary from JSONArray alerts
+     *
+     * @param alerts      JSONArray to extract info from
+     * @param weatherType value to determine type of the weather data
+     * @return an {@link WeatherItem} object that has been built up from extracted data
+     * @throws JSONException in case extractig fails
+     */
     private static WeatherItem extractAlertSummary(JSONArray alerts, int weatherType) throws JSONException {
 
         int count = alerts.length();
 
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<count; i++){
+        for (int i = 0; i < count; i++) {
             JSONObject item = alerts.getJSONObject(i);
             sb.append(item.optString("title"));
             sb.append("; ");
@@ -218,7 +248,14 @@ public final class NetworkUtils {
         return new WeatherItem(weatherType, sb.toString(), String.valueOf(count));
     }
 
-    private static WeatherItem extractAlerts(JSONObject item, int weatherType){
+    /**
+     * This method extracts data from JSON alerts section
+     *
+     * @param item        JSONObject to extract info from
+     * @param weatherType value to determine type of the weather data
+     * @return an {@link WeatherItem} object that has been built up from extracted data
+     */
+    private static WeatherItem extractAlerts(JSONObject item, int weatherType) {
         String title;
         String severity;
         long time;
@@ -240,6 +277,7 @@ public final class NetworkUtils {
      * Builds the URL used to talk to the weather server using latitude and longitude of a
      * location.
      *
+     * @param context     Android context to access Shared Preferences
      * @param coordinates The latitude ad longitude of the location
      * @return The Url to use to query the weather server.
      */
@@ -288,8 +326,12 @@ public final class NetworkUtils {
         }
     }
 
-    //Helper method to update widgets
-    private static void updateAllWidgets(Context context){
+    /**
+     * Helper method to update app widgets
+     *
+     * @param context Android Context to access system resources and utility methods
+     */
+    private static void updateAllWidgets(Context context) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
         if (appWidgetIds.length > 0) {

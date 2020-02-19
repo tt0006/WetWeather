@@ -21,6 +21,7 @@ public abstract class WeatherDB extends RoomDatabase {
 
     // WeatherDB as a singleton to prevent multiple instances of database opened at the same time
     private static WeatherDB sInstance;
+
     public static WeatherDB getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {

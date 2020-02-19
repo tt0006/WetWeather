@@ -3,6 +3,7 @@ package com.example.wetweather.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -16,7 +17,7 @@ import com.example.wetweather.sync.WeatherSyncUtils;
 /**
  * The SettingsFragment serves as the display for all of the user's settings. the
  * user will be able to change their preference for units of measurement from metric to imperial,
- * rename weather location, set or change update interval, set weather language
+ * rename weather location, set or change update interval, set weather language, etc.
  */
 public class SettingsFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -84,10 +85,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             // units have changed
             WeatherSyncUtils.startImmediateSync(context);
 
-        } else if (key.equals(getString(R.string.pref_update_interval_key))){
+        } else if (key.equals(getString(R.string.pref_update_interval_key))) {
             //update interval changed
             ScheduledUpdateRun.scheduleWeatherUpdate(context);
-        } else if (key.equals(getString(R.string.pref_language_key))){
+        } else if (key.equals(getString(R.string.pref_language_key))) {
             //language changed
             WeatherSyncUtils.startImmediateSync(context);
         }

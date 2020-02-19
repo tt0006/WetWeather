@@ -11,24 +11,28 @@ import com.example.wetweather.prefs.WetWeatherPreferences;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Helper class to Run Scheduled updates periodically
+ */
 public class ScheduledUpdateRun {
 
     /**
      * Method to create scheduled weather updates with provided update interval from preferences
-     * @param context
+     *
+     * @param context Android Context to use with utility methods and access preferences
      */
-    public static void scheduleWeatherUpdate(Context context){
+    public static void scheduleWeatherUpdate(Context context) {
 
         String interval = WetWeatherPreferences.getPreferencesUpdateInterval(context);
         int repeatInterval;
 
         try {
             repeatInterval = Integer.parseInt(interval);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             repeatInterval = 0;
         }
 
-        if (repeatInterval == 0){
+        if (repeatInterval == 0) { // Cancel update if user select so inn preferences
             WorkManager.getInstance(context).cancelAllWork();
         } else {
 

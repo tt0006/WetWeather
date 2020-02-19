@@ -1,4 +1,5 @@
 package com.example.wetweather.db;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -49,7 +50,7 @@ public class WeatherItem {
                        String windGust, int windDirection, String moonPhase, String dewPoint,
                        double cloudCover, String uvIndex, double visibility, double ozone,
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
-                       String apparentTemperatureLow, String apparentTemperature, String temperature){
+                       String apparentTemperatureLow, String apparentTemperature, String temperature) {
         this.weatherType = weatherType;
         this.dateTimeMillis = dateTimeMillis;
         this.summary = summary;
@@ -60,7 +61,7 @@ public class WeatherItem {
         this.precipProbability = precipProbability;
         this.precipType = precipType;
         this.sunriseTime = sunriseTime;
-        this.sunsetTime=sunsetTime;
+        this.sunsetTime = sunsetTime;
         this.windSpeed = windSpeed;
         this.windGust = windGust;
         this.windDirection = windDirection;
@@ -84,7 +85,7 @@ public class WeatherItem {
                        String windGust, int windDirection, String moonPhase, String dewPoint,
                        double cloudCover, String uvIndex, double visibility, double ozone,
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
-                       String apparentTemperatureLow, String apparentTemperature, String temperature){
+                       String apparentTemperatureLow, String apparentTemperature, String temperature) {
         this.id = id;
         this.weatherType = weatherType;
         this.dateTimeMillis = dateTimeMillis;
@@ -96,7 +97,7 @@ public class WeatherItem {
         this.precipProbability = precipProbability;
         this.precipType = precipType;
         this.sunriseTime = sunriseTime;
-        this.sunsetTime= sunsetTime;
+        this.sunsetTime = sunsetTime;
         this.windSpeed = windSpeed;
         this.windGust = windGust;
         this.windDirection = windDirection;
@@ -118,7 +119,7 @@ public class WeatherItem {
      * Constructor for info and alert summary objects
      */
     @Ignore
-    public WeatherItem(int weatherType, String summary, String icon){
+    public WeatherItem(int weatherType, String summary, String icon) {
         this.weatherType = weatherType;
         this.summary = summary;
         this.icon = icon;
@@ -129,7 +130,7 @@ public class WeatherItem {
      */
     @Ignore
     public WeatherItem(int weatherType, String title, String severity, long time, long expires,
-                       String description, String uri){
+                       String description, String uri) {
         this.weatherType = weatherType;
         this.dewPoint = title;
         this.moonPhase = severity;
@@ -142,52 +143,135 @@ public class WeatherItem {
 
     // public getters and setters for fields
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public long getDateTimeMillis() {return dateTimeMillis;}
-    public void setDateTimeMillis(long dateTimeMillis) {this.dateTimeMillis = dateTimeMillis;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public long getAlertStartTime() {return  dateTimeMillis;}
-    public long getAlertEntTime() {return sunriseTime;}
-    public String getAlertTitle() {return dewPoint;}
+    public long getDateTimeMillis() {
+        return dateTimeMillis;
+    }
 
-    public String getSummary() {return summary;}
-    public void setSummary(String summary) {this.summary = summary;}
+    public void setDateTimeMillis(long dateTimeMillis) {
+        this.dateTimeMillis = dateTimeMillis;
+    }
 
-    public String getIcon() {return icon;}
-    public void setIcon(String icon) {this.icon = icon;}
+    public long getAlertStartTime() {
+        return dateTimeMillis;
+    }
 
-    public double getPressure() {return pressure;}
-    public void setPressure(double pressure) {this.pressure = pressure;}
+    public long getAlertEntTime() {
+        return sunriseTime;
+    }
 
-    public double getHumidity() {return humidity;}
-    public void setHumidity(double humidity){this.humidity = humidity;}
+    public String getAlertTitle() {
+        return dewPoint;
+    }
 
-    public double getPrecipIntensity() {return precipIntensity;}
-    public void setPrecipIntensity(double precipIntensity){this.precipIntensity = precipIntensity;}
+    public String getSummary() {
+        return summary;
+    }
 
-    public double getPrecipProbability() {return precipProbability;}
-    public void setPrecipProbability(double precipProbability){this.precipProbability = precipProbability;}
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
-    public String getPrecipType(){return precipType;}
-    public void  setPrecipType(String precipType){this.precipType = precipType;}
+    public String getIcon() {
+        return icon;
+    }
 
-    public long getSunriseTime(){return sunriseTime;}
-    public void setSunriseTime(long sunriseTime){this.sunriseTime = sunriseTime;}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-    public long getSunsetTime(){return sunsetTime;}
-    public void setSunsetTime(long sunsetTime){this.sunsetTime = sunsetTime;}
+    public double getPressure() {
+        return pressure;
+    }
 
-    public double getWindSpeed() {return windSpeed;}
-    public void setWindSpeed(double windSpeed) {this.windSpeed = windSpeed;}
+    public void setPressure(double pressure) {
+        this.pressure = pressure;
+    }
 
-    public int getWindDirection() {return windDirection;}
-    public void setWindDirection(int windDirection){this.windDirection = windDirection;}
+    public double getHumidity() {
+        return humidity;
+    }
 
-    public String getTemperature() {return temperature;}
-    public void setTemperature(String temperature){this.temperature = temperature;}
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
 
-    public boolean isExpanded() {return expanded;}
-    public void setExpanded(boolean state){ this.expanded = state; }
+    public double getPrecipIntensity() {
+        return precipIntensity;
+    }
+
+    public void setPrecipIntensity(double precipIntensity) {
+        this.precipIntensity = precipIntensity;
+    }
+
+    public double getPrecipProbability() {
+        return precipProbability;
+    }
+
+    public void setPrecipProbability(double precipProbability) {
+        this.precipProbability = precipProbability;
+    }
+
+    public String getPrecipType() {
+        return precipType;
+    }
+
+    public void setPrecipType(String precipType) {
+        this.precipType = precipType;
+    }
+
+    public long getSunriseTime() {
+        return sunriseTime;
+    }
+
+    public void setSunriseTime(long sunriseTime) {
+        this.sunriseTime = sunriseTime;
+    }
+
+    public long getSunsetTime() {
+        return sunsetTime;
+    }
+
+    public void setSunsetTime(long sunsetTime) {
+        this.sunsetTime = sunsetTime;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public int getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(int windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean state) {
+        this.expanded = state;
+    }
 }

@@ -19,7 +19,7 @@ public final class WetWeatherPreferences {
      * @param context Context used to access SharedPreferences
      * @return update interval as String
      */
-    public static String getPreferencesUpdateInterval(Context context){
+    public static String getPreferencesUpdateInterval(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         String keyForUpdateInterval = context.getString(R.string.pref_update_interval_key);
@@ -36,7 +36,7 @@ public final class WetWeatherPreferences {
      * @param context Context used to access SharedPreferences
      * @return units as String
      */
-    public static String getPreferencesUnits(Context context){
+    public static String getPreferencesUnits(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         String keyForUnits = context.getString(R.string.pref_units_key);
@@ -53,7 +53,7 @@ public final class WetWeatherPreferences {
      * @param context Context used to access SharedPreferences
      * @return language as String
      */
-    public static String getPreferencesLanguage(Context context){
+    public static String getPreferencesLanguage(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         String keyForLanguage = context.getString(R.string.pref_language_key);
@@ -64,12 +64,12 @@ public final class WetWeatherPreferences {
 
     /**
      * Returns the location name set in Preferences. The default is "Cork".
-     * Location ame is displayed in app and widget
+     * Location name is displayed in app and widget
      *
      * @param context Context used to access SharedPreferences
      * @return location as String
      */
-    public static String getPreferencesLocationName(Context context){
+    public static String getPreferencesLocationName(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         String keyForLocation = context.getString(R.string.pref_location_key);
@@ -85,12 +85,12 @@ public final class WetWeatherPreferences {
      * @param context Context used to access SharedPreferences
      * @return latitude and longitude as String
      */
-    public static String getPreferencesLatitudeLongitude(Context context){
+    public static String getPreferencesLatitudeLongitude(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         String keyForLatitude = context.getString(R.string.pref_latitude_key);
         String keyForLogitude = context.getString(R.string.pref_longitude_key);
-        return sp.getString(keyForLatitude, "")+","+sp.getString(keyForLogitude, "");
+        return sp.getString(keyForLatitude, "") + "," + sp.getString(keyForLogitude, "");
     }
 
     /**
@@ -99,7 +99,7 @@ public final class WetWeatherPreferences {
      * @param context Context used to access SharedPreferences
      * @param locName String with new name
      */
-    public static void updateLocationName(Context context, String locName){
+    public static void updateLocationName(Context context, String locName) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(context.getString(R.string.pref_location_key), locName);
@@ -109,11 +109,11 @@ public final class WetWeatherPreferences {
     /**
      * Set latitude and longitude in Preferences.
      *
-     * @param context Context used to access SharedPreferences
-     * @param latitude double latitude value
+     * @param context   Context used to access SharedPreferences
+     * @param latitude  double latitude value
      * @param longitude double longitude value
      */
-    public static void setLatitudeLongitude(Context context, double latitude, double longitude){
+    public static void setLatitudeLongitude(Context context, double latitude, double longitude) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(context.getString(R.string.pref_latitude_key), String.valueOf(latitude));
