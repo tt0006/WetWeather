@@ -14,5 +14,7 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
 
+    <color name="activity_background">#666ad1</color>
+
     <color name="warning_color">#d50000</color>
 </resources>

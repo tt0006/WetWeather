@@ -158,11 +158,11 @@
 
     <string name="dew_point_label">Dew point</string>
 
-    <!-- Wind in mph -->
-    <string name="format_wind_mph">
-        <xliff:g id="speed">%1$1.0f</xliff:g> mph
-        <xliff:g id="direction">%2$s</xliff:g>
-    </string>
+    <string name="feels_like_label">Feels like:</string>
+
+    <string name="change_location_button_label">Change location</string>
+
+    <string name="search_button_label">Search</string>
 
     <string name="pressure_label">Pressure</string>
     <!-- Pressure format -->
@@ -181,5 +181,5 @@
     </string>
 
     <string name="add_widget">Add widget</string>
-    <string name="title_activity_places">PlacesActivity</string>
+
 </resources>

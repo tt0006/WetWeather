@@ -3,11 +3,15 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#303f9f</item>
+        <item name="colorPrimaryDark">#001970</item>
+        <item name="colorAccent">#ff8f00</item>
         <!-- Used for settings preference theme -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:navigationBarColor">#001970</item>
+
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:windowBackground">@color/activity_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

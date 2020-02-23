@@ -19,13 +19,16 @@ import java.util.List;
 /**
  * Implementation of App Widget functionality.
  */
-public class WeatherWidget extends AppWidgetProvider {
+public class WeatherWidget4x1 extends AppWidgetProvider {
 
     private static WeatherItem weatherData;
     private static final String UPDATE_CLICKED = "com.example.wetweather.widgetUpdateIconClick";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+
+        // Construct the RemoteViews object
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.weather_widget4x1);
 
         //Define intent to start location activity from widget
         Intent startMainActivityIntent = new Intent(context, LocationActivity.class);
@@ -35,35 +38,33 @@ public class WeatherWidget extends AppWidgetProvider {
         Intent startSyncIntent = new Intent(context, WeatherWidget.class);
         startSyncIntent.setAction(UPDATE_CLICKED);
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
-        remoteViews.setOnClickPendingIntent(R.id.widget_weather_icon, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.weather_icon, pendingIntent);
 
         remoteViews.setOnClickPendingIntent(R.id.widget_update_icon, PendingIntent.getBroadcast(context, 0, startSyncIntent, 0));
 
-        remoteViews.setTextViewText(R.id.widget_location, String.format("%1$s %2$s",
+        remoteViews.setTextViewText(R.id.location, String.format("%1$s %2$s",
                 WetWeatherPreferences.getPreferencesLocationName(context),
                 WetWeatherUtils.formatTemperature(context, weatherData.getTemperature())));
 
-        remoteViews.setTextViewText(R.id.widget_weather_description, weatherData.getSummary());
+        remoteViews.setTextViewText(R.id.weather_description, weatherData.getSummary());
 
-        remoteViews.setTextViewText(R.id.widget_temperature,
-                String.format("%1$s %2$s",
-                        context.getString(R.string.hourly_rain_prob_label),
-                        context.getString(R.string.format_percent_value,
-                                weatherData.getPrecipProbability()*100)));
+        remoteViews.setTextViewText(R.id.percip_prob, String.format("%1$s %2$s",
+                context.getString(R.string.hourly_rain_prob_label),
+                context.getString(R.string.format_percent_value,
+                        weatherData.getPrecipProbability()*100)));
+        remoteViews.setTextViewText(R.id.feels_like, String.format("%1$s %2$s", context.getString(R.string.feels_like_label),
+                WetWeatherUtils.formatTemperature(context, weatherData.apparentTemperature)));
+        remoteViews.setImageViewResource(R.id.weather_icon, WetWeatherUtils.getResourceIconIdForWeatherCondition(weatherData.getIcon()));
+        remoteViews.setTextViewText(R.id.widget_updated_at, WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeMillis()));
 
-        remoteViews.setImageViewResource(R.id.widget_weather_icon,
-                WetWeatherUtils.getResourceIconIdForWeatherCondition(weatherData.getIcon()));
 
-        remoteViews.setTextViewText(R.id.widget_updated_at,
-                WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeMillis()));
-
+        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
-
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // There may be multiple widgets active, so update all of them
         loadWeatherFromDB(context, appWidgetManager, appWidgetIds);
     }
 
@@ -92,22 +93,22 @@ public class WeatherWidget extends AppWidgetProvider {
                                           final int[] appWidgetIds){
 
         new AsyncTask<Context, Void, List<WeatherItem>>(){
-        @Override
-        protected List<WeatherItem> doInBackground(Context... context) {
+            @Override
+            protected List<WeatherItem> doInBackground(Context... context) {
 
-            WeatherDB db = WeatherDB.getInstance(context[0]);
-            return db.weatherDao().loadCurrentWeather();
-        }
-
-        @Override
-        protected void onPostExecute(List<WeatherItem> list) {
-            super.onPostExecute(list);
-            weatherData = list.get(0);
-            for (int appWidgetId : appWidgetIds) {
-                updateAppWidget(context, appWidgetManager, appWidgetId);
+                WeatherDB db = WeatherDB.getInstance(context[0]);
+                return db.weatherDao().loadCurrentWeather();
             }
-        }
-    }.execute(context);
+
+            @Override
+            protected void onPostExecute(List<WeatherItem> list) {
+                super.onPostExecute(list);
+                weatherData = list.get(0);
+                for (int appWidgetId : appWidgetIds) {
+                    updateAppWidget(context, appWidgetManager, appWidgetId);
+                }
+            }
+        }.execute(context);
     }
 }
 

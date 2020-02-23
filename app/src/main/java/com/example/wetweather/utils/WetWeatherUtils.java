@@ -187,7 +187,7 @@ public class WetWeatherUtils {
         }
 
         // return formatted date by default
-        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE, LLLL d");
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE, d MMMM");
         return dayFormat.format(dateInMilliSeconds);
 
     }

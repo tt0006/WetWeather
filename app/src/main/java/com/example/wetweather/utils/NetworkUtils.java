@@ -10,6 +10,7 @@ import com.example.wetweather.WeatherRepository;
 import com.example.wetweather.WeatherWidget;
 import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.WeatherWidget4x1;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -337,5 +338,11 @@ public final class NetworkUtils {
         if (appWidgetIds.length > 0) {
             new WeatherWidget().onUpdate(context, appWidgetManager, appWidgetIds);
         }
+
+        int[] appWidgetIds4x1 = appWidgetManager.getAppWidgetIds(new ComponentName(context, WeatherWidget4x1.class));
+        if (appWidgetIds4x1.length > 0) {
+            new WeatherWidget4x1().onUpdate(context, appWidgetManager, appWidgetIds4x1);
+        }
+
     }
 }

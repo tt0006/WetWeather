@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+
+            tools:src="@drawable/ic_cloudy_vector" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/weather_icon"
+            android:layout_toEndOf="@id/weather_icon"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            tools:text="Cork 9" />
+
+        <TextView
+            android:id="@+id/feels_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/white"
+            tools:text="Feels like: 5" />
+
+        <TextView
+            android:id="@+id/weather_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location"
+            android:layout_toLeftOf="@id/percip_prob"
+            android:layout_toStartOf="@id/percip_prob"
+            android:layout_toRightOf="@id/weather_icon"
+            android:layout_toEndOf="@id/weather_icon"
+            android:singleLine="false"
+            android:textColor="@color/white"
+            tools:text="Невелика хмарність протягом всього дня." />
+
+        <TextView
+            android:id="@+id/percip_prob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            tools:text="Rain: 20%" />
+
+        <ImageView
+            android:id="@+id/widget_update_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_below="@id/weather_description"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:src="@drawable/ic_refresh_icon" />
+
+        <TextView
+            android:id="@+id/widget_updated_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weather_description"
+            android:layout_toLeftOf="@id/widget_update_icon"
+            android:layout_toStartOf="@id/widget_update_icon"
+            android:textColor="@color/white"
+            tools:text="Updated: 21:09" />
+
+    </RelativeLayout>
+
+</LinearLayout>

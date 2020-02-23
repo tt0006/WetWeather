@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+    <string name="app_name">Wet Weather</string>
+    <string name="wind_label">Вітер</string>
+    <string name="visibility_label">Видимість</string>
+    <string name="uvindex_label">УФ індекс</string>
+    <string name="updated_at_text">Оновлено:</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="today">Сьогодні</string>
+    <string name="title_activity_locations">Місця</string>
+    <string name="title_activity_hourly">Погодинний прогноз</string>
+    <string name="title_activity_detail">Деталі</string>
+    <string name="title_activity_alerts">Складні умови</string>
+    <string name="sunset_label">Захід</string>
+    <string name="sunrise_label">Схід</string>
+    <string name="speed_ms_label">м/с</string>
+    <string name="pressure_label">Тиск</string>
+    <string name="pref_update_interval_label">Частота оновлення</string>
+    <string name="pref_update_interval_disabled">Вимкнено</string>
+    <string name="pref_update_interval_6_hours">6 годин</string>
+    <string name="pref_update_interval_4_hours">4 години</string>
+    <string name="pref_update_interval_2_hours">2 години</string>
+    <string name="pref_update_interval_1_hour">1 година</string>
+    <string name="pref_units_label_metric">Метричні</string>
+    <string name="pref_units_label_imperial">Імперські</string>
+    <string name="pref_units_label_auto">Автоматично</string>
+    <string name="pref_units_label">Одиниці</string>
+    <string name="pref_location_label">Локація</string>
+    <string name="pref_language_uk_label">Українська</string>
+    <string name="pref_language_title">Мова</string>
+    <string name="pref_language_en_label">Англійська</string>
+    <string name="percip_prob_label">Вірогідність опадів</string>
+    <string name="percip_inten_label">Інтенсивність опадів</string>
+    <string name="not_available_text">Немає</string>
+    <string name="next_hour_label">Наступної години</string>
+    <string name="next_7_days_label">Наступного тижня</string>
+    <string name="next_24_hours_label">Наступної доби</string>
+    <string name="network_not_available">Немає інтернету</string>
+    <string name="humidity_label">Вологість</string>
+    <string name="hourly_rain_prob_label">Опади:</string>
+    <string name="feels_like_label">Відчуття на:</string>
+    <string name="dew_point_label">Точка роси</string>
+    <string name="cloud_details_label">Хмари</string>
+    <string name="alerts_label">Попередження:</string>
+    <string name="action_settings">Параметри</string>
+    <string name="add_widget">Додати віджет</string>
+    <string name="cloud_cover_label">Хмари</string>
+    <string name="format_percip_intens"><xliff:g id="precip">%1$.2f</xliff:g> мм</string>
+    <string name="format_pressure"><xliff:g id="pressure">%1.0f</xliff:g> ГПа</string>
+    <string name="format_visibility"><xliff:g id="visibility">%1$.3f</xliff:g> км</string>
+    <string name="format_wind_ms">
+        <xliff:g id="speed">%1$1.0f</xliff:g> м/с
+        <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="format_wind_speed"><xliff:g id="speed">%1$1.0f</xliff:g> м/с</string>
+    <string name="change_location_button_label">Змінити локацію</string>
+    <string name="search_button_label">Знайти</string>
+</resources>

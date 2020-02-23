@@ -34,7 +34,7 @@ public class PlacesActivity extends AppCompatActivity {
     private static final String TAG = PlacesActivity.class.getSimpleName();
     private Context mActivityContext;
     ImageView iconView;
-    TextView dateView, descriptionView, highTempView, lowTempView;
+    TextView locationView, descriptionView, updated, feelsLike, percipProb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +60,11 @@ public class PlacesActivity extends AppCompatActivity {
         });
 
         iconView = findViewById(R.id.weather_icon);
-        dateView = findViewById(R.id.date);
+        locationView = findViewById(R.id.location);
+        feelsLike = findViewById(R.id.feels_like);
         descriptionView = findViewById(R.id.weather_description);
-        highTempView = findViewById(R.id.high_temperature);
-        lowTempView = findViewById(R.id.low_temperature);
+        percipProb = findViewById(R.id.percip_prob);
+        updated = findViewById(R.id.widget_updated_at);
         mActivityContext = this;
         final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swipeToRefresh);
 
@@ -113,11 +114,15 @@ public class PlacesActivity extends AppCompatActivity {
 
         int weatherImageId = WetWeatherUtils
                 .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
-        dateView.setText(String.format("%1$s (%2$s)",
+        locationView.setText(String.format("%1$s %2$s",
                 WetWeatherPreferences.getPreferencesLocationName(this),
-                WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeMillis())));
-        highTempView.setText(WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature()));
-        lowTempView.setText(WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature));
+                WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature())));
+        percipProb.setText(String.format("%1$s %2$s", this.getString(R.string.hourly_rain_prob_label),
+                this.getString(R.string.format_percent_value,
+                weatherForThisDay.getPrecipProbability()*100)));
+        updated.setText(WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeMillis()));
+        feelsLike.setText(String.format("%1$s %2$s", this.getString(R.string.feels_like_label),
+                WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature)));
         iconView.setImageResource(weatherImageId);
         descriptionView.setText(weatherForThisDay.getSummary());
 
