@@ -64,7 +64,7 @@ public class PlacesActivity extends AppCompatActivity {
         feelsLike = findViewById(R.id.feels_like);
         descriptionView = findViewById(R.id.weather_description);
         percipProb = findViewById(R.id.percip_prob);
-        updated = findViewById(R.id.widget_updated_at);
+        updated = findViewById(R.id.updated_at);
         mActivityContext = this;
         final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swipeToRefresh);
 

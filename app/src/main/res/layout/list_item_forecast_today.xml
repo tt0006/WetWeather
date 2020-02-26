@@ -1,102 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/entire_details_layout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/today_forecast_list_item_vertical_padding"
-    android:paddingTop="@dimen/today_forecast_list_item_vertical_padding">
+    android:orientation="vertical">
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/list_item_padding_vertical"
+        android:paddingLeft="@dimen/list_item_padding_horizontal"
+        android:paddingRight="@dimen/list_item_padding_horizontal">
+
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      - This Guideline divides the screen into a left half and a right half and is used to        -
      - anchor the views to the middle of the screen.                                             -
      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal_middle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
-        tools:layout_editor_absoluteX="192dp"
-        tools:layout_editor_absoluteY="0dp"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            tools:layout_editor_absoluteX="192dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/weather_icon"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="Today, April 03"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/weather_icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="Today, April 03" />
 
-    <!-- Icon indicating weather condition -->
-    <ImageView
-        android:id="@+id/weather_icon"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/horizontal_middle"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/art_clouds"/>
+        <!-- Icon indicating weather condition -->
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/horizontal_middle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/art_clouds" />
 
-    <!-- Text that describes weather condition -->
-    <TextView
-        android:id="@+id/weather_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textSize="20sp"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/horizontal_middle"
-        app:layout_constraintTop_toBottomOf="@+id/weather_icon"
-        android:singleLine="false"
-        android:textAlignment="center"
-        tools:text="Rainy rsf vs fv dfv df vd fv df v"/>
+        <!-- Text that describes weather condition -->
+        <TextView
+            android:id="@+id/weather_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:singleLine="false"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/horizontal_middle"
+            app:layout_constraintTop_toBottomOf="@+id/weather_icon"
+            tools:text="Rainy rsf vs fv dfv df vd fv df v" />
 
-    <TextView
-        android:id="@+id/high_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:textSize="72sp"
-        app:layout_constraintBottom_toBottomOf="@+id/weather_icon"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/weather_icon"
-        tools:text="19\u00b0"/>
+        <TextView
+            android:id="@+id/high_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:textSize="72sp"
+            app:layout_constraintBottom_toBottomOf="@+id/weather_icon"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintLeft_toLeftOf="@+id/horizontal_middle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/weather_icon"
+            tools:text="19\u00b0" />
 
-    <TextView
-        android:id="@+id/low_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:textSize="36sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/weather_description"
-        app:layout_constraintLeft_toLeftOf="@+id/high_temperature"
-        app:layout_constraintRight_toRightOf="@+id/high_temperature"
-        tools:text="10\u00b0"/>
+        <TextView
+            android:id="@+id/low_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:textSize="36sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weather_description"
+            app:layout_constraintLeft_toLeftOf="@+id/high_temperature"
+            app:layout_constraintRight_toRightOf="@+id/high_temperature"
+            tools:text="10\u00b0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/details_set"
-        android:paddingTop="@dimen/list_item_padding_vertical"
-        android:paddingBottom="@dimen/list_item_padding_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -104,26 +102,28 @@
             android:id="@+id/rain_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:src="@drawable/ic_rain"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/wind_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_rain"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/rain_details_probability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rain_icon"
             app:layout_constraintLeft_toLeftOf="@id/rain_icon"
             app:layout_constraintRight_toRightOf="@id/rain_icon"
-            tools:text="20%"/>
+            app:layout_constraintTop_toBottomOf="@id/rain_icon"
+            tools:text="20%" />
+
         <TextView
             android:id="@+id/rain_details_intensity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rain_details_probability"
             app:layout_constraintLeft_toLeftOf="@id/rain_icon"
             app:layout_constraintRight_toRightOf="@id/rain_icon"
-            tools:text="12 mm"/>
+            app:layout_constraintTop_toBottomOf="@id/rain_details_probability"
+            tools:text="12 mm" />
 
 
         <ImageView
@@ -175,10 +175,10 @@
             android:id="@+id/cloud_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/cloud_details_label"
             app:layout_constraintLeft_toLeftOf="@id/cloud_icon"
             app:layout_constraintRight_toRightOf="@id/cloud_icon"
-            app:layout_constraintTop_toBottomOf="@id/cloud_details"
-            android:text="@string/cloud_details_label" />
+            app:layout_constraintTop_toBottomOf="@id/cloud_details" />
 
 
         <ImageView
@@ -203,10 +203,10 @@
             android:id="@+id/humidity_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/humidity_label"
             app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
             app:layout_constraintRight_toRightOf="@id/humidity_icon"
-            app:layout_constraintTop_toBottomOf="@id/humidity_details_value"
-            android:text="@string/humidity_label" />
+            app:layout_constraintTop_toBottomOf="@id/humidity_details_value" />
 
 
         <ImageView
@@ -231,17 +231,16 @@
             android:id="@+id/pressure_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/pressure_label"
             app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
             app:layout_constraintRight_toRightOf="@id/pressure_icon"
-            app:layout_constraintTop_toBottomOf="@id/pressure_details_value"
-            android:text="@string/pressure_label" />
+            app:layout_constraintTop_toBottomOf="@id/pressure_details_value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/extra_details_set"
         android:paddingTop="@dimen/list_item_padding_vertical"
-        android:paddingBottom="@dimen/list_item_padding_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -249,28 +248,28 @@
             android:id="@+id/sunrise_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:src="@drawable/ic_sunrise_icon"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/sunset_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_sunrise_icon"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/sunrise_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/sunrise_icon"
             app:layout_constraintLeft_toLeftOf="@id/sunrise_icon"
             app:layout_constraintRight_toRightOf="@id/sunrise_icon"
-            tools:text="7:30"/>
+            app:layout_constraintTop_toBottomOf="@id/sunrise_icon"
+            tools:text="7:30" />
 
         <TextView
             android:id="@+id/sunrise_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/sunrise_value"
+            android:text="@string/sunrise_label"
             app:layout_constraintLeft_toLeftOf="@id/sunrise_icon"
             app:layout_constraintRight_toRightOf="@id/sunrise_icon"
-            android:text="@string/sunrise_label"/>
+            app:layout_constraintTop_toBottomOf="@id/sunrise_value" />
 
 
         <ImageView
@@ -295,10 +294,10 @@
             android:id="@+id/sunset_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/sunset_label"
             app:layout_constraintLeft_toLeftOf="@id/sunset_icon"
             app:layout_constraintRight_toRightOf="@id/sunset_icon"
-            app:layout_constraintTop_toBottomOf="@id/sunset_value"
-            android:text="@string/sunset_label" />
+            app:layout_constraintTop_toBottomOf="@id/sunset_value" />
 
         <ImageView
             android:id="@+id/uv_index_icon"
@@ -322,10 +321,10 @@
             android:id="@+id/uv_index_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/uvindex_label"
             app:layout_constraintLeft_toLeftOf="@id/uv_index_icon"
             app:layout_constraintRight_toRightOf="@id/uv_index_icon"
-            app:layout_constraintTop_toBottomOf="@id/uv_index_details_value"
-            android:text="@string/uvindex_label" />
+            app:layout_constraintTop_toBottomOf="@id/uv_index_details_value" />
 
 
         <ImageView
@@ -350,10 +349,10 @@
             android:id="@+id/dew_point_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/dew_point_label"
             app:layout_constraintLeft_toLeftOf="@id/dew_point_icon"
             app:layout_constraintRight_toRightOf="@id/dew_point_icon"
-            app:layout_constraintTop_toBottomOf="@id/dew_point_details_value"
-            android:text="@string/dew_point_label" />
+            app:layout_constraintTop_toBottomOf="@id/dew_point_details_value" />
 
 
         <ImageView
@@ -378,10 +377,10 @@
             android:id="@+id/visibility_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/visibility_label"
             app:layout_constraintLeft_toLeftOf="@id/visibility_icon"
             app:layout_constraintRight_toRightOf="@id/visibility_icon"
-            app:layout_constraintTop_toBottomOf="@id/visibility_details_value"
-            android:text="@string/visibility_label" />
+            app:layout_constraintTop_toBottomOf="@id/visibility_details_value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+</LinearLayout>

@@ -28,7 +28,7 @@ public class WeatherWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         //Define intent to start location activity from widget
-        Intent startMainActivityIntent = new Intent(context, LocationActivity.class);
+        Intent startMainActivityIntent = new Intent(context, PlacesActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, startMainActivityIntent, 0);
 
         //Define intent to start sync when refresh button is clicked

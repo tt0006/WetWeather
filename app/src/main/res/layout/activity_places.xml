@@ -19,7 +19,7 @@
 
     <include
         android:id="@+id/location_0"
-        layout="@layout/weather_widget4x1"/>
+        layout="@layout/places"/>
 
     <Button
         android:id="@+id/add_location_button"

@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/list_item_padding_horizontal"
-    android:paddingTop="@dimen/list_item_padding_vertical"
-    android:paddingRight="@dimen/list_item_padding_horizontal"
-    android:paddingBottom="@dimen/list_item_padding_vertical">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hourly_layout_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/list_item_padding_horizontal"
+        android:paddingTop="@dimen/list_item_padding_vertical"
+        android:paddingRight="@dimen/list_item_padding_horizontal">
 
         <ImageView
             android:id="@+id/hourly_weather_icon"
@@ -47,7 +46,7 @@
             app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
             app:layout_constraintRight_toLeftOf="@id/hourly_rain"
             app:layout_constraintTop_toBottomOf="@+id/hourly_date"
-            tools:text="Невелика хмарність протягом  дня." />
+            tools:text="Невелика хмарність протягом  дня yyt yt hhuh h uh h yty." />
 
         <TextView
             android:id="@+id/hourly_temperature"
@@ -55,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/forecast_temperature_space"
             android:layout_marginRight="@dimen/forecast_temperature_space"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintRight_toRightOf="parent"
@@ -83,7 +82,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/details_hourly"
-        android:paddingTop="@dimen/list_item_padding_vertical"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

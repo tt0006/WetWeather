@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.net.Uri;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.example.wetweather.WeatherRepository;
@@ -60,6 +61,8 @@ public final class NetworkUtils {
 
             List<WeatherItem> weatherListArray = extractJSONresponse(jsonResponse);
 
+            updateCurrentlySunriseSunset(weatherListArray);
+
             WeatherRepository.getInstance(context).insertData(weatherListArray);
 
         } catch (Exception e) {
@@ -72,6 +75,38 @@ public final class NetworkUtils {
     }
 
 
+    /**
+     * Helper method to update currently object with Sunrise and Sunset time
+     *
+     * @param weatherListArray list of WeatherItem objects to work with
+     */
+    private static void updateCurrentlySunriseSunset(List<WeatherItem> weatherListArray){
+
+        if (weatherListArray.size() <2){
+            return;
+        }
+
+        WeatherItem currently = null;
+        for (WeatherItem item: weatherListArray){
+            if (item.weatherType == 1){
+                currently = item;
+                break;
+            }
+        }
+
+        if (currently == null){
+            return;
+        }
+
+        for (WeatherItem item: weatherListArray){
+            if (item.weatherType == 3 & DateUtils.isToday((item.getDateTimeMillis())* 1000L)){
+                currently.setSunriseTime(item.getSunriseTime());
+                currently.setSunsetTime(item.getSunsetTime());
+                break;
+            }
+        }
+
+    }
     /**
      * Helper method to parse jsonResponse
      *
