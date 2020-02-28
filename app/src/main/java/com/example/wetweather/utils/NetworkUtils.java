@@ -102,6 +102,7 @@ public final class NetworkUtils {
             if (item.weatherType == 3 & DateUtils.isToday((item.getDateTimeMillis())* 1000L)){
                 currently.setSunriseTime(item.getSunriseTime());
                 currently.setSunsetTime(item.getSunsetTime());
+                currently.moonPhase = item.moonPhase;
                 break;
             }
         }

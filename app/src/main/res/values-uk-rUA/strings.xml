@@ -47,11 +47,20 @@
     <string name="cloud_cover_label">Хмари</string>
     <string name="format_percip_intens"><xliff:g id="precip">%1$.2f</xliff:g> мм</string>
     <string name="format_pressure"><xliff:g id="pressure">%1.0f</xliff:g> ГПа</string>
-    <string name="format_visibility"><xliff:g id="visibility">%1$.3f</xliff:g> км</string>
+    <string name="format_visibility"><xliff:g id="visibility">%1$.1f</xliff:g> км</string>
     <string name="format_wind_ms">
         <xliff:g id="speed">%1$1.0f</xliff:g> м/с
         <xliff:g id="direction">%2$s</xliff:g></string>
     <string name="format_wind_speed"><xliff:g id="speed">%1$1.0f</xliff:g> м/с</string>
     <string name="change_location_button_label">Змінити локацію</string>
     <string name="search_button_label">Знайти</string>
+    <string name="moon_phase_new_label">Новий</string>
+    <string name="moon_phase_first_quarter_label">Перша чверть</string>
+    <string name="moon_phase_full_label">Повний</string>
+    <string name="moon_phase_last_quarter_label">Остання чверть</string>
+    <string name="moon_phase_label">Фаза місяця</string>
+    <string name="moon_phase_waxing_crescent_label">Зростаючий</string>
+    <string name="moon_phase_waxing_gibbous_label">Зростаючий</string>
+    <string name="moon_phase_waning_gibbous_label">Спадаючий</string>
+    <string name="moon_phase_waning_crescent_label">Спадаючий</string>
 </resources>

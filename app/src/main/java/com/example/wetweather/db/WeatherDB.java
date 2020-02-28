@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase;
  * Room is a database layer on top of SQLite database. It uses DAO to issue queries to its database.
  * We only need one instance of the Room database for the whole app.
  */
-@Database(entities = {WeatherItem.class}, version = 10, exportSchema = false)
+@Database(entities = {WeatherItem.class}, version = 12, exportSchema = false)
 public abstract class WeatherDB extends RoomDatabase {
 
     private static final String LOG_TAG = WeatherDB.class.getSimpleName();

@@ -92,11 +92,8 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                 holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
                 holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
                         weatherForThisDay.getWindSpeed()));
-                holder.windGustDetails.setText(String.format("%1$s %2$s",
-                        weatherForThisDay.windGust, mContext.getString(R.string.speed_ms_label)));
-
-                holder.cloudsDetailsValue.setText(mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.cloudCover * 100));
+                holder.windGustDetails.setText(mContext.getString(R.string.format_wind_speed,
+                        WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
                 holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getPrecipProbability() * 100));
@@ -111,8 +108,8 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
                 holder.sunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
                 holder.sunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
-                holder.uvindexView.setText(weatherForThisDay.uvIndex);
-                holder.dewPointValue.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.dewPoint));
+                holder.moonPhaseStringValue.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.moonPhase));
+                holder.moonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.moonPhase));
                 holder.visibilityView.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.visibility));
 
                 break;
@@ -229,13 +226,12 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
         final ImageView windIcon;
         final TextView windSpeedDetails;
         final TextView windGustDetails;
-        final TextView cloudsDetailsValue;
         final TextView humidityDetailsValue;
         final TextView pressureDetailsValue;
         final TextView sunrise;
         final TextView sunset;
-        final TextView uvindexView;
-        final TextView dewPointValue;
+        final TextView moonPhaseStringValue;
+        final ImageView moonIcon;
         final TextView visibilityView;
 
         LocationAdapterViewHolder(View view) {
@@ -257,16 +253,14 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             windSpeedDetails = view.findViewById(R.id.wind_details_speed);
             windGustDetails = view.findViewById(R.id.wind_details_gust);
 
-            cloudsDetailsValue = view.findViewById(R.id.cloud_details);
-
             humidityDetailsValue = view.findViewById(R.id.humidity_details_value);
 
             pressureDetailsValue = view.findViewById(R.id.pressure_details_value);
 
             sunrise = view.findViewById(R.id.sunrise_value);
             sunset = view.findViewById(R.id.sunset_value);
-            uvindexView = view.findViewById(R.id.uv_index_details_value);
-            dewPointValue = view.findViewById(R.id.dew_point_details_value);
+            moonPhaseStringValue = view.findViewById(R.id.moon_phase_string_value);
+            moonIcon = view.findViewById(R.id.moon_phase_icon);
             visibilityView = view.findViewById(R.id.visibility_details_value);
         }
     }

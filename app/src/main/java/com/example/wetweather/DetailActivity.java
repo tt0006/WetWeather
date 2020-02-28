@@ -1,16 +1,16 @@
 package com.example.wetweather;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.utils.WetWeatherUtils;
@@ -32,19 +32,20 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 viewModel.getWeathers().removeObserver(this);
-                if (weatherEntries != null){
-                displayDetails(weatherEntries.get(position));
+                if (weatherEntries != null) {
+                    displayDetails(weatherEntries.get(position));
                 }
             }
         });
     }
 
-    private void displayDetails(WeatherItem weatherForThisDay){
-        if (weatherForThisDay == null){
-            return;}
+    private void displayDetails(WeatherItem weatherForThisDay) {
+        if (weatherForThisDay == null) {
+            return;
+        }
         //make view height match parent
         View entireLayout = findViewById(R.id.entire_details_layout);
-        entireLayout.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+        entireLayout.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
 
         //set icon
         ImageView icon = findViewById(R.id.weather_icon);
@@ -61,7 +62,7 @@ public class DetailActivity extends AppCompatActivity {
         //set high temperature
         TextView hTemperature = findViewById(R.id.high_temperature);
         String hTemper = weatherForThisDay.temperatureHigh;
-        if (hTemper.length() == 0){
+        if (hTemper.length() == 0) {
             hTemper = weatherForThisDay.getTemperature();
         }
         hTemperature.setText(WetWeatherUtils.formatTemperature(this, hTemper));
@@ -69,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
         //set low temperature
         TextView lTemperature = findViewById(R.id.low_temperature);
         String lTemper = weatherForThisDay.temperatureLow;
-        if (lTemper.length() == 0){
+        if (lTemper.length() == 0) {
             lTemper = weatherForThisDay.apparentTemperature;
         }
         lTemperature.setText(WetWeatherUtils.formatTemperature(this, lTemper));
@@ -77,7 +78,7 @@ public class DetailActivity extends AppCompatActivity {
         //set rain prob
         TextView rainProb = findViewById(R.id.rain_details_probability);
         rainProb.setText(getString(R.string.format_percent_value,
-                weatherForThisDay.getPrecipProbability()*100));
+                weatherForThisDay.getPrecipProbability() * 100));
 
         //set rain intens
         TextView rainIntens = findViewById(R.id.rain_details_intensity);
@@ -90,13 +91,9 @@ public class DetailActivity extends AppCompatActivity {
         windSpeed.setText(getString(R.string.format_wind_speed,
                 weatherForThisDay.getWindSpeed()));
         windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
-        windGustDetails.setText(String.format("%1$s %2$s",
-                weatherForThisDay.windGust, getString(R.string.speed_ms_label)));
 
-        //set clouds
-        TextView cloudsDetailsValue = findViewById(R.id.cloud_details);
-        cloudsDetailsValue.setText(getString(R.string.format_percent_value,
-                weatherForThisDay.cloudCover * 100));
+        windGustDetails.setText(getString(R.string.format_wind_speed,
+                WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
         //set humidity
         TextView humidityDetailsValue = findViewById(R.id.humidity_details_value);
@@ -116,13 +113,12 @@ public class DetailActivity extends AppCompatActivity {
         TextView sunset = findViewById(R.id.sunset_value);
         sunset.setText(WetWeatherUtils.getTime(this, weatherForThisDay.getSunsetTime()));
 
-        //set uvindex
-        TextView uvindexView = findViewById(R.id.uv_index_details_value);
-        uvindexView.setText(weatherForThisDay.uvIndex);
+        //set moon phase
+        TextView moonPhaseString = findViewById(R.id.moon_phase_string_value);
+        moonPhaseString.setText(WetWeatherUtils.getMoonPhase(this, weatherForThisDay.moonPhase));
+        ImageView moonIcon = findViewById(R.id.moon_phase_icon);
+        moonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.moonPhase));
 
-        //set dew point
-        TextView dewPointValue = findViewById(R.id.dew_point_details_value);
-        dewPointValue.setText(WetWeatherUtils.formatTemperature(this, weatherForThisDay.dewPoint));
 
         //set visibility
         TextView visibilityView = findViewById(R.id.visibility_details_value);

@@ -3,7 +3,6 @@ package com.example.wetweather.utils;
 import android.content.Context;
 import android.os.Build;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.example.wetweather.R;
 
@@ -108,6 +107,95 @@ public class WetWeatherUtils {
         }
 
         return windIcon;
+    }
+
+    /**
+     * This method uses the moon number to determine moon phase.
+     *
+     * @param num moon number
+     * @return moon phase as String
+     */
+    public static String getMoonPhase(Context context, String num) {
+        String moonPhase = "";
+        double number = getDoubleFromString(num);
+
+        if (number == -1.0) {
+            return moonPhase;
+        }
+
+        if (number == 0) {
+            moonPhase = context.getString(R.string.moon_phase_new_label);
+        } else if (number > 0 & number < 0.25) {
+            moonPhase = context.getString(R.string.moon_phase_waxing_crescent_label);
+        } else if (number == 0.25) {
+            moonPhase = context.getString(R.string.moon_phase_first_quarter_label);
+        } else if (number > 0.25 & number < 0.5) {
+            moonPhase = context.getString(R.string.moon_phase_waxing_gibbous_label);
+        } else if (number == 0.5) {
+            moonPhase = context.getString(R.string.moon_phase_full_label);
+        } else if (number > 0.5 & number < 0.75) {
+            moonPhase = context.getString(R.string.moon_phase_waning_gibbous_label);
+        } else if (number == 0.75) {
+            moonPhase = context.getString(R.string.moon_phase_last_quarter_label);
+        } else if (number > 0.75) {
+            moonPhase = context.getString(R.string.moon_phase_waning_crescent_label);
+        }
+
+        return moonPhase;
+    }
+
+    /**
+     * This method uses the moon number to determine moon phase.
+     *
+     * @param num moon number
+     * @return moon phase as icon
+     */
+    public static int getMoonPhaseIcon(String num) {
+        int moonPhase = R.drawable.ic_moon_full_moon;
+        double number = getDoubleFromString(num);
+
+        if (number == -1.0) {
+            return moonPhase;
+        }
+
+        if (number == 0) {
+            moonPhase = R.drawable.ic_moon_new;
+        } else if (number > 0 & number < 0.25) {
+            moonPhase = R.drawable.ic_moon_waxing_crescent;
+        } else if (number == 0.25) {
+            moonPhase = R.drawable.ic_moon_first;
+        } else if (number > 0.25 & number < 0.5) {
+            moonPhase = R.drawable.ic_moon_waxing_gibbous;
+        } else if (number == 0.5) {
+            moonPhase = R.drawable.ic_moon_full_moon;
+        } else if (number > 0.5 & number < 0.75) {
+            moonPhase = R.drawable.ic_moon_waning_gibbous;
+        } else if (number == 0.75) {
+            moonPhase = R.drawable.ic_moon_last;
+        } else if (number > 0.75) {
+            moonPhase = R.drawable.ic_moon_waning_crescennt;
+        }
+
+        return moonPhase;
+    }
+
+    /**
+     * This method converts String to double
+     *
+     * @param value String value
+     * @return converted to double value or -1.0
+     */
+    public static double getDoubleFromString(String value){
+        double number;
+        if (value == null){
+            return -1.0;
+        }
+        try {
+            number = Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            return -1.0;
+        }
+        return number;
     }
 
 
@@ -227,7 +315,7 @@ public class WetWeatherUtils {
             return context.getString(R.string.not_available_text);
         }
         Date d = new Date(dateInSeconds * 1000L);
-        DateFormat df = DateFormat.getTimeInstance();
+        DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
         return df.format(d);
     }
 

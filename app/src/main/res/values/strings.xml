@@ -129,7 +129,7 @@
     </string>
 
     <string name="format_visibility">
-        <xliff:g id="visibility">%1$.3f</xliff:g> km
+        <xliff:g id="visibility">%1$.1f</xliff:g> km
     </string>
 
     <string name="percip_prob_label">Rain probability</string>
@@ -163,6 +163,16 @@
     <string name="change_location_button_label">Change location</string>
 
     <string name="search_button_label">Search</string>
+
+    <string name="moon_phase_new_label">New moon</string>
+    <string name="moon_phase_waxing_crescent_label">Waxing crescent</string>
+    <string name="moon_phase_first_quarter_label">First quarter</string>
+    <string name="moon_phase_waxing_gibbous_label">Waxing gibbous</string>
+    <string name="moon_phase_full_label">Full moon</string>
+    <string name="moon_phase_waning_gibbous_label">Waning gibbous</string>
+    <string name="moon_phase_last_quarter_label">Last quarter</string>
+    <string name="moon_phase_waning_crescent_label">Waning crescent</string>
+    <string name="moon_phase_label">Moon phase</string>
 
     <string name="pressure_label">Pressure</string>
     <!-- Pressure format -->

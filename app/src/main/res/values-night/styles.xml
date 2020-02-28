@@ -5,7 +5,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
         <item name="android:windowBackground">@color/colorLayoutBackground</item>
         <item name="android:navigationBarColor">@color/backgroundColor</item>
         <!-- Used for settings preference theme -->
