@@ -1,9 +1,6 @@
 package com.example.wetweather;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,42 +15,31 @@ import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
 
-class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapterViewHolder> {
+public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsAdapterViewHolder>{
 
-    private static final int VIEW_TYPE_TODAY = 0;
-    private static final int VIEW_TYPE_FUTURE_DAY = 1;
-    private static final int VIEW_TYPE_INFO = 2;
-    private static final int VIEW_TYPE_ALERTS = 3;
+    private static final int VIEW_TYPE_DAILY = 0;
+    private static final int VIEW_TYPE_HOURLY = 1;
     private final Context mContext;
     private List<WeatherItem> mWeatherData;
 
-    /**
-     * Creates a LocationAdapter.
-     */
-    LocationAdapter(Context context) {
+    DetailsAdapter(Context context) {
         mContext = context;
     }
-
     @NonNull
     @Override
-    public LocationAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DetailsAdapter.DetailsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         int layoutId;
 
         switch (viewType) {
 
-            case VIEW_TYPE_TODAY: {
+            case VIEW_TYPE_DAILY: {
                 layoutId = R.layout.list_item_forecast_today;
                 break;
             }
 
-            case VIEW_TYPE_ALERTS:
-            case VIEW_TYPE_INFO:
-                layoutId = R.layout.list_item_info;
-                break;
-
-            case VIEW_TYPE_FUTURE_DAY: {
-                layoutId = R.layout.forecast_list_item;
+            case VIEW_TYPE_HOURLY: {
+                layoutId = R.layout.list_item_hourly;
                 break;
             }
 
@@ -63,11 +49,11 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
         View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         view.setFocusable(true);
-        return new LocationAdapterViewHolder(view);
+        return new DetailsAdapter.DetailsAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LocationAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DetailsAdapter.DetailsAdapterViewHolder holder, int position) {
 
         WeatherItem weatherForThisDay = mWeatherData.get(position);
         int viewType = getItemViewType(position);
@@ -75,8 +61,9 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
         switch (viewType) {
 
-            case VIEW_TYPE_TODAY:
-                holder.entireDetailsLayout.setOnClickListener(new TodayClickHandler(position, weatherForThisDay));
+            case VIEW_TYPE_DAILY:
+
+                holder.entireDetailsLayout.setOnClickListener(new DetailsClickHandler(position, weatherForThisDay));
 
                 // Get the state
                 boolean expanded = weatherForThisDay.isExpanded();
@@ -85,9 +72,10 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
-                holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
-                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
-                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
+                //holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
+                holder.dateView.setVisibility(View.GONE);
+                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
+                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
 
                 holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
                 holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
@@ -114,49 +102,41 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
                 break;
 
-            case VIEW_TYPE_FUTURE_DAY:
-                holder.entireDetailsLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeMillis()));
-                weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
-                holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
-                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
-                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
+            case VIEW_TYPE_HOURLY:
 
-                break;
+                holder.entireHourlyLayout.setOnClickListener(new DetailsClickHandler(position, weatherForThisDay));
 
-            case VIEW_TYPE_INFO:
-                weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+                // Get the state
+                boolean expanded1 = weatherForThisDay.isExpanded();
+                // Set the visibility based on state
+                holder.detailsHourlyChildLayout.setVisibility(expanded1 ? View.VISIBLE : View.GONE);
 
-                int infoType = weatherForThisDay.weatherType;
-                String description = "";
+                weatherImageId = WetWeatherUtils.getResourceIconIdForWeatherCondition(
+                        weatherForThisDay.getIcon());
+                holder.dateView.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeMillis()));
+                holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
+                        weatherForThisDay.getTemperature()));
+                holder.rainProb.setText(String.format("%1$s %2$s", mContext.getString(
+                        R.string.hourly_rain_prob_label),
+                        mContext.getString(R.string.format_percent_value,
+                                weatherForThisDay.getPrecipProbability() * 100)));
 
-                if (infoType == 6){
-                    description = mContext.getString(R.string.next_7_days_label);
-                } else if (infoType == 7){
-                    description = mContext.getString(R.string.next_24_hours_label);
-                    holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
-                } else if (infoType == 8){
-                    description = mContext.getString(R.string.next_hour_label);
-                }
+                holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
+                holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
+                        weatherForThisDay.getWindSpeed()));
+                holder.windGustDetails.setText(mContext.getString(R.string.format_wind_speed,
+                        WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
-                holder.dateView.setText(description);
+                holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
+                        weatherForThisDay.getPrecipProbability() * 100));
+                holder.rainDetailsIntens.setText(mContext.getString(R.string.format_percip_intens,
+                        weatherForThisDay.getPrecipIntensity()));
 
-                break;
+                holder.humidityDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+                        weatherForThisDay.getHumidity() * 100));
 
-            case VIEW_TYPE_ALERTS:
-                holder.entireDetailsLayout.setOnClickListener(new AlertClickHandler());
-                weatherImageId = R.drawable.ic_circle_warning;
-                holder.dateView.setText(String.format("%1$s %2$s", mContext.getString(R.string.alerts_label),
-                        weatherForThisDay.getIcon()));
-                holder.descriptionView.setSingleLine(true);
-                holder.descriptionView.setEllipsize(TextUtils.TruncateAt.END);
-                holder.descriptionView.setText(weatherForThisDay.getSummary());
-
-                //set background color
-                View root = holder.dateView.getRootView();
-                //root.setBackgroundColor(mContext.getColor(R.color.warning_color));
-                root.setBackgroundColor(Color.RED);
+                holder.pressureDetailsValue.setText(mContext.getString(R.string.format_pressure,
+                        weatherForThisDay.getPressure()));
                 break;
 
             default:
@@ -183,19 +163,11 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
         switch (weatherForThisDay.weatherType){
 
-            case 1: view = VIEW_TYPE_TODAY;
-            break;
+            case 1: view = VIEW_TYPE_DAILY;
+                break;
 
-            case 3: view = VIEW_TYPE_FUTURE_DAY;
-            break;
-
-            case 5: view = VIEW_TYPE_ALERTS;
-            break;
-
-            case 6:
-            case 7:
-            case 8: view = VIEW_TYPE_INFO;
-            break;
+            case 2: view = VIEW_TYPE_HOURLY;
+                break;
         }
 
         return view;
@@ -210,7 +182,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
      * a cache of the child views for a forecast item.
      */
-    static class LocationAdapterViewHolder extends RecyclerView.ViewHolder {
+    static class DetailsAdapterViewHolder extends RecyclerView.ViewHolder {
         final ImageView iconView;
 
         final TextView dateView;
@@ -234,7 +206,12 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
         final ImageView moonIcon;
         final TextView visibilityView;
 
-        LocationAdapterViewHolder(View view) {
+        final TextView tempView;
+        final TextView rainProb;
+        final View entireHourlyLayout;
+        final View detailsHourlyChildLayout;
+
+        DetailsAdapterViewHolder(View view) {
             super(view);
 
             iconView = view.findViewById(R.id.weather_icon);
@@ -262,16 +239,21 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             moonPhaseStringValue = view.findViewById(R.id.moon_phase_string_value);
             moonIcon = view.findViewById(R.id.moon_phase_icon);
             visibilityView = view.findViewById(R.id.visibility_details_value);
+
+            tempView = view.findViewById(R.id.hourly_temperature);
+            rainProb = view.findViewById(R.id.hourly_rain);
+
+            entireHourlyLayout = view.findViewById(R.id.entire_hourly_layout);
+
+            detailsHourlyChildLayout = view.findViewById(R.id.details_hourly);
         }
     }
 
-    //Helper click handler classes
-
-    class TodayClickHandler implements View.OnClickListener{
+    class DetailsClickHandler implements View.OnClickListener{
         int mPosition;
         WeatherItem mWeatherForThisDay;
 
-        TodayClickHandler(int position, WeatherItem weatherForThisDay){
+        DetailsClickHandler(int position, WeatherItem weatherForThisDay){
             mPosition = position;
             mWeatherForThisDay = weatherForThisDay;
         }
@@ -283,42 +265,9 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             // Change the state
             mWeatherForThisDay.setExpanded(!expanded);
             // Notify the adapter that item has changed
-            LocationAdapter.this.notifyItemChanged(mPosition);
-
-        }
-    }
-
-    class FutureDayClickHandler implements View.OnClickListener{
-        long mTime;
-
-        FutureDayClickHandler(long time){
-            mTime = time;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(mContext, DetailsActivity.class);
-            intent.putExtra("TIME", mTime);
-            mContext.startActivity(intent);
-        }
-    }
-
-    class HourlyClickHandler implements View.OnClickListener{
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(mContext, HourlyForecastActivity.class);
-            mContext.startActivity(intent);
-        }
-    }
-
-    class AlertClickHandler implements View.OnClickListener{
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(mContext, AlertActivity.class);
-            mContext.startActivity(intent);
+            DetailsAdapter.this.notifyItemChanged(mPosition);
         }
     }
 }
+
 

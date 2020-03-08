@@ -45,7 +45,7 @@
     <string name="action_settings">Параметри</string>
     <string name="add_widget">Додати віджет</string>
     <string name="cloud_cover_label">Хмари</string>
-    <string name="format_percip_intens"><xliff:g id="precip">%1$.2f</xliff:g> мм</string>
+    <string name="format_percip_intens"><xliff:g id="precip">%1$.1f</xliff:g> мм</string>
     <string name="format_pressure"><xliff:g id="pressure">%1.0f</xliff:g> ГПа</string>
     <string name="format_visibility"><xliff:g id="visibility">%1$.1f</xliff:g> км</string>
     <string name="format_wind_ms">
@@ -58,7 +58,7 @@
     <string name="moon_phase_first_quarter_label">Перша чверть</string>
     <string name="moon_phase_full_label">Повний</string>
     <string name="moon_phase_last_quarter_label">Остання чверть</string>
-    <string name="moon_phase_label">Фаза місяця</string>
+    <string name="moon_phase_label">Місяць</string>
     <string name="moon_phase_waxing_crescent_label">Зростаючий</string>
     <string name="moon_phase_waxing_gibbous_label">Зростаючий</string>
     <string name="moon_phase_waning_gibbous_label">Спадаючий</string>

@@ -30,6 +30,10 @@ public interface WeatherDao {
     @Query("SELECT * FROM WeatherData WHERE weatherType == 4")
     LiveData<List<WeatherItem>> loadAlerts();
 
+    // load data for details activity
+    @Query("SELECT * FROM WeatherData WHERE weatherType IN (2, 3) AND dateTimeMillis BETWEEN :min AND :max ORDER BY weatherType DESC")
+    LiveData<List<WeatherItem>> loadDetailsWeather(long min, long max);
+
     // populate db with new data
     @Insert
     void insertWeatherItem(WeatherItem weatherItem);

@@ -42,7 +42,7 @@
                 android:value=".PlacesActivity" />
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".DetailsActivity"
             android:label="@string/title_activity_detail"
             android:parentActivityName=".LocationActivity"
             android:theme="@style/AppTheme">

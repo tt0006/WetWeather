@@ -65,11 +65,8 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
         holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
                 weatherForThisDay.getWindSpeed()));
-        holder.windGustDetails.setText(String.format("%1$s %2$s",
-                weatherForThisDay.windGust, mContext.getString(R.string.speed_ms_label)));
-
-        holder.cloudsDetailsValue.setText(mContext.getString(R.string.format_percent_value,
-                weatherForThisDay.cloudCover * 100));
+        holder.windGustDetails.setText(mContext.getString(R.string.format_wind_speed,
+                WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
         holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
                 weatherForThisDay.getPrecipProbability() * 100));
@@ -107,16 +104,15 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         final ImageView windIcon;
         final TextView windSpeedDetails;
         final TextView windGustDetails;
-        final TextView cloudsDetailsValue;
         final TextView humidityDetailsValue;
         final TextView pressureDetailsValue;
 
         HourlyForecastAdapterViewHolder(View view) {
             super(view);
 
-            iconView = view.findViewById(R.id.hourly_weather_icon);
-            dateView = view.findViewById(R.id.hourly_date);
-            descriptionView = view.findViewById(R.id.hourly_weather_description);
+            iconView = view.findViewById(R.id.weather_icon);
+            dateView = view.findViewById(R.id.date);
+            descriptionView = view.findViewById(R.id.weather_description);
             tempView = view.findViewById(R.id.hourly_temperature);
             rainProb = view.findViewById(R.id.hourly_rain);
 
@@ -130,8 +126,6 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
             windIcon = view.findViewById(R.id.wind_icon);
             windSpeedDetails = view.findViewById(R.id.wind_details_speed);
             windGustDetails = view.findViewById(R.id.wind_details_gust);
-
-            cloudsDetailsValue = view.findViewById(R.id.cloud_details);
 
             humidityDetailsValue = view.findViewById(R.id.humidity_details_value);
 

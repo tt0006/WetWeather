@@ -125,7 +125,7 @@
     </string>
 
     <string name="format_percip_intens">
-        <xliff:g id="precip">%1$.2f</xliff:g> mm
+        <xliff:g id="precip">%1$.1f</xliff:g> mm
     </string>
 
     <string name="format_visibility">

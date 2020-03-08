@@ -51,6 +51,17 @@ public class WeatherRepository {
         return mAlertsList;
     }
 
+    /**
+     * Method to get weather for specific date with daily and hourly forecast for that day.
+     *
+     * @param minTime 00:00 of the date in seconds from epoch
+     * @param maxTime 23:00 of the date in seconds from epoch
+     * @return LiveData list of WeatherItems objects
+     */
+    LiveData<List<WeatherItem>> getDetails(long minTime, long maxTime){
+        return mDao.loadDetailsWeather(minTime, maxTime);
+    }
+
     public void insertData(List<WeatherItem> weatherListArray){
 
         if (weatherListArray.size()>0)
