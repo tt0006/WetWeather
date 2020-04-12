@@ -52,7 +52,7 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         holder.detailsHourlyChildLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
         holder.iconView.setImageResource(WetWeatherUtils.getResourceIconIdForWeatherCondition(
-                weatherForThisDay.getIcon()));
+                weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity()));
         holder.descriptionView.setText(weatherForThisDay.getSummary());
         holder.dateView.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeMillis()));
         holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,

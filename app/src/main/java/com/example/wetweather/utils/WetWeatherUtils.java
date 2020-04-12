@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class WetWeatherUtils {
@@ -205,7 +205,7 @@ public class WetWeatherUtils {
      * @param weatherIcon weather description as per API documentation
      * @return Weather icon
      */
-    public static int getResourceIconIdForWeatherCondition(String weatherIcon) {
+    public static int getResourceIconIdForWeatherCondition(String weatherIcon, double precipIntensity) {
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
 
         switch (weatherIcon) {
@@ -214,6 +214,13 @@ public class WetWeatherUtils {
             case "clear-night":
                 return R.drawable.ic_clear_night_vector;
             case "rain":
+                if (precipIntensity < 2.5){
+                    return R.drawable.ic_rain_light;
+                } else if (precipIntensity < 5.0){
+                    return R.drawable.ic_rain_moderate;
+                } else if (precipIntensity < 10.0){
+                    return R.drawable.ic_rain_heavy;
+                }
                 return R.drawable.ic_rain_vector;
             case "snow":
                 return R.drawable.ic_snow_vector;
@@ -266,7 +273,7 @@ public class WetWeatherUtils {
         }
         // Check if OS version is Oreo or newer before use LocalDate as earlier doesn't support it.
         else if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LocalDate passedDay = LocalDateTime.ofEpochSecond(dateInSeconds, 0, ZoneOffset.UTC).toLocalDate();
+            LocalDate passedDay = LocalDateTime.ofEpochSecond(dateInSeconds, 0, OffsetDateTime.now().getOffset()).toLocalDate();
             LocalDate today = LocalDate.now();
 
             if (passedDay.isEqual(today.plusDays(1))) {

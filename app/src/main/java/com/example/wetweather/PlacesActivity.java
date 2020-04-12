@@ -113,7 +113,7 @@ public class PlacesActivity extends AppCompatActivity {
         }
 
         int weatherImageId = WetWeatherUtils
-                .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+                .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
         locationView.setText(String.format("%1$s %2$s",
                 WetWeatherPreferences.getPreferencesLocationName(this),
                 WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature())));

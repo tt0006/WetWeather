@@ -222,7 +222,7 @@
             android:id="@+id/sunrise_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_sunrise_icon"
+            android:src="@drawable/ic_sunrise"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/sunset_icon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -250,7 +250,7 @@
             android:id="@+id/sunset_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_sunset_icon"
+            android:src="@drawable/ic_sunset"
             app:layout_constraintLeft_toRightOf="@id/sunrise_icon"
             app:layout_constraintRight_toLeftOf="@id/visibility_icon"
             app:layout_constraintTop_toTopOf="parent" />

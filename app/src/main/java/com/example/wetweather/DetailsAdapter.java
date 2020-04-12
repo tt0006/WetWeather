@@ -71,7 +71,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                 holder.entireDetailsSet.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 //holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
                 holder.dateView.setVisibility(View.GONE);
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
@@ -112,7 +112,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                 holder.detailsHourlyChildLayout.setVisibility(expanded1 ? View.VISIBLE : View.GONE);
 
                 weatherImageId = WetWeatherUtils.getResourceIconIdForWeatherCondition(
-                        weatherForThisDay.getIcon());
+                        weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.dateView.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeMillis()));
                 holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
                         weatherForThisDay.getTemperature()));

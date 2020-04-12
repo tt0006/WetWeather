@@ -84,7 +84,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                 holder.entireDetailsSet.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
@@ -117,7 +117,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             case VIEW_TYPE_FUTURE_DAY:
                 holder.entireDetailsLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeMillis()));
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
@@ -126,7 +126,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
             case VIEW_TYPE_INFO:
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon());
+                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
 
                 int infoType = weatherForThisDay.weatherType;
                 String description = "";

@@ -53,6 +53,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         showLoading();
 
+        //need to change it to support daytime change dates
         setupViewModel(minTime, minTime+82800);
     }
 
