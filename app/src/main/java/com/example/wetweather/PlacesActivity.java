@@ -11,13 +11,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +33,8 @@ public class PlacesActivity extends AppCompatActivity {
 
     private static final String TAG = PlacesActivity.class.getSimpleName();
     private Context mActivityContext;
+    private ProgressBar mLoadingIndicator;
+    private View mEmbedded;
     ImageView iconView;
     TextView locationView, descriptionView, updated, feelsLike, percipProb;
 
@@ -50,8 +52,8 @@ public class PlacesActivity extends AppCompatActivity {
             }
         });
 
-        View embended = findViewById(R.id.location_0);
-        embended.setOnClickListener(new View.OnClickListener() {
+        mEmbedded = findViewById(R.id.location_0);
+        mEmbedded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent showWeather = new Intent(PlacesActivity.this, LocationActivity.class);
@@ -65,8 +67,11 @@ public class PlacesActivity extends AppCompatActivity {
         descriptionView = findViewById(R.id.weather_description);
         percipProb = findViewById(R.id.percip_prob);
         updated = findViewById(R.id.updated_at);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
         mActivityContext = this;
         final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swipeToRefresh);
+
+        showLoading();
 
         setupViewModel();
 
@@ -99,6 +104,7 @@ public class PlacesActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 setWeatherData(weatherEntries);
+                showWeatherDataView();
             }
         });
     }
@@ -120,7 +126,7 @@ public class PlacesActivity extends AppCompatActivity {
         percipProb.setText(String.format("%1$s %2$s", this.getString(R.string.hourly_rain_prob_label),
                 this.getString(R.string.format_percent_value,
                 weatherForThisDay.getPrecipProbability()*100)));
-        updated.setText(WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeMillis()));
+        updated.setText(WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeInSeconds()));
         feelsLike.setText(String.format("%1$s %2$s", this.getString(R.string.feels_like_label),
                 WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature)));
         iconView.setImageResource(weatherImageId);
@@ -134,6 +140,22 @@ public class PlacesActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    /**
+     * This method will make the the weather View visible and hide loading indicator
+     */
+    private void showWeatherDataView() {
+        mLoadingIndicator.setVisibility(View.INVISIBLE);
+        mEmbedded.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * This method will make the loading indicator visible and hide the weather View
+     */
+    private void showLoading() {
+        mEmbedded.setVisibility(View.INVISIBLE);
+        mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
     /**

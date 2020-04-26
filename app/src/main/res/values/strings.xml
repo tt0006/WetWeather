@@ -128,6 +128,10 @@
         <xliff:g id="precip">%1$.1f</xliff:g> mm
     </string>
 
+    <string name="format_percip_intens_graph">
+        <xliff:g id="precip_graph">%1$.1f</xliff:g>
+    </string>
+
     <string name="format_visibility">
         <xliff:g id="visibility">%1$.1f</xliff:g> km
     </string>
@@ -174,10 +178,25 @@
     <string name="moon_phase_waning_crescent_label">Waning crescent</string>
     <string name="moon_phase_label">Moon phase</string>
 
+    <!-- Graphs strings -->
+    <string name="graph_precip_description_label">Precipitation intensity</string>
+    <string name="graph_temp_description_label">Temperature</string>
+    <string name="graph_humidity_description_label">Humidity</string>
+    <string name="graph_pressure_description_label">Pressure</string>
+    <string name="day_temperature_label">Day</string>
+    <string name="day_apparent_temperature_label">Day feels like</string>
+    <string name="night_temperature_label">Night</string>
+    <string name="night_apparent_temperature_label">Night feels like</string>
+    <!-- Graphs strings end-->
+
     <string name="pressure_label">Pressure</string>
     <!-- Pressure format -->
     <string name="format_pressure">
         <xliff:g id="pressure">%1.0f</xliff:g> hPa
+    </string>
+
+    <string name="format_pressure_graph">
+        <xliff:g id="pressure_graph">%1.0f</xliff:g>
     </string>
 
     <string name="humidity_label">Humidity</string>

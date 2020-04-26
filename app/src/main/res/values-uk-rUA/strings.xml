@@ -63,4 +63,12 @@
     <string name="moon_phase_waxing_gibbous_label">Зростаючий</string>
     <string name="moon_phase_waning_gibbous_label">Спадаючий</string>
     <string name="moon_phase_waning_crescent_label">Спадаючий</string>
+    <string name="graph_precip_description_label">Інтенсивність опадів</string>
+    <string name="graph_temp_description_label">Температура</string>
+    <string name="graph_humidity_description_label">Вологість</string>
+    <string name="graph_pressure_description_label">Тиск</string>
+    <string name="day_temperature_label">Вдень</string>
+    <string name="night_temperature_label">Вночі</string>
+    <string name="day_apparent_temperature_label">Вдень відчувається</string>
+    <string name="night_apparent_temperature_label">Вночі відчувається</string>
 </resources>

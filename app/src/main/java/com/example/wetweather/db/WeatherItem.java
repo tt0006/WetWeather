@@ -13,7 +13,7 @@ public class WeatherItem {
     @PrimaryKey(autoGenerate = true)
     private int id;
     public int weatherType;
-    private long dateTimeMillis;
+    private long dateTimeInSeconds;
     private String summary;
     private String icon;
     private double pressure;
@@ -44,7 +44,7 @@ public class WeatherItem {
      * Constructor for currently weather, daily and hourly forecast objects.
      */
     @Ignore
-    public WeatherItem(int weatherType, long dateTimeMillis, String summary, String icon, double pressure,
+    public WeatherItem(int weatherType, long dateTimeInSeconds, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
                        String windGust, int windDirection, String moonPhase, String dewPoint,
@@ -52,7 +52,7 @@ public class WeatherItem {
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
                        String apparentTemperatureLow, String apparentTemperature, String temperature) {
         this.weatherType = weatherType;
-        this.dateTimeMillis = dateTimeMillis;
+        this.dateTimeInSeconds = dateTimeInSeconds;
         this.summary = summary;
         this.icon = icon;
         this.pressure = pressure;
@@ -79,7 +79,7 @@ public class WeatherItem {
         this.temperature = temperature;
     }
 
-    public WeatherItem(int id, int weatherType, long dateTimeMillis, String summary, String icon, double pressure,
+    public WeatherItem(int id, int weatherType, long dateTimeInSeconds, String summary, String icon, double pressure,
                        double humidity, double precipIntensity, double precipProbability,
                        String precipType, long sunriseTime, long sunsetTime, double windSpeed,
                        String windGust, int windDirection, String moonPhase, String dewPoint,
@@ -88,7 +88,7 @@ public class WeatherItem {
                        String apparentTemperatureLow, String apparentTemperature, String temperature) {
         this.id = id;
         this.weatherType = weatherType;
-        this.dateTimeMillis = dateTimeMillis;
+        this.dateTimeInSeconds = dateTimeInSeconds;
         this.summary = summary;
         this.icon = icon;
         this.pressure = pressure;
@@ -134,7 +134,7 @@ public class WeatherItem {
         this.weatherType = weatherType;
         this.dewPoint = title;
         this.moonPhase = severity;
-        this.dateTimeMillis = time;
+        this.dateTimeInSeconds = time;
         this.sunriseTime = expires;
         this.summary = description;
         this.precipType = uri;
@@ -151,16 +151,16 @@ public class WeatherItem {
         this.id = id;
     }
 
-    public long getDateTimeMillis() {
-        return dateTimeMillis;
+    public long getDateTimeInSeconds() {
+        return dateTimeInSeconds;
     }
 
-    public void setDateTimeMillis(long dateTimeMillis) {
-        this.dateTimeMillis = dateTimeMillis;
+    public void setDateTimeInSeconds(long dateTimeInSeconds) {
+        this.dateTimeInSeconds = dateTimeInSeconds;
     }
 
     public long getAlertStartTime() {
-        return dateTimeMillis;
+        return dateTimeInSeconds;
     }
 
     public long getAlertEntTime() {

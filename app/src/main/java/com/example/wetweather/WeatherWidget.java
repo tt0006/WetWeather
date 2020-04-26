@@ -56,7 +56,7 @@ public class WeatherWidget extends AppWidgetProvider {
                 WetWeatherUtils.getResourceIconIdForWeatherCondition(weatherData.getIcon(), weatherData.getPrecipIntensity()));
 
         remoteViews.setTextViewText(R.id.widget_updated_at,
-                WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeMillis()));
+                WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeInSeconds()));
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
 

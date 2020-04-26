@@ -6,11 +6,11 @@
         <item name="colorPrimary">#303f9f</item>
         <item name="colorPrimaryDark">#001970</item>
         <item name="colorAccent">#ff8f00</item>
+
+        <item name="android:navigationBarColor">#001970</item>
+        <item name="android:textColor">#ffffff</item>
         <!-- Used for settings preference theme -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="android:navigationBarColor">#001970</item>
-
-        <item name="android:textColor">#ffffff</item>
         <item name="android:windowBackground">@color/activity_background</item>
     </style>
 

@@ -85,7 +85,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
-                holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeMillis()));
+                holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeInSeconds()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
 
@@ -115,10 +115,10 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                 break;
 
             case VIEW_TYPE_FUTURE_DAY:
-                holder.entireDetailsLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeMillis()));
+                holder.entireDetailsLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeInSeconds()));
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
-                holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeMillis()));
+                holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeInSeconds()));
                 holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
                 holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
 

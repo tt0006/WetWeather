@@ -185,9 +185,9 @@ public class WetWeatherUtils {
      * @param value String value
      * @return converted to double value or -1.0
      */
-    public static double getDoubleFromString(String value){
+    public static double getDoubleFromString(String value) {
         double number;
-        if (value == null){
+        if (value == null) {
             return -1.0;
         }
         try {
@@ -214,11 +214,11 @@ public class WetWeatherUtils {
             case "clear-night":
                 return R.drawable.ic_clear_night_vector;
             case "rain":
-                if (precipIntensity < 2.5){
+                if (precipIntensity < 2.5) {
                     return R.drawable.ic_rain_light;
-                } else if (precipIntensity < 5.0){
+                } else if (precipIntensity < 5.0) {
                     return R.drawable.ic_rain_moderate;
-                } else if (precipIntensity < 10.0){
+                } else if (precipIntensity < 10.0) {
                     return R.drawable.ic_rain_heavy;
                 }
                 return R.drawable.ic_rain_vector;
@@ -324,6 +324,22 @@ public class WetWeatherUtils {
         Date d = new Date(dateInSeconds * 1000L);
         DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
         return df.format(d);
+    }
+
+    /**
+     * This method returns formatted date as String like "Mon" or "N/A" if dateInSeconds is 0L
+     *
+     * @param context       Android Context to access preferences and resources
+     * @param dateInSeconds Date in seconds to convert to String
+     * @return Formatted date as String
+     */
+    public static String getDayOfWeek(Context context, long dateInSeconds) {
+        if (dateInSeconds == 0L) {
+            return context.getString(R.string.not_available_text);
+        }
+        Date d = new Date(dateInSeconds * 1000L);
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
+        return dayFormat.format(d);
     }
 
 }

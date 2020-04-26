@@ -6,10 +6,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.prefs.WetWeatherPreferences;
 
@@ -21,7 +23,6 @@ public class LocationActivity extends AppCompatActivity {
 
     private LocationAdapter mLocationAdapter;
     private RecyclerView mRecyclerView;
-    private ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,6 @@ public class LocationActivity extends AppCompatActivity {
         setTitle(WetWeatherPreferences.getPreferencesLocationName(this));
 
         mRecyclerView = findViewById(R.id.recyclerview_forecast);
-        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -45,8 +45,6 @@ public class LocationActivity extends AppCompatActivity {
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mLocationAdapter);
 
-        showLoading();
-
         setupViewModel();
     }
 
@@ -56,29 +54,29 @@ public class LocationActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 mLocationAdapter.setWeatherData(weatherEntries);
-                showWeatherDataView();
             }
         });
     }
 
-    private void showWeatherDataView() {
-        /* First, hide the loading indicator */
-        mLoadingIndicator.setVisibility(View.INVISIBLE);
-        /* Finally, make sure the weather data is visible */
-        mRecyclerView.setVisibility(View.VISIBLE);
+    // Menu block-----------------------------------------------------------------------------------
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.graphs_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * This method will make the loading indicator visible and hide the weather View and error
-     * message.
-     * <p>
-     * Since it is okay to redundantly set the visibility of a View, we don't need to check whether
-     * each view is currently visible or invisible.
-     */
-    private void showLoading() {
-        /* Then, hide the weather data */
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        /* Finally, show the loading indicator */
-        mLoadingIndicator.setVisibility(View.VISIBLE);
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.GraphsBtn) {
+            // start graphs activity
+            Intent graphsActivityIntent = new Intent(LocationActivity.this, GraphsActivity.class);
+            startActivity(graphsActivityIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
+    // Menu block end-------------------------------------------------------------------------------
 }

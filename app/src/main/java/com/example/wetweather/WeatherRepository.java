@@ -62,6 +62,15 @@ public class WeatherRepository {
         return mDao.loadDetailsWeather(minTime, maxTime);
     }
 
+    /**
+     * Method to get daily weather data for graphs
+     *
+     * @return LiveData list of WeatherItems objects
+     */
+    LiveData<List<WeatherItem>> getDailyData(){
+        return mDao.loadDailyData();
+    }
+
     public void insertData(List<WeatherItem> weatherListArray){
 
         if (weatherListArray.size()>0)

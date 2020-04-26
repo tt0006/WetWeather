@@ -55,7 +55,7 @@ public class WeatherWidget4x1 extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.feels_like, String.format("%1$s %2$s", context.getString(R.string.feels_like_label),
                 WetWeatherUtils.formatTemperature(context, weatherData.apparentTemperature)));
         remoteViews.setImageViewResource(R.id.weather_icon, WetWeatherUtils.getResourceIconIdForWeatherCondition(weatherData.getIcon(), weatherData.getPrecipIntensity()));
-        remoteViews.setTextViewText(R.id.widget_updated_at, WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeMillis()));
+        remoteViews.setTextViewText(R.id.widget_updated_at, WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeInSeconds()));
 
 
         // Instruct the widget manager to update the widget

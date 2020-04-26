@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccentDark</item>
         <item name="android:windowBackground">@color/colorLayoutBackground</item>
         <item name="android:navigationBarColor">@color/backgroundColor</item>
+        <item name="android:textColor">#ffffff</item>
         <!-- Used for settings preference theme -->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>

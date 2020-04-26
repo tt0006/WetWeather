@@ -113,7 +113,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
 
                 weatherImageId = WetWeatherUtils.getResourceIconIdForWeatherCondition(
                         weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
-                holder.dateView.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeMillis()));
+                holder.dateView.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeInSeconds()));
                 holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
                         weatherForThisDay.getTemperature()));
                 holder.rainProb.setText(String.format("%1$s %2$s", mContext.getString(
