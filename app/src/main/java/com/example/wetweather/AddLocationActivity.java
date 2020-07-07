@@ -82,6 +82,10 @@ public class AddLocationActivity extends AppCompatActivity {
 
             ArrayList<Address> addresses = resultData.getParcelableArrayList("addressesList");
 
+            if (addresses == null){
+                return;
+            }
+
             String[] addressList = new String[addresses.size()] ;
             int j =0;
             for(Address address : addresses){

@@ -6,13 +6,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.sync.WeatherSyncUtils;
+import com.example.wetweather.utils.NetworkUtils;
 import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
@@ -31,6 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.recyclerview_forecast);
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
+        final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swipeToRefreshForecast);
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -55,6 +61,24 @@ public class DetailsActivity extends AppCompatActivity {
 
         //need to change it to support daytime change dates
         setupViewModel(minTime, minTime+82800);
+
+
+        final Context mActivityContext = this;
+        //set swipe to refresh
+        swipeToRefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        if (NetworkUtils.isNetworkAvailable(mActivityContext)) {
+                            WeatherSyncUtils.startImmediateSync(mActivityContext);
+                        } else {
+                            Toast.makeText(mActivityContext, R.string.network_not_available,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        swipeToRefresh.setRefreshing(false);
+                    }
+                }
+        );
     }
 
     private void setupViewModel(long min, long max) {

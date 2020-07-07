@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ff8f00</color>
-    <color name="colorPrimaryLight">#484848</color>
+    <color name="colorPrimaryNight">#000000</color>
+    <color name="colorPrimaryDarkNight">#000000</color>
+    <color name="colorAccentNight">#BB86FC</color>
+    <color name="colorWindowBackgroundNight">#000000</color>
+    <color name="colorNavigationBarNight">#000000</color>
 
-    <color name="colorLayoutBackground">#121212</color>
-
-    <color name="backgroundColor">#060606</color>
+    <color name="colorPrimary">#37474f</color>
+    <color name="colorPrimaryDark">#102027</color>
+    <color name="colorPrimaryLight">#62727b</color>
+    <color name="colorAccent">#4CAF50</color>
+    <color name="colorNavigationBar">#37474f</color>
 
     <color name="white">#FFFFFF</color>
-
-    <color name="colorAccentDark">#BB86FC</color>
-
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
-
-    <color name="activity_background">#666ad1</color>
-
     <color name="warning_color">#d50000</color>
 </resources>

@@ -8,8 +8,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +23,7 @@ import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.prefs.SettingsActivity;
 import com.example.wetweather.prefs.WetWeatherPreferences;
 import com.example.wetweather.sync.WeatherSyncUtils;
+import com.example.wetweather.utils.NetworkUtils;
 import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class PlacesActivity extends AppCompatActivity {
 
         setupViewModel();
 
-        if (isNetworkAvailable()) {
+        if (NetworkUtils.isNetworkAvailable(mActivityContext)) {
             WeatherSyncUtils.initialize(this);
         } else{
             Toast.makeText(this, R.string.network_not_available, Toast.LENGTH_SHORT).show();
@@ -86,7 +85,7 @@ public class PlacesActivity extends AppCompatActivity {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        if (isNetworkAvailable()) {
+                        if (NetworkUtils.isNetworkAvailable(mActivityContext)) {
                             WeatherSyncUtils.startImmediateSync(mActivityContext);
                         } else {
                             Toast.makeText(mActivityContext, R.string.network_not_available,
@@ -104,7 +103,6 @@ public class PlacesActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
                 setWeatherData(weatherEntries);
-                showWeatherDataView();
             }
         });
     }
@@ -131,15 +129,8 @@ public class PlacesActivity extends AppCompatActivity {
                 WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature)));
         iconView.setImageResource(weatherImageId);
         descriptionView.setText(weatherForThisDay.getSummary());
+        showWeatherDataView();
 
-    }
-
-    //Helper method to check network availability
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     /**
