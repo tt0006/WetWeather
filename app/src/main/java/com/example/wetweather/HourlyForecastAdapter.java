@@ -49,34 +49,32 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         // Get the state
         boolean expanded = weatherForThisDay.isExpanded();
         // Set the visibility based on state
-        holder.detailsHourlyChildLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
+        holder.hourlyChildLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
-        holder.iconView.setImageResource(WetWeatherUtils.getResourceIconIdForWeatherCondition(
+        holder.hourlyWeatherIcon.setImageResource(WetWeatherUtils.getResourceIconIdForWeatherCondition(
                 weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity()));
-        holder.descriptionView.setText(weatherForThisDay.getSummary());
-        holder.dateView.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeInSeconds()));
-        holder.tempView.setText(WetWeatherUtils.formatTemperature(mContext,
+        holder.hourlyWeatherDescription.setText(weatherForThisDay.getSummary());
+        holder.hourlyDate.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeInSeconds()));
+        holder.hourlyTemperature.setText(WetWeatherUtils.formatTemperature(mContext,
                 weatherForThisDay.getTemperature()));
-        holder.rainProb.setText(String.format("%1$s %2$s", mContext.getString(
-                R.string.hourly_rain_prob_label),
+        holder.hourlyRain.setText(String.format("%1$s %2$s",
                 mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.getPrecipProbability() * 100)));
+                        weatherForThisDay.getPrecipProbability() * 100), mContext.getString(R.string.format_percip_intens,
+                        weatherForThisDay.getPrecipIntensity())));
 
-        holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
-        holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
+        holder.hourlyWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
+        holder.hourlyWindSpeed.setText(mContext.getString(R.string.format_wind_speed,
                 weatherForThisDay.getWindSpeed()));
-        holder.windGustDetails.setText(mContext.getString(R.string.format_wind_speed,
+        holder.hourlyWindGust.setText(mContext.getString(R.string.format_wind_speed,
                 WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
-        holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
-                weatherForThisDay.getPrecipProbability() * 100));
-        holder.rainDetailsIntens.setText(mContext.getString(R.string.format_percip_intens,
-                weatherForThisDay.getPrecipIntensity()));
+        holder.hourlyClouds.setText(mContext.getString(R.string.format_percent_value,
+                weatherForThisDay.cloudCover * 100));
 
-        holder.humidityDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+        holder.hourlyHumidity.setText(mContext.getString(R.string.format_percent_value,
                 weatherForThisDay.getHumidity() * 100));
 
-        holder.pressureDetailsValue.setText(mContext.getString(R.string.format_pressure,
+        holder.hourlyPressure.setText(mContext.getString(R.string.format_pressure,
                 weatherForThisDay.getPressure()));
     }
 
@@ -91,45 +89,29 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
      * a cache of the child views for a forecast item.
      */
     class HourlyForecastAdapterViewHolder extends RecyclerView.ViewHolder {
-        final ImageView iconView;
+        final View entireHourlyLayout, hourlyChildLayout;
+        final ImageView hourlyWeatherIcon, hourlyWindIcon;
 
-        final TextView dateView;
-        final TextView descriptionView;
-        final TextView tempView;
-        final TextView rainProb;
-        final View entireHourlyLayout;
-        final View detailsHourlyChildLayout;
-        final TextView rainDetailsProb;
-        final TextView rainDetailsIntens;
-        final ImageView windIcon;
-        final TextView windSpeedDetails;
-        final TextView windGustDetails;
-        final TextView humidityDetailsValue;
-        final TextView pressureDetailsValue;
+        final TextView hourlyDate, hourlyWeatherDescription, hourlyTemperature, hourlyRain,
+        hourlyClouds, hourlyWindSpeed, hourlyWindGust, hourlyHumidity, hourlyPressure;
 
         HourlyForecastAdapterViewHolder(View view) {
             super(view);
 
-            iconView = view.findViewById(R.id.weather_icon);
-            dateView = view.findViewById(R.id.date);
-            descriptionView = view.findViewById(R.id.weather_description);
-            tempView = view.findViewById(R.id.hourly_temperature);
-            rainProb = view.findViewById(R.id.hourly_rain);
-
             entireHourlyLayout = view.findViewById(R.id.entire_hourly_layout);
+            hourlyChildLayout = view.findViewById(R.id.hourly_details_child_layout);
 
-            detailsHourlyChildLayout = view.findViewById(R.id.details_hourly);
-
-            rainDetailsProb = view.findViewById(R.id.rain_details_probability);
-            rainDetailsIntens = view.findViewById(R.id.rain_details_intensity);
-
-            windIcon = view.findViewById(R.id.wind_icon);
-            windSpeedDetails = view.findViewById(R.id.wind_details_speed);
-            windGustDetails = view.findViewById(R.id.wind_details_gust);
-
-            humidityDetailsValue = view.findViewById(R.id.humidity_details_value);
-
-            pressureDetailsValue = view.findViewById(R.id.pressure_details_value);
+            hourlyWeatherIcon = view.findViewById(R.id.hourly_weather_icon);
+            hourlyDate = view.findViewById(R.id.hourly_date);
+            hourlyWeatherDescription = view.findViewById(R.id.hourly_weather_description);
+            hourlyTemperature = view.findViewById(R.id.hourly_temperature);
+            hourlyRain = view.findViewById(R.id.hourly_rain_value);
+            hourlyClouds = view.findViewById(R.id.hourly_clouds_value);
+            hourlyWindIcon = view.findViewById(R.id.hourly_wind_icon);
+            hourlyWindSpeed = view.findViewById(R.id.hourly_wind_speed);
+            hourlyWindGust = view.findViewById(R.id.hourly_wind_gust);
+            hourlyHumidity = view.findViewById(R.id.hourly_humidity_value);
+            hourlyPressure = view.findViewById(R.id.hourly_pressure_value);
         }
     }
 

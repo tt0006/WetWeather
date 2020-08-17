@@ -17,7 +17,7 @@
         android:paddingRight="@dimen/list_item_padding_horizontal">
 
         <ImageView
-            android:id="@+id/weather_icon"
+            android:id="@+id/hourly_weather_icon"
             android:layout_width="@dimen/list_icon"
             android:layout_height="@dimen/list_icon"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -26,7 +26,7 @@
             tools:src="@drawable/art_clouds" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/hourly_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/list_item_date_start_margin"
@@ -34,18 +34,18 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintLeft_toRightOf="@+id/weather_icon"
+            app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
             tools:text="19:00 (Sun)" />
 
         <TextView
-            android:id="@+id/weather_description"
+            android:id="@+id/hourly_weather_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/list_item_date_left_margin"
             android:singleLine="false"
-            app:layout_constraintLeft_toRightOf="@+id/weather_icon"
-            app:layout_constraintRight_toLeftOf="@id/hourly_rain"
-            app:layout_constraintTop_toBottomOf="@+id/date"
+            app:layout_constraintLeft_toRightOf="@+id/hourly_weather_icon"
+            app:layout_constraintRight_toLeftOf="@id/hourly_rain_icon"
+            app:layout_constraintTop_toBottomOf="@+id/hourly_date"
             tools:text="Невелика хмарність протягом  дня yyt yt hhuh h uh h yty." />
 
         <TextView
@@ -61,15 +61,24 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="19\u00b0" />
 
+        <ImageView
+            android:id="@+id/hourly_rain_icon"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:src="@drawable/ic_rain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/hourly_rain_value"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
         <TextView
-            android:id="@+id/hourly_rain"
+            android:id="@+id/hourly_rain_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            tools:text="Rain: 20%" />
+            tools:text="20% 0.03" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -81,118 +90,118 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/details_hourly"
+        android:id="@+id/hourly_details_child_layout"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/rain_icon"
+            android:id="@+id/hourly_clouds_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/wind_icon"
+            app:layout_constraintRight_toLeftOf="@id/hourly_wind_icon"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_rain"/>
+            android:src="@drawable/ic_cloudy_vector"/>
         <TextView
-            android:id="@+id/rain_details_probability"
+            android:id="@+id/hourly_clouds_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rain_icon"
-            app:layout_constraintLeft_toLeftOf="@id/rain_icon"
-            app:layout_constraintRight_toRightOf="@id/rain_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_clouds_icon"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_clouds_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_clouds_icon"
             tools:text="20%"/>
         <TextView
-            android:id="@+id/rain_details_intensity"
+            android:id="@+id/hourly_clouds_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rain_details_probability"
-            app:layout_constraintLeft_toLeftOf="@id/rain_icon"
-            app:layout_constraintRight_toRightOf="@id/rain_icon"
-            tools:text="12 mm"/>
+            app:layout_constraintTop_toBottomOf="@id/hourly_clouds_value"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_clouds_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_clouds_icon"
+            android:text="@string/cloud_cover_label"/>
 
 
         <ImageView
-            android:id="@+id/wind_icon"
+            android:id="@+id/hourly_wind_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_wind_icon"
-            app:layout_constraintLeft_toRightOf="@id/rain_icon"
-            app:layout_constraintRight_toLeftOf="@id/humidity_icon"
+            app:layout_constraintLeft_toRightOf="@id/hourly_clouds_icon"
+            app:layout_constraintRight_toLeftOf="@id/hourly_humidity_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/wind_details_speed"
+            android:id="@+id/hourly_wind_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/wind_icon"
-            app:layout_constraintRight_toRightOf="@id/wind_icon"
-            app:layout_constraintTop_toBottomOf="@id/wind_icon"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_wind_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_wind_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_wind_icon"
             tools:text="2 m/s" />
 
         <TextView
-            android:id="@+id/wind_details_gust"
+            android:id="@+id/hourly_wind_gust"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/wind_icon"
-            app:layout_constraintRight_toRightOf="@id/wind_icon"
-            app:layout_constraintTop_toBottomOf="@id/wind_details_speed"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_wind_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_wind_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_wind_speed"
             tools:text="West" />
 
 
         <ImageView
-            android:id="@+id/humidity_icon"
+            android:id="@+id/hourly_humidity_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_humidity"
-            app:layout_constraintLeft_toRightOf="@id/wind_icon"
-            app:layout_constraintRight_toLeftOf="@id/pressure_icon"
+            app:layout_constraintLeft_toRightOf="@id/hourly_wind_icon"
+            app:layout_constraintRight_toLeftOf="@id/hourly_pressure_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/humidity_details_value"
+            android:id="@+id/hourly_humidity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
-            app:layout_constraintRight_toRightOf="@id/humidity_icon"
-            app:layout_constraintTop_toBottomOf="@id/humidity_icon"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_humidity_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_humidity_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_humidity_icon"
             tools:text="68%" />
 
         <TextView
-            android:id="@+id/humidity_details_label"
+            android:id="@+id/hourly_humidity_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/humidity_icon"
-            app:layout_constraintRight_toRightOf="@id/humidity_icon"
-            app:layout_constraintTop_toBottomOf="@id/humidity_details_value"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_humidity_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_humidity_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_humidity_value"
             android:text="@string/humidity_label" />
 
 
         <ImageView
-            android:id="@+id/pressure_icon"
+            android:id="@+id/hourly_pressure_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_zeppelin"
-            app:layout_constraintLeft_toRightOf="@id/humidity_icon"
+            app:layout_constraintLeft_toRightOf="@id/hourly_humidity_icon"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/pressure_details_value"
+            android:id="@+id/hourly_pressure_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
-            app:layout_constraintRight_toRightOf="@id/pressure_icon"
-            app:layout_constraintTop_toBottomOf="@id/pressure_icon"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_pressure_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_pressure_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_pressure_icon"
             tools:text="1029 hpa" />
 
         <TextView
-            android:id="@+id/pressure_details_label"
+            android:id="@+id/hourly_pressure_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/pressure_icon"
-            app:layout_constraintRight_toRightOf="@id/pressure_icon"
-            app:layout_constraintTop_toBottomOf="@id/pressure_details_value"
+            app:layout_constraintLeft_toLeftOf="@id/hourly_pressure_icon"
+            app:layout_constraintRight_toRightOf="@id/hourly_pressure_icon"
+            app:layout_constraintTop_toBottomOf="@id/hourly_pressure_value"
             android:text="@string/pressure_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

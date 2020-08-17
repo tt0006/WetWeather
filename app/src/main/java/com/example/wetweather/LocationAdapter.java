@@ -85,48 +85,54 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
-                holder.dateView.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeInSeconds()));
-                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
-                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
+                holder.detailsWeatherIcon.setImageResource(weatherImageId);
+                holder.detailsWeatherDescription.setText(weatherForThisDay.getSummary());
+                holder.detailsDate.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeInSeconds()));
+                holder.detailsHighTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperature()));
+                holder.detailsLowTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.apparentTemperature));
 
-                holder.windIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
-                holder.windSpeedDetails.setText(mContext.getString(R.string.format_wind_speed,
+                holder.detailsWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
+                holder.detailsWindSpeed.setText(mContext.getString(R.string.format_wind_speed,
                         weatherForThisDay.getWindSpeed()));
-                holder.windGustDetails.setText(mContext.getString(R.string.format_wind_speed,
+                holder.detailsWindGust.setText(mContext.getString(R.string.format_wind_speed,
                         WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
-                holder.rainDetailsProb.setText(mContext.getString(R.string.format_percent_value,
+                holder.detailsRainProb.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getPrecipProbability() * 100));
-                holder.rainDetailsIntens.setText(mContext.getString(R.string.format_percip_intens,
+                holder.detailsRainIntens.setText(mContext.getString(R.string.format_percip_intens,
                         weatherForThisDay.getPrecipIntensity()));
 
-                holder.humidityDetailsValue.setText(mContext.getString(R.string.format_percent_value,
+                holder.detailsHumidity.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getHumidity() * 100));
 
-                holder.pressureDetailsValue.setText(mContext.getString(R.string.format_pressure,
+                holder.detailsPressure.setText(mContext.getString(R.string.format_pressure,
                         weatherForThisDay.getPressure()));
 
-                holder.sunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
-                holder.sunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
-                holder.moonPhaseStringValue.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.moonPhase));
-                holder.moonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.moonPhase));
-                holder.visibilityView.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.visibility));
+                holder.detailsSunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
+                holder.detailsSunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
+                holder.detailsClouds.setText(mContext.getString(R.string.format_percent_value, weatherForThisDay.cloudCover * 100));
+                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.moonPhase));
+                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.moonPhase));
+                holder.detailsVisibility.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.visibility));
 
                 break;
 
             case VIEW_TYPE_FUTURE_DAY:
-                holder.entireDetailsLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeInSeconds()));
+                holder.entireForecastLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeInSeconds()));
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
-                holder.dateView.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeInSeconds()));
-                holder.highTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
-                holder.lowTempView.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
+                holder.forecastIcon.setImageResource(weatherImageId);
+                holder.forecastWeatherDescription.setText(weatherForThisDay.getSummary());
+                holder.forecastDate.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeInSeconds()));
+                holder.forecastHighTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
+                holder.forecasLowTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
 
                 break;
 
             case VIEW_TYPE_INFO:
                 weatherImageId = WetWeatherUtils
                         .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                holder.infoIcon.setImageResource(weatherImageId);
 
                 int infoType = weatherForThisDay.weatherType;
                 String description = "";
@@ -135,26 +141,28 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                     description = mContext.getString(R.string.next_7_days_label);
                 } else if (infoType == 7){
                     description = mContext.getString(R.string.next_24_hours_label);
-                    holder.entireDetailsLayout.setOnClickListener(new HourlyClickHandler());
+                    holder.entireInfoLayout.setOnClickListener(new HourlyClickHandler());
                 } else if (infoType == 8){
                     description = mContext.getString(R.string.next_hour_label);
                 }
 
-                holder.dateView.setText(description);
+                holder.infoDate.setText(description);
+                holder.infoWeatherDescription.setText(weatherForThisDay.getSummary());
 
                 break;
 
             case VIEW_TYPE_ALERTS:
-                holder.entireDetailsLayout.setOnClickListener(new AlertClickHandler());
+                holder.entireInfoLayout.setOnClickListener(new AlertClickHandler());
                 weatherImageId = R.drawable.ic_circle_warning;
-                holder.dateView.setText(String.format("%1$s %2$s", mContext.getString(R.string.alerts_label),
+                holder.infoIcon.setImageResource(weatherImageId);
+                holder.infoDate.setText(String.format("%1$s %2$s", mContext.getString(R.string.alerts_label),
                         weatherForThisDay.getIcon()));
-                holder.descriptionView.setSingleLine(true);
-                holder.descriptionView.setEllipsize(TextUtils.TruncateAt.END);
-                holder.descriptionView.setText(weatherForThisDay.getSummary());
+                holder.infoWeatherDescription.setSingleLine(true);
+                holder.infoWeatherDescription.setEllipsize(TextUtils.TruncateAt.END);
+                holder.infoWeatherDescription.setText(weatherForThisDay.getSummary());
 
                 //set background color
-                View root = holder.dateView.getRootView();
+                View root = holder.infoDate.getRootView();
                 //root.setBackgroundColor(mContext.getColor(R.color.warning_color));
                 root.setBackgroundColor(Color.RED);
                 break;
@@ -162,10 +170,6 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             default:
                 throw new IllegalArgumentException("Invalid view type, value of " + viewType);
         }
-
-        //set common
-        holder.iconView.setImageResource(weatherImageId);
-        holder.descriptionView.setText(weatherForThisDay.getSummary());
     }
 
     @Override
@@ -211,57 +215,54 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
      * a cache of the child views for a forecast item.
      */
     static class LocationAdapterViewHolder extends RecyclerView.ViewHolder {
-        final ImageView iconView;
 
-        final TextView dateView;
-        final TextView descriptionView;
-        final TextView highTempView;
-        final TextView lowTempView;
+        final View entireDetailsLayout, entireDetailsSet, entireForecastLayout, entireInfoLayout;
 
-        final View entireDetailsLayout;
-        final View entireDetailsSet;
+        final ImageView infoIcon, forecastIcon, detailsWeatherIcon, detailsWindIcon, detailsMoonIcon;
 
-        final TextView rainDetailsProb;
-        final TextView rainDetailsIntens;
-        final ImageView windIcon;
-        final TextView windSpeedDetails;
-        final TextView windGustDetails;
-        final TextView humidityDetailsValue;
-        final TextView pressureDetailsValue;
-        final TextView sunrise;
-        final TextView sunset;
-        final TextView moonPhaseStringValue;
-        final ImageView moonIcon;
-        final TextView visibilityView;
+        final TextView infoDate, infoWeatherDescription, forecastDate, forecastWeatherDescription,
+                forecastHighTemp, forecasLowTemp,
+                detailsDate, detailsWeatherDescription, detailsHighTemp,
+                detailsLowTemp, detailsRainProb, detailsRainIntens, detailsWindSpeed,
+                detailsWindGust, detailsHumidity, detailsPressure, detailsSunrise, detailsSunset,
+                detailsClouds, detailsMoonPhaseString, detailsVisibility;
 
         LocationAdapterViewHolder(View view) {
             super(view);
 
-            iconView = view.findViewById(R.id.weather_icon);
-            dateView = view.findViewById(R.id.date);
-            descriptionView = view.findViewById(R.id.weather_description);
-            highTempView = view.findViewById(R.id.high_temperature);
-            lowTempView = view.findViewById(R.id.low_temperature);
+            entireInfoLayout = view.findViewById(R.id.info_layout);
+            infoIcon = view.findViewById(R.id.info_weather_icon);
+            infoDate = view.findViewById(R.id.info_date);
+            infoWeatherDescription = view.findViewById(R.id.info_weather_description);
+
+            entireForecastLayout = view.findViewById(R.id.forecast_layout);
+            forecastIcon = view.findViewById(R.id.forecast_weather_icon);
+            forecastDate = view.findViewById(R.id.forecast_date);
+            forecastWeatherDescription = view.findViewById(R.id.forecast_weather_description);
+            forecastHighTemp = view.findViewById(R.id.forecast_high_temperature);
+            forecasLowTemp = view.findViewById(R.id.forecast_low_temperature);
 
             entireDetailsLayout = view.findViewById(R.id.entire_details_layout);
             entireDetailsSet = view.findViewById(R.id.extra_details_set);
 
-            rainDetailsProb = view.findViewById(R.id.rain_details_probability);
-            rainDetailsIntens = view.findViewById(R.id.rain_details_intensity);
-
-            windIcon = view.findViewById(R.id.wind_icon);
-            windSpeedDetails = view.findViewById(R.id.wind_details_speed);
-            windGustDetails = view.findViewById(R.id.wind_details_gust);
-
-            humidityDetailsValue = view.findViewById(R.id.humidity_details_value);
-
-            pressureDetailsValue = view.findViewById(R.id.pressure_details_value);
-
-            sunrise = view.findViewById(R.id.sunrise_value);
-            sunset = view.findViewById(R.id.sunset_value);
-            moonPhaseStringValue = view.findViewById(R.id.moon_phase_string_value);
-            moonIcon = view.findViewById(R.id.moon_phase_icon);
-            visibilityView = view.findViewById(R.id.visibility_details_value);
+            detailsWeatherIcon = view.findViewById(R.id.details_weather_icon);
+            detailsDate = view.findViewById(R.id.details_date);
+            detailsWeatherDescription = view.findViewById(R.id.details_weather_description);
+            detailsHighTemp = view.findViewById(R.id.details_high_temperature);
+            detailsLowTemp = view.findViewById(R.id.details_low_temperature);
+            detailsRainProb = view.findViewById(R.id.details_rain_probability);
+            detailsRainIntens = view.findViewById(R.id.details_rain_intensity);
+            detailsWindIcon = view.findViewById(R.id.details_wind_icon);
+            detailsWindSpeed = view.findViewById(R.id.details_wind_speed);
+            detailsWindGust = view.findViewById(R.id.details_wind_gust);
+            detailsHumidity = view.findViewById(R.id.details_humidity_value);
+            detailsPressure = view.findViewById(R.id.details_pressure_value);
+            detailsSunrise = view.findViewById(R.id.details_sunrise_value);
+            detailsSunset = view.findViewById(R.id.details_sunset_value);
+            detailsClouds = view.findViewById(R.id.details_clouds_value);
+            detailsMoonPhaseString = view.findViewById(R.id.details_moon_phase_string_value);
+            detailsMoonIcon = view.findViewById(R.id.details_moon_phase_icon);
+            detailsVisibility = view.findViewById(R.id.details_visibility_value);
         }
     }
 

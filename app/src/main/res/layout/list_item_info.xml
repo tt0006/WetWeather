@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/entire_details_layout"
+    android:id="@+id/info_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -14,7 +14,7 @@
     android:paddingTop="@dimen/list_item_padding_vertical">
 
     <ImageView
-        android:id="@+id/weather_icon"
+        android:id="@+id/info_weather_icon"
         android:layout_width="@dimen/list_icon"
         android:layout_height="@dimen/list_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -23,26 +23,26 @@
         tools:src="@drawable/art_clouds"/>
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/info_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_item_date_left_margin"
         android:layout_marginStart="@dimen/list_item_date_start_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
+        app:layout_constraintLeft_toRightOf="@+id/info_weather_icon"
         android:textStyle="bold"
         tools:text="19:00 (Sun)"/>
 
     <TextView
-        android:id="@+id/weather_description"
+        android:id="@+id/info_weather_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_item_date_left_margin"
         android:singleLine="false"
-        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
+        app:layout_constraintLeft_toRightOf="@+id/info_weather_icon"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintTop_toBottomOf="@+id/info_date"
         tools:text="Невелика хмарність протягом  дня."/>
 
     <androidx.constraintlayout.widget.Guideline

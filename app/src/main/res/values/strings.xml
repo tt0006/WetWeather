@@ -97,7 +97,7 @@
 
     <string name="title_activity_alerts">Weather alerts</string>
 
-    <string name="cloud_cover_label">Cloud cover</string>
+    <string name="cloud_cover_label">Clouds</string>
 
     <string name="next_hour_label">Next hour</string>
     <string name="next_24_hours_label">Next 24 hours</string>
@@ -176,7 +176,7 @@
     <string name="moon_phase_waning_gibbous_label">Waning gibbous</string>
     <string name="moon_phase_last_quarter_label">Last quarter</string>
     <string name="moon_phase_waning_crescent_label">Waning crescent</string>
-    <string name="moon_phase_label">Moon phase</string>
+    <string name="moon_phase_label">Moon</string>
 
     <!-- Graphs strings -->
     <string name="graph_precip_description_label">Precipitation intensity</string>

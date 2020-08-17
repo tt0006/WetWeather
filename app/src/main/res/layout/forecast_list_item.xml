@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/entire_details_layout"
+    android:id="@+id/forecast_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -14,7 +14,7 @@
     android:paddingTop="@dimen/list_item_padding_vertical">
 
     <ImageView
-        android:id="@+id/weather_icon"
+        android:id="@+id/forecast_weather_icon"
         android:layout_width="@dimen/list_icon"
         android:layout_height="@dimen/list_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -23,7 +23,7 @@
         tools:src="@drawable/ic_cloudy_vector"/>
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/forecast_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -31,22 +31,22 @@
         android:layout_marginStart="@dimen/list_item_date_start_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
+        app:layout_constraintLeft_toRightOf="@+id/forecast_weather_icon"
         tools:text="Today, April 03"/>
 
     <TextView
-        android:id="@+id/weather_description"
+        android:id="@+id/forecast_weather_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_item_date_left_margin"
         android:singleLine="false"
-        app:layout_constraintLeft_toRightOf="@+id/weather_icon"
-        app:layout_constraintRight_toLeftOf="@id/high_temperature"
-        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintLeft_toRightOf="@+id/forecast_weather_icon"
+        app:layout_constraintRight_toLeftOf="@id/forecast_high_temperature"
+        app:layout_constraintTop_toBottomOf="@+id/forecast_date"
         tools:text="Невелика хмарність протягом всього дня."/>
 
     <TextView
-        android:id="@+id/high_temperature"
+        android:id="@+id/forecast_high_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/forecast_temperature_space"
@@ -55,12 +55,12 @@
         android:textStyle="bold"
         android:textSize="@dimen/forecast_text_size"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintRight_toLeftOf="@+id/low_temperature"
+        app:layout_constraintRight_toLeftOf="@+id/forecast_low_temperature"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         tools:text="19\u00b0"/>
 
     <TextView
-        android:id="@+id/low_temperature"
+        android:id="@+id/forecast_low_temperature"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
