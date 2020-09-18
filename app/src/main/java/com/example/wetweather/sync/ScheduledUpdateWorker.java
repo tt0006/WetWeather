@@ -7,6 +7,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.wetweather.utils.NetworkUtils;
+import com.example.wetweather.utils.UpdateWeatherData;
 
 /**
  * Worker class used by scheduleWeatherUpdate method in {@link ScheduledUpdateRun} class to perform
@@ -23,7 +24,7 @@ public class ScheduledUpdateWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        if (NetworkUtils.updateWeatherData(getApplicationContext())) {
+        if (UpdateWeatherData.getLatestData(getApplicationContext())) {
             return Result.success();
         } else
             return Result.failure();

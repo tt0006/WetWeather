@@ -80,7 +80,7 @@ public class GraphsActivity extends AppCompatActivity {
             lowTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.temperatureLow)));
             apparentLowTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.apparentTemperatureLow)));
             pressureEntries.add(new Entry(item.getDateTimeInSeconds(), (float) item.getPressure()));
-            precipitationEntries.add(new Entry(item.getDateTimeInSeconds(), (float) item.getPrecipIntensity()));
+            precipitationEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.getPrecipIntensity())));
             humidityEntries.add(new Entry(item.getDateTimeInSeconds(), (float) item.getHumidity()));
         }
 

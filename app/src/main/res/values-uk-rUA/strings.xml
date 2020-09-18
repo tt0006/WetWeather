@@ -23,7 +23,6 @@
     <string name="pref_update_interval_1_hour">1 година</string>
     <string name="pref_units_label_metric">Метричні</string>
     <string name="pref_units_label_imperial">Імперські</string>
-    <string name="pref_units_label_auto">Автоматично</string>
     <string name="pref_units_label">Одиниці</string>
     <string name="pref_location_label">Локація</string>
     <string name="pref_language_uk_label">Українська</string>
@@ -47,7 +46,7 @@
     <string name="cloud_cover_label">Хмари</string>
     <string name="format_percip_intens"><xliff:g id="precip">%1$.1f</xliff:g> мм</string>
     <string name="format_pressure"><xliff:g id="pressure">%1.0f</xliff:g> ГПа</string>
-    <string name="format_visibility"><xliff:g id="visibility">%1$.1f</xliff:g> км</string>
+    <string name="format_visibility"><xliff:g id="visibility">%1$.2s</xliff:g> км</string>
     <string name="format_wind_ms">
         <xliff:g id="speed">%1$1.0f</xliff:g> м/с
         <xliff:g id="direction">%2$s</xliff:g></string>
@@ -71,4 +70,6 @@
     <string name="night_temperature_label">Вночі</string>
     <string name="day_apparent_temperature_label">Вдень відчувається</string>
     <string name="night_apparent_temperature_label">Вночі відчувається</string>
+    <string name="pref_weather_provider_title">Дані погоди</string>
+    <string name="default_text">Додайте локацію.</string>
 </resources>

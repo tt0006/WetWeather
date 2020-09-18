@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
 import com.example.wetweather.utils.NetworkUtils;
+import com.example.wetweather.utils.UpdateWeatherData;
 
 /**
  * A {@link JobIntentService} subclass used by startImmediateSync method in {@link WeatherSyncUtils}
@@ -33,6 +34,6 @@ public class WeatherSyncJobIntentService extends JobIntentService {
      * @param context Used to access utility methods
      */
     private static void syncWeather(Context context) {
-        NetworkUtils.updateWeatherData(context);
+        UpdateWeatherData.getLatestData(context);
     }
 }

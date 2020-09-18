@@ -1,6 +1,7 @@
 package com.example.wetweather;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wetweather.db.WeatherItem;
+import com.example.wetweather.utils.WPOpenWeather;
 import com.example.wetweather.utils.WetWeatherUtils;
 
 import java.util.List;
 
 class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.HourlyForecastAdapterViewHolder> {
-
+    private static final String LOG_TAG = HourlyForecastAdapter.class.getName();
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
 
@@ -52,15 +54,15 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         holder.hourlyChildLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
         holder.hourlyWeatherIcon.setImageResource(WetWeatherUtils.getResourceIconIdForWeatherCondition(
-                weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity()));
+                mContext, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity()));
         holder.hourlyWeatherDescription.setText(weatherForThisDay.getSummary());
         holder.hourlyDate.setText(WetWeatherUtils.getHourWithDay(weatherForThisDay.getDateTimeInSeconds()));
         holder.hourlyTemperature.setText(WetWeatherUtils.formatTemperature(mContext,
                 weatherForThisDay.getTemperature()));
         holder.hourlyRain.setText(String.format("%1$s %2$s",
                 mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.getPrecipProbability() * 100), mContext.getString(R.string.format_percip_intens,
-                        weatherForThisDay.getPrecipIntensity())));
+                        Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100), mContext.getString(R.string.format_percip_intens,
+                        Float.parseFloat(weatherForThisDay.getPrecipIntensity()))));
 
         holder.hourlyWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
         holder.hourlyWindSpeed.setText(mContext.getString(R.string.format_wind_speed,

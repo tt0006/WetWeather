@@ -3,8 +3,10 @@ package com.example.wetweather.utils;
 import android.content.Context;
 import android.os.Build;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.example.wetweather.R;
+import com.example.wetweather.prefs.WetWeatherPreferences;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -198,6 +200,63 @@ public class WetWeatherUtils {
         return number;
     }
 
+    public static int getResourceIconIdForWeatherCondition(Context context, String weatherIcon, String precipIntensity) {
+
+        String weatherProvider = WetWeatherPreferences.getPreferencesWeatherProvider(context);
+
+        if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_dark_sky_value))) {
+            return getIconForDarkSky(weatherIcon, precipIntensity);
+        } else if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_open_weather_value))) {
+            return getIconForOpenWeather(weatherIcon);
+        }
+        return R.drawable.art_clear;
+    }
+
+    private static int getIconForOpenWeather(String weatherIcon) {
+
+        int icon;
+        switch (weatherIcon) {
+            case "01d":
+                icon =  R.drawable.ic_clear_day_vector;
+                break;
+            case "01n":
+                icon = R.drawable.ic_clear_night_vector;
+                break;
+            case "09d":
+                icon = R.drawable.ic_rain_vector;
+                break;
+            case "11d":
+            case "10d":
+                icon = R.drawable.ic_rain_light;
+                break;
+            case "13d":
+                icon = R.drawable.ic_snow_vector;
+                break;
+            case "sleet":
+                return R.drawable.ic_sleet_vector;
+            case "50d":
+            case "50n":
+                icon = R.drawable.ic_fog_vector;
+                break;
+            case "04d":
+            case "04n":
+                icon = R.drawable.ic_cloudy_vector;
+                break;
+            case "02d":
+            case "03d":
+                icon = R.drawable.ic_partly_cloudy_day_vector;
+                break;
+            case "02n":
+            case "03n":
+                icon = R.drawable.ic_partly_cloudy_night_vector;
+                break;
+            case "wind":
+                return R.drawable.ic_wind_vector;
+            default:
+                icon =R.drawable.art_clear;
+        }
+        return icon;
+    }
 
     /**
      * This method uses the weather description to determine its icon.
@@ -205,8 +264,15 @@ public class WetWeatherUtils {
      * @param weatherIcon weather description as per API documentation
      * @return Weather icon
      */
-    public static int getResourceIconIdForWeatherCondition(String weatherIcon, double precipIntensity) {
+    private static int getIconForDarkSky(String weatherIcon, String precipIntensity) {
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, partly-cloudy-night
+
+        double precipitationIntensity;
+        if (precipIntensity == null || precipIntensity.equals("0")){
+            precipitationIntensity = 0.0;
+        } else {
+            precipitationIntensity = Double.parseDouble(precipIntensity);
+        }
 
         switch (weatherIcon) {
             case "clear-day":
@@ -214,11 +280,11 @@ public class WetWeatherUtils {
             case "clear-night":
                 return R.drawable.ic_clear_night_vector;
             case "rain":
-                if (precipIntensity < 2.5) {
+                if (precipitationIntensity < 2.5) {
                     return R.drawable.ic_rain_light;
-                } else if (precipIntensity < 5.0) {
+                } else if (precipitationIntensity < 5.0) {
                     return R.drawable.ic_rain_moderate;
-                } else if (precipIntensity < 10.0) {
+                } else if (precipitationIntensity < 10.0) {
                     return R.drawable.ic_rain_heavy;
                 }
                 return R.drawable.ic_rain_vector;

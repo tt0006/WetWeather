@@ -78,18 +78,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         Context context = getContext().getApplicationContext();
         if (context == null) return;
 
-        if (key.equals(getString(R.string.pref_location_key))) {
-            // we've changed the location
-            WeatherSyncUtils.startImmediateSync(context);
-        } else if (key.equals(getString(R.string.pref_units_key))) {
-            // units have changed
-            WeatherSyncUtils.startImmediateSync(context);
-
-        } else if (key.equals(getString(R.string.pref_update_interval_key))) {
-            //update interval changed
+        if (key.equals(getString(R.string.pref_update_interval_key))) {
+            // update interval changed
             ScheduledUpdateRun.scheduleWeatherUpdate(context);
-        } else if (key.equals(getString(R.string.pref_language_key))) {
-            //language changed
+        } else {
+            // language, units, update interval or weather provider have changed
             WeatherSyncUtils.startImmediateSync(context);
         }
 

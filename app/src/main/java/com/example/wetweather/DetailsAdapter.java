@@ -71,7 +71,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                 holder.entireDetailsSet.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                        .getResourceIconIdForWeatherCondition(mContext, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.detailsWeatherIcon.setImageResource(weatherImageId);
 
                 holder.detailsDate.setVisibility(View.GONE);
@@ -86,9 +86,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                         WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
                 holder.detailsRainProb.setText(mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.getPrecipProbability() * 100));
+                        Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100));
                 holder.detailsRainIntens.setText(mContext.getString(R.string.format_percip_intens,
-                        weatherForThisDay.getPrecipIntensity()));
+                        Float.parseFloat(weatherForThisDay.getPrecipIntensity())));
 
                 holder.detailsHumidity.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getHumidity() * 100));
@@ -114,7 +114,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                 // Set the visibility based on state
                 holder.hourlyChildLayout.setVisibility(expanded1 ? View.VISIBLE : View.GONE);
 
-                weatherImageId = WetWeatherUtils.getResourceIconIdForWeatherCondition(
+                weatherImageId = WetWeatherUtils.getResourceIconIdForWeatherCondition(mContext,
                         weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.hourlyWeatherIcon.setImageResource(weatherImageId);
 
@@ -124,9 +124,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                         weatherForThisDay.getTemperature()));
                 holder.hourlyRain.setText(String.format("%1$s %2$s",
                         mContext.getString(R.string.format_percent_value,
-                                weatherForThisDay.getPrecipProbability() * 100),
+                                Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100),
                         mContext.getString(R.string.format_percip_intens,
-                        weatherForThisDay.getPrecipIntensity())));
+                                Float.parseFloat(weatherForThisDay.getPrecipIntensity()))));
 
                 holder.hourlyWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
                 holder.hourlyWindSpeed.setText(mContext.getString(R.string.format_wind_speed,

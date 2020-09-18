@@ -84,7 +84,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                 holder.entireDetailsSet.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                        .getResourceIconIdForWeatherCondition(mContext, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.detailsWeatherIcon.setImageResource(weatherImageId);
                 holder.detailsWeatherDescription.setText(weatherForThisDay.getSummary());
                 holder.detailsDate.setText(WetWeatherUtils.getUpdateTime(mContext, weatherForThisDay.getDateTimeInSeconds()));
@@ -98,9 +98,9 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                         WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
 
                 holder.detailsRainProb.setText(mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.getPrecipProbability() * 100));
+                        Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100));
                 holder.detailsRainIntens.setText(mContext.getString(R.string.format_percip_intens,
-                        weatherForThisDay.getPrecipIntensity()));
+                        Float.parseFloat(weatherForThisDay.getPrecipIntensity())));
 
                 holder.detailsHumidity.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getHumidity() * 100));
@@ -120,7 +120,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             case VIEW_TYPE_FUTURE_DAY:
                 holder.entireForecastLayout.setOnClickListener(new FutureDayClickHandler(weatherForThisDay.getDateTimeInSeconds()));
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                        .getResourceIconIdForWeatherCondition(mContext, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.forecastIcon.setImageResource(weatherImageId);
                 holder.forecastWeatherDescription.setText(weatherForThisDay.getSummary());
                 holder.forecastDate.setText(WetWeatherUtils.getDayName(mContext, weatherForThisDay.getDateTimeInSeconds()));
@@ -131,7 +131,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
 
             case VIEW_TYPE_INFO:
                 weatherImageId = WetWeatherUtils
-                        .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                        .getResourceIconIdForWeatherCondition(mContext, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
                 holder.infoIcon.setImageResource(weatherImageId);
 
                 int infoType = weatherForThisDay.weatherType;

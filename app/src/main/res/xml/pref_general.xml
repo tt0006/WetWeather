@@ -4,12 +4,12 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
 
-    <EditTextPreference
-        android:defaultValue="@string/pref_location_default"
-        android:inputType="text"
-        android:key="@string/pref_location_key"
-        android:singleLine="true"
-        android:title="@string/pref_location_label" />
+    <ListPreference
+        android:defaultValue="@string/pref_language_en_value"
+        android:entries="@array/language_options"
+        android:entryValues="@array/language_values"
+        android:key="@string/pref_language_key"
+        android:title="@string/pref_language_title" />
 
     <ListPreference
         android:defaultValue="@string/pref_units_metric"
@@ -19,17 +19,17 @@
         android:title="@string/pref_units_label" />
 
     <ListPreference
-        android:defaultValue="@string/pref_update_interval_disabled"
+        android:defaultValue="@string/pref_update_interval_value_0"
         android:entries="@array/update_interval_options"
         android:entryValues="@array/update_interval_values"
         android:key="@string/pref_update_interval_key"
         android:title="@string/pref_update_interval_label" />
 
     <ListPreference
-        android:defaultValue="@string/pref_language_en_label"
-        android:entries="@array/language_options"
-        android:entryValues="@array/language_values"
-        android:key="@string/pref_language_key"
-        android:title="@string/pref_language_title" />
+        android:defaultValue="@string/pref_weather_provider_dark_sky_value"
+        android:entries="@array/weather_provider_options"
+        android:entryValues="@array/weather_provider_values"
+        android:key="@string/pref_weather_provider_key"
+        android:title="@string/pref_weather_provider_title" />
 
 </PreferenceScreen>

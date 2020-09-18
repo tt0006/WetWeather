@@ -4,13 +4,11 @@
     <string-array name="pref_units_options">
         <item>@string/pref_units_label_metric</item>
         <item>@string/pref_units_label_imperial</item>
-        <item>@string/pref_units_label_auto</item>
     </string-array>
 
     <string-array name="pref_units_values">
         <item>@string/pref_units_metric</item>
         <item>@string/pref_units_imperial</item>
-        <item>@string/pref_units_auto</item>
     </string-array>
 
     <string-array name="update_interval_options">
@@ -38,6 +36,16 @@
     <string-array name="language_values">
         <item>@string/pref_language_en_value</item>
         <item>@string/pref_language_uk_value</item>
+    </string-array>
+
+    <string-array name="weather_provider_options">
+        <item>@string/pref_weather_provider_dark_sky_label</item>
+        <item>@string/pref_weather_provider_open_weather_label</item>
+    </string-array>
+
+    <string-array name="weather_provider_values">
+        <item>@string/pref_weather_provider_dark_sky_value</item>
+        <item>@string/pref_weather_provider_open_weather_value</item>
     </string-array>
 
 </resources>

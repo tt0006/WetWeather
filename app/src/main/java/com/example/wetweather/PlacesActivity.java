@@ -34,6 +34,7 @@ public class PlacesActivity extends AppCompatActivity {
     private Context mActivityContext;
     private ProgressBar mLoadingIndicator;
     private View mEmbedded;
+    private TextView mDefaultText;
     ImageView iconView;
     TextView locationView, descriptionView, updated, feelsLike, percipProb;
 
@@ -46,8 +47,8 @@ public class PlacesActivity extends AppCompatActivity {
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addLocIntet = new Intent(PlacesActivity.this, AddLocationActivity.class);
-                startActivity(addLocIntet);
+                Intent addLocIntent = new Intent(PlacesActivity.this, AddLocationActivity.class);
+                startActivity(addLocIntent);
             }
         });
 
@@ -67,10 +68,9 @@ public class PlacesActivity extends AppCompatActivity {
         percipProb = findViewById(R.id.percip_prob);
         updated = findViewById(R.id.updated_at);
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
+        mDefaultText = findViewById(R.id.default_text);
         mActivityContext = this;
         final SwipeRefreshLayout swipeToRefresh = findViewById(R.id.swipeToRefresh);
-
-        showLoading();
 
         setupViewModel();
 
@@ -87,6 +87,7 @@ public class PlacesActivity extends AppCompatActivity {
                     public void onRefresh() {
                         if (NetworkUtils.isNetworkAvailable(mActivityContext)) {
                             WeatherSyncUtils.startImmediateSync(mActivityContext);
+                            showLoading();
                         } else {
                             Toast.makeText(mActivityContext, R.string.network_not_available,
                                     Toast.LENGTH_SHORT).show();
@@ -117,13 +118,13 @@ public class PlacesActivity extends AppCompatActivity {
         }
 
         int weatherImageId = WetWeatherUtils
-                .getResourceIconIdForWeatherCondition(weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                .getResourceIconIdForWeatherCondition(this, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
         locationView.setText(String.format("%1$s %2$s",
                 WetWeatherPreferences.getPreferencesLocationName(this),
                 WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature())));
         percipProb.setText(String.format("%1$s %2$s", this.getString(R.string.hourly_rain_prob_label),
                 this.getString(R.string.format_percent_value,
-                weatherForThisDay.getPrecipProbability()*100)));
+                        Float.parseFloat(weatherForThisDay.getPrecipProbability())*100)));
         updated.setText(WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeInSeconds()));
         feelsLike.setText(String.format("%1$s %2$s", this.getString(R.string.feels_like_label),
                 WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature)));
@@ -138,6 +139,7 @@ public class PlacesActivity extends AppCompatActivity {
      */
     private void showWeatherDataView() {
         mLoadingIndicator.setVisibility(View.INVISIBLE);
+        mDefaultText.setVisibility(View.INVISIBLE);
         mEmbedded.setVisibility(View.VISIBLE);
     }
 
