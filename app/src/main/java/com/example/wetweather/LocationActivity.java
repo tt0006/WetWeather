@@ -3,7 +3,7 @@ package com.example.wetweather;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -73,7 +73,7 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        LocationViewModel viewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
+        LocationViewModel viewModel = new ViewModelProvider(this).get(LocationViewModel.class);
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {

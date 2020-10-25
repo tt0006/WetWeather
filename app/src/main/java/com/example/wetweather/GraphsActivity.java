@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.utils.WetWeatherUtils;
@@ -50,7 +50,7 @@ public class GraphsActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        final GraphsViewModel viewModel = ViewModelProviders.of(this).get(GraphsViewModel.class);
+        final GraphsViewModel viewModel = new ViewModelProvider(this).get(GraphsViewModel.class);
         viewModel.getGraphs().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {

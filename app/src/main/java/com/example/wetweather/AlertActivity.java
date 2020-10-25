@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +51,7 @@ public class AlertActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        final AlertViewModel viewModel = ViewModelProviders.of(this).get(AlertViewModel.class);
+        final AlertViewModel viewModel = new ViewModelProvider(this).get(AlertViewModel.class);
         viewModel.getAlerts().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {

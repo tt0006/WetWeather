@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +51,7 @@ public class HourlyForecastActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        final HourlyViewModel viewModel = ViewModelProviders.of(this).get(HourlyViewModel.class);
+        final HourlyViewModel viewModel = new ViewModelProvider(this).get(HourlyViewModel.class);
         viewModel.getHourlyWeather().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
