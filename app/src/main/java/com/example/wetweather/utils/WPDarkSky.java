@@ -204,10 +204,10 @@ public class WPDarkSky {
         uvIndex = item.optString("uvIndex");
         visibility = item.optString("visibility");
         ozone = item.optString("ozone");
-        temperatureHigh = item.optString("temperatureHigh");
-        temperatureLow = item.optString("temperatureLow");
-        apparentTemperatureHigh = item.optString("apparentTemperatureHigh");
-        apparentTemperatureLow = item.optString("apparentTemperatureLow");
+        temperatureHigh = item.optString("temperatureMax");
+        temperatureLow = item.optString("temperatureMin");
+        apparentTemperatureHigh = item.optString("apparentTemperatureMax");
+        apparentTemperatureLow = item.optString("apparentTemperatureMin");
         apparentTemperature = item.optString("apparentTemperature");
         temperature = item.optString("temperature");
 

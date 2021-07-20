@@ -45,6 +45,9 @@ public final class UpdateWeatherData {
             } else if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_open_weather_value))) {
                 Log.i(LOG_TAG, "OpenWeather path");
                 weatherListArray = WPOpenWeather.fetchWeatherData(context);
+            } else if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_clima_cell_value))) {
+                Log.i(LOG_TAG, "ClimaCell path");
+                weatherListArray = WPClimaCell.fetchWeatherData(context);
             }
 
             if (weatherListArray == null){

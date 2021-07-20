@@ -86,8 +86,10 @@
     <string name="pref_weather_provider_key" translatable="false">weather_provider</string>
     <string name="pref_weather_provider_dark_sky_label" translatable="false">Dark Sky</string>
     <string name="pref_weather_provider_open_weather_label" translatable="false">OpenWeather</string>
+    <string name="pref_weather_provider_clima_cell_label" translatable="false">ClimaCell</string>
     <string name="pref_weather_provider_dark_sky_value" translatable="false">dark_sky</string>
     <string name="pref_weather_provider_open_weather_value" translatable="false">open_weather</string>
+    <string name="pref_weather_provider_clima_cell_value" translatable="false">clima_cell</string>
 
 
     <string name="title_activity_detail">Details</string>
@@ -116,7 +118,7 @@
     <string name="tomorrow">Tomorrow</string>
 
     <!-- Temperature format -->
-    <string name="format_temperature">
+    <string name="format_temperature" translatable="false">
         <xliff:g id="temp">%1.0f</xliff:g>\u00B0
     </string>
 
@@ -131,7 +133,7 @@
         <xliff:g id="precip">%1$.1f</xliff:g> mm
     </string>
 
-    <string name="format_percip_intens_graph">
+    <string name="format_percip_intens_graph" translatable="false">
         <xliff:g id="precip_graph">%1$.1f</xliff:g>
     </string>
 
@@ -198,13 +200,13 @@
         <xliff:g id="pressure">%1.0f</xliff:g> hPa
     </string>
 
-    <string name="format_pressure_graph">
+    <string name="format_pressure_graph" translatable="false">
         <xliff:g id="pressure_graph">%1.0f</xliff:g>
     </string>
 
     <string name="humidity_label">Humidity</string>
     <!-- Humidity format -->
-    <string name="format_percent_value">
+    <string name="format_percent_value" translatable="false">
         <xliff:g id="humidity">%1.0f</xliff:g>%%
     </string>
 

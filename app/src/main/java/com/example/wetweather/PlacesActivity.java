@@ -135,7 +135,7 @@ public class PlacesActivity extends AppCompatActivity {
     }
 
     /**
-     * This method will make the the weather View visible and hide loading indicator
+     * This method will make the weather View visible and hide loading indicator
      */
     private void showWeatherDataView() {
         mLoadingIndicator.setVisibility(View.INVISIBLE);

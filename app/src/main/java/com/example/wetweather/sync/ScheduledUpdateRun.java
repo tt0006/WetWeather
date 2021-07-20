@@ -32,7 +32,7 @@ public class ScheduledUpdateRun {
             repeatInterval = 0;
         }
 
-        if (repeatInterval == 0) { // Cancel update if user select so inn preferences
+        if (repeatInterval == 0) { // Cancel update if user select so in preferences
             WorkManager.getInstance(context).cancelAllWork();
         } else {
 

@@ -200,6 +200,14 @@ public class WetWeatherUtils {
         return number;
     }
 
+    /**
+     * Calls appropriate method to find weather icon based on weather provider.
+     *
+     * @param context Android Context to access preferences and resources
+     * @param weatherIcon weather icon string as per API documentation
+     * @param precipIntensity precipitation intensity string value to select rain icon (darkSky only)
+     * @return Weather icon
+     */
     public static int getResourceIconIdForWeatherCondition(Context context, String weatherIcon, String precipIntensity) {
 
         String weatherProvider = WetWeatherPreferences.getPreferencesWeatherProvider(context);
@@ -212,6 +220,12 @@ public class WetWeatherUtils {
         return R.drawable.art_clear;
     }
 
+    /**
+     * This method uses the weather icon string to determine its icon.
+     *
+     * @param weatherIcon weather icon as per API documentation
+     * @return Weather icon
+     */
     private static int getIconForOpenWeather(String weatherIcon) {
 
         int icon;
@@ -259,9 +273,10 @@ public class WetWeatherUtils {
     }
 
     /**
-     * This method uses the weather description to determine its icon.
+     * This method uses the weather icon string to determine its icon.
      *
-     * @param weatherIcon weather description as per API documentation
+     * @param weatherIcon weather icon as per API documentation
+     * @param precipIntensity precipitation intensity string value to select rain icon (darkSky only)
      * @return Weather icon
      */
     private static int getIconForDarkSky(String weatherIcon, String precipIntensity) {

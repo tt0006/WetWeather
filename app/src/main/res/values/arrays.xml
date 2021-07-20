@@ -41,11 +41,13 @@
     <string-array name="weather_provider_options">
         <item>@string/pref_weather_provider_dark_sky_label</item>
         <item>@string/pref_weather_provider_open_weather_label</item>
+        <item>@string/pref_weather_provider_clima_cell_label</item>
     </string-array>
 
     <string-array name="weather_provider_values">
         <item>@string/pref_weather_provider_dark_sky_value</item>
         <item>@string/pref_weather_provider_open_weather_value</item>
+        <item>@string/pref_weather_provider_clima_cell_value</item>
     </string-array>
 
 </resources>
