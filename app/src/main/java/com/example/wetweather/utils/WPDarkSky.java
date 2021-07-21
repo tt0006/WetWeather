@@ -59,7 +59,7 @@ public class WPDarkSky {
 
         WeatherItem currently = null;
         for (WeatherItem item : weatherListArray) {
-            if (item.weatherType == 1) {
+            if (item.getWeatherType() == 1) {
                 currently = item;
                 break;
             }
@@ -70,10 +70,10 @@ public class WPDarkSky {
         }
 
         for (WeatherItem item : weatherListArray) {
-            if (item.weatherType == 3 & DateUtils.isToday((item.getDateTimeInSeconds()) * 1000L)) {
+            if (item.getWeatherType() == 3 & DateUtils.isToday((item.getDateTimeInSeconds()) * 1000L)) {
                 currently.setSunriseTime(item.getSunriseTime());
                 currently.setSunsetTime(item.getSunsetTime());
-                currently.moonPhase = item.moonPhase;
+                currently.setMoonPhase(item.getMoonPhase());
                 break;
             }
         }
@@ -169,7 +169,7 @@ public class WPDarkSky {
         String precipType;
         long sunriseTime;
         long sunsetTime;
-        double windSpeed;
+        String windSpeed;
         String windGust;
         int windDirection;
         String moonPhase;
@@ -195,7 +195,7 @@ public class WPDarkSky {
         precipType = item.optString("precipType");
         sunriseTime = item.optLong("sunriseTime");
         sunsetTime = item.optLong("sunsetTime");
-        windSpeed = item.optDouble("windSpeed");
+        windSpeed = item.optString("windSpeed");
         windGust = item.optString("windGust");
         windDirection = item.optInt("windBearing");
         moonPhase = item.optString("moonPhase");

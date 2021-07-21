@@ -50,10 +50,9 @@ public class WeatherWidget4x1 extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.percip_prob, String.format("%1$s %2$s",
                 context.getString(R.string.hourly_rain_prob_label),
-                context.getString(R.string.format_percent_value,
-                        Float.parseFloat(weatherData.getPrecipProbability())*100)));
+                WetWeatherUtils.formatPrecipitationIntensity(context, weatherData.getPrecipIntensity())));
         remoteViews.setTextViewText(R.id.feels_like, String.format("%1$s %2$s", context.getString(R.string.feels_like_label),
-                WetWeatherUtils.formatTemperature(context, weatherData.apparentTemperature)));
+                WetWeatherUtils.formatTemperature(context, weatherData.getApparentTemperature())));
         remoteViews.setImageViewResource(R.id.weather_icon, WetWeatherUtils.getResourceIconIdForWeatherCondition(context, weatherData.getIcon(), weatherData.getPrecipIntensity()));
         remoteViews.setTextViewText(R.id.widget_updated_at, WetWeatherUtils.getUpdateTime(context, weatherData.getDateTimeInSeconds()));
 

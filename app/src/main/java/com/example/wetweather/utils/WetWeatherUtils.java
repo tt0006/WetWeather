@@ -423,4 +423,42 @@ public class WetWeatherUtils {
         return dayFormat.format(d);
     }
 
+    /**
+     * Format precipitation probability string
+     * @param context   Android Context to access preferences and resources
+     * @param value     String value to format
+     * @return  Formatted String value
+     */
+    public static String formatPrecipitationProbability(Context context, String value){
+        if (value == null || "-1".equals(value)){
+            return context.getString(R.string.precip_label);
+        } else {
+            return context.getString(R.string.format_percent_value,
+                    Float.parseFloat(value) * 100);
+        }
+    }
+
+    /**
+     * Format precipitation intensity string
+     * @param context   Android Context to access preferences and resources
+     * @param value     String value to format
+     * @return  Formatted String value
+     */
+    public static String formatPrecipitationIntensity(Context context, String value){
+        if (value == null || "-1".equals(value)){
+            return context.getString(R.string.format_percip_intens, 0.0f);
+        } else {
+            return context.getString(R.string.format_percip_intens,
+                    Float.parseFloat(value));
+        }
+    }
+
+    public static String formatWindString(Context context, String value){
+        if (value == null || "".equals(value)){
+            return context.getString(R.string.wind_label);
+        } else {
+            return context.getString(R.string.format_wind_speed, getDoubleFromString(value));
+        }
+    }
+
 }

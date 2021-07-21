@@ -108,7 +108,7 @@ public class WPClimaCell {
         String precipType;
         long sunriseTime;
         long sunsetTime;
-        double windSpeed;
+        String windSpeed;
         String windGust;
         int windDirection;
         String moonPhase;
@@ -162,13 +162,13 @@ public class WPClimaCell {
             if (item.has("wind_speed")) {
                 JSONArray temp = item.getJSONArray("wind_speed");
                 JSONObject min = temp.getJSONObject(0).getJSONObject("min");
-                windSpeed = min.optDouble("value");
+                windSpeed = min.optString("value");
 
                 JSONObject max = temp.getJSONObject(1).getJSONObject("max");
                 windGust = max.optString("value");
             } else {
-                windSpeed = 0.0;
-                windGust = "0";
+                windSpeed = "";
+                windGust = "";
             }
 
             if (item.has("baro_pressure")) {
@@ -216,7 +216,7 @@ public class WPClimaCell {
                 JSONObject precipitation_probability = item.getJSONObject("precipitation_probability");
                 precipProbability = precipitation_probability.optString("value");
             } else {
-                precipProbability = "0";
+                precipProbability = "-1";
             }
 
             if (item.has("sunrise")) {
@@ -270,8 +270,8 @@ public class WPClimaCell {
             apparentTemperatureHigh = "0";
             apparentTemperatureLow = "0";
 
-            windSpeed = 0.0;
-            windGust = "0";
+            windSpeed = "";
+            windGust = "";
             pressure = 0.0;
             visibility = "0";
             humidity = 0.0;
@@ -281,7 +281,7 @@ public class WPClimaCell {
             sunsetTime = 0L;
             time = 0L;
             icon = "0";
-            precipProbability = "0";
+            precipProbability = "";
         }
 
         summary = icon;
@@ -312,7 +312,7 @@ public class WPClimaCell {
         String precipType;
         long sunriseTime;
         long sunsetTime;
-        double windSpeed;
+        String windSpeed;
         String windGust;
         int windDirection;
         String moonPhase;
@@ -345,16 +345,16 @@ public class WPClimaCell {
 
             if (item.has("wind_speed")) {
                 JSONObject wind_speed = item.getJSONObject("wind_speed");
-                windSpeed = wind_speed.optDouble("value");
+                windSpeed = wind_speed.optString("value");
             } else {
-                windSpeed = 0.0;
+                windSpeed = "";
             }
 
             if (item.has("wind_gust")) {
                 JSONObject wind_gust = item.getJSONObject("wind_gust");
                 windGust = wind_gust.optString("value");
             } else {
-                windGust = "0";
+                windGust = "";
             }
 
             if (item.has("baro_pressure")) {
@@ -481,8 +481,8 @@ public class WPClimaCell {
             Log.e(LOG_TAG, "Problem parsing JSON results", e);
             temperature = "0";
             apparentTemperature = "0";
-            windSpeed = 0.0;
-            windGust = "0";
+            windSpeed = "";
+            windGust = "";
             pressure = 0.0;
             visibility = "0";
             humidity = 0.0;

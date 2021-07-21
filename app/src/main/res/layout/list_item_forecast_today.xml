@@ -109,22 +109,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/details_rain_probability"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/details_rain_icon"
-            app:layout_constraintRight_toRightOf="@id/details_rain_icon"
-            app:layout_constraintTop_toBottomOf="@id/details_rain_icon"
-            tools:text="20%" />
-
-        <TextView
             android:id="@+id/details_rain_intensity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/details_rain_icon"
             app:layout_constraintRight_toRightOf="@id/details_rain_icon"
-            app:layout_constraintTop_toBottomOf="@id/details_rain_probability"
-            tools:text="12 mm" />
+            app:layout_constraintTop_toBottomOf="@id/details_rain_icon"
+            tools:text="0.3 mm" />
+
+        <TextView
+            android:id="@+id/details_rain_probability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/details_rain_icon"
+            app:layout_constraintRight_toRightOf="@id/details_rain_icon"
+            app:layout_constraintTop_toBottomOf="@id/details_rain_intensity"
+            tools:text="50 %" />
 
 
         <ImageView

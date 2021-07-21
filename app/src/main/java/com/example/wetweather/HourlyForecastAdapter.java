@@ -60,18 +60,15 @@ class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.H
         holder.hourlyTemperature.setText(WetWeatherUtils.formatTemperature(mContext,
                 weatherForThisDay.getTemperature()));
         holder.hourlyRain.setText(String.format("%1$s %2$s",
-                mContext.getString(R.string.format_percent_value,
-                        Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100), mContext.getString(R.string.format_percip_intens,
-                        Float.parseFloat(weatherForThisDay.getPrecipIntensity()))));
+                WetWeatherUtils.formatPrecipitationProbability(mContext, weatherForThisDay.getPrecipProbability()),
+                WetWeatherUtils.formatPrecipitationIntensity(mContext, weatherForThisDay.getPrecipIntensity())));
 
         holder.hourlyWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
-        holder.hourlyWindSpeed.setText(mContext.getString(R.string.format_wind_speed,
-                weatherForThisDay.getWindSpeed()));
-        holder.hourlyWindGust.setText(mContext.getString(R.string.format_wind_speed,
-                WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
+        holder.hourlyWindSpeed.setText(WetWeatherUtils.formatWindString(mContext, weatherForThisDay.getWindSpeed()));
+        holder.hourlyWindGust.setText(WetWeatherUtils.formatWindString(mContext, weatherForThisDay.getWindGust()));
 
         holder.hourlyClouds.setText(mContext.getString(R.string.format_percent_value,
-                weatherForThisDay.cloudCover * 100));
+                weatherForThisDay.getCloudCover() * 100));
 
         holder.hourlyHumidity.setText(mContext.getString(R.string.format_percent_value,
                 weatherForThisDay.getHumidity() * 100));

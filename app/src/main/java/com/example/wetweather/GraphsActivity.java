@@ -75,10 +75,10 @@ public class GraphsActivity extends AppCompatActivity {
         List<Entry> humidityEntries = new ArrayList<>();
 
         for (WeatherItem item : weatherEntries) {
-            highTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.temperatureHigh)));
-            apparentHighTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.apparentTemperatureHigh)));
-            lowTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.temperatureLow)));
-            apparentLowTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.apparentTemperatureLow)));
+            highTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.getTemperatureHigh())));
+            apparentHighTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.getApparentTemperatureHigh())));
+            lowTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.getTemperatureLow())));
+            apparentLowTempEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.getApparentTemperatureLow())));
             pressureEntries.add(new Entry(item.getDateTimeInSeconds(), (float) item.getPressure()));
             precipitationEntries.add(new Entry(item.getDateTimeInSeconds(), Float.parseFloat(item.getPrecipIntensity())));
             humidityEntries.add(new Entry(item.getDateTimeInSeconds(), (float) item.getHumidity()));

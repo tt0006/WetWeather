@@ -12,7 +12,7 @@ public class WeatherItem {
     // fields represent table columns
     @PrimaryKey(autoGenerate = true)
     private int id;
-    public int weatherType;
+    private int weatherType;
     private long dateTimeInSeconds;
     private String summary;
     private String icon;
@@ -23,20 +23,20 @@ public class WeatherItem {
     private String precipType;
     private long sunriseTime;
     private long sunsetTime;
-    private double windSpeed;
-    public String windGust;
+    private String windSpeed;
+    private String windGust;
     private int windDirection;
-    public String moonPhase;
-    public String dewPoint;
-    public double cloudCover;
-    public String uvIndex;
-    public String visibility;
-    public String ozone;
-    public String temperatureHigh;
-    public String temperatureLow;
-    public String apparentTemperatureHigh;
-    public String apparentTemperatureLow;
-    public String apparentTemperature;
+    private String moonPhase;
+    private String dewPoint;
+    private double cloudCover;
+    private String uvIndex;
+    private String visibility;
+    private String ozone;
+    private String temperatureHigh;
+    private String temperatureLow;
+    private String apparentTemperatureHigh;
+    private String apparentTemperatureLow;
+    private String apparentTemperature;
     private String temperature;
     private boolean expanded;
 
@@ -46,7 +46,7 @@ public class WeatherItem {
     @Ignore
     public WeatherItem(int weatherType, long dateTimeInSeconds, String summary, String icon, double pressure,
                        double humidity, String precipIntensity, String precipProbability,
-                       String precipType, long sunriseTime, long sunsetTime, double windSpeed,
+                       String precipType, long sunriseTime, long sunsetTime, String windSpeed,
                        String windGust, int windDirection, String moonPhase, String dewPoint,
                        double cloudCover, String uvIndex, String visibility, String ozone,
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
@@ -81,7 +81,7 @@ public class WeatherItem {
 
     public WeatherItem(int id, int weatherType, long dateTimeInSeconds, String summary, String icon, double pressure,
                        double humidity, String precipIntensity, String precipProbability,
-                       String precipType, long sunriseTime, long sunsetTime, double windSpeed,
+                       String precipType, long sunriseTime, long sunsetTime, String windSpeed,
                        String windGust, int windDirection, String moonPhase, String dewPoint,
                        double cloudCover, String uvIndex, String visibility, String ozone,
                        String temperatureHigh, String temperatureLow, String apparentTemperatureHigh,
@@ -207,17 +207,13 @@ public class WeatherItem {
         return precipIntensity;
     }
 
-    public void setPrecipIntensity(String precipIntensity) {
-        this.precipIntensity = precipIntensity;
-    }
+    public void setPrecipIntensity(String precipIntensity) { this.precipIntensity = precipIntensity; }
 
     public String getPrecipProbability() {
         return precipProbability;
     }
 
-    public void setPrecipProbability(String precipProbability) {
-        this.precipProbability = precipProbability;
-    }
+    public void setPrecipProbability(String precipProbability) { this.precipProbability = precipProbability; }
 
     public String getPrecipType() {
         return precipType;
@@ -243,11 +239,9 @@ public class WeatherItem {
         this.sunsetTime = sunsetTime;
     }
 
-    public double getWindSpeed() {
-        return windSpeed;
-    }
+    public String getWindSpeed() { return windSpeed; }
 
-    public void setWindSpeed(double windSpeed) {
+    public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
     }
 
@@ -274,4 +268,90 @@ public class WeatherItem {
     public void setExpanded(boolean state) {
         this.expanded = state;
     }
+
+    public int getWeatherType() {
+        return weatherType;
+    }
+
+    public void setWeatherType(int value) { this.weatherType = value; }
+
+    public String getWindGust() { return windGust; }
+
+    public void setWindGust(String value) { this.windGust = value; }
+
+    public String getMoonPhase() {
+        return moonPhase;
+    }
+
+    public void setMoonPhase(String moonPhase) {
+        this.moonPhase = moonPhase;
+    }
+
+    public double getCloudCover() {
+        return cloudCover;
+    }
+
+    public void setCloudCover(double cloudCover) {
+        this.cloudCover = cloudCover;
+    }
+
+    public String getUvIndex() {
+        return uvIndex;
+    }
+
+    public void setUvIndex(String uvIndex) {
+        this.uvIndex = uvIndex;
+    }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
+
+    public String getOzone() {
+        return ozone;
+    }
+
+    public void setOzone(String ozone) {
+        this.ozone = ozone;
+    }
+
+    public String getTemperatureHigh() {
+        return temperatureHigh;
+    }
+
+    public void setTemperatureHigh(String temperatureHigh) { this.temperatureHigh = temperatureHigh; }
+
+    public String getTemperatureLow() {
+        return temperatureLow;
+    }
+
+    public void setTemperatureLow(String temperatureLow) {
+        this.temperatureLow = temperatureLow;
+    }
+
+    public String getApparentTemperatureHigh() {
+        return apparentTemperatureHigh;
+    }
+
+    public void setApparentTemperatureHigh(String apparentTemperatureHigh) { this.apparentTemperatureHigh = apparentTemperatureHigh; }
+
+    public String getApparentTemperatureLow() {
+        return apparentTemperatureLow;
+    }
+
+    public void setApparentTemperatureLow(String apparentTemperatureLow) { this.apparentTemperatureLow = apparentTemperatureLow; }
+
+    public String getApparentTemperature() {
+        return apparentTemperature;
+    }
+
+    public void setApparentTemperature(String apparentTemperature) { this.apparentTemperature = apparentTemperature; }
+
+    public String getDewPoint(){ return dewPoint; }
+
+    public void setDewPoint(String value){ dewPoint = value; }
 }

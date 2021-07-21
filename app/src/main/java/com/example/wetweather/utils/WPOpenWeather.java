@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.wetweather.R;
 import com.example.wetweather.db.WeatherItem;
 import com.example.wetweather.prefs.WetWeatherPreferences;
 
@@ -111,7 +112,7 @@ public final class WPOpenWeather {
         String precipType;
         long sunriseTime;
         long sunsetTime;
-        double windSpeed;
+        String windSpeed;
         String windGust;
         int windDirection;
         String moonPhase;
@@ -191,16 +192,13 @@ public final class WPOpenWeather {
                     JSONObject rainObj = new JSONObject(rainRawData);
                     if (rainObj.has("1h")) {
                         precipIntensity = rainObj.optString("1h");
-                        Log.i(LOG_TAG, "1h " + precipIntensity);
                     } else if (rainObj.has("3h")) {
                         precipIntensity = rainObj.optString("3h");
-                        Log.i(LOG_TAG, "3h " + precipIntensity);
                     } else {
                         precipIntensity = "0.0";
                     }
                 } else {
                     precipIntensity = rainRawData;
-                    Log.i(LOG_TAG, "just rain " + precipIntensity);
                 }
             } else {
                 precipIntensity = "0.0";
@@ -209,14 +207,14 @@ public final class WPOpenWeather {
             precipIntensity = "0.0";
         }
 
-        precipProbability = "0";
+        precipProbability = "-1";
         precipType = item.optString("precipType");
 
         pressure = item.optDouble("pressure");
         humidity = item.optDouble("humidity") / 100;
         sunriseTime = item.optLong("sunrise");
         sunsetTime = item.optLong("sunset");
-        windSpeed = item.optDouble("wind_speed");
+        windSpeed = item.optString("wind_speed");
         windGust = item.optString("wind_gust");
         windDirection = item.optInt("wind_deg");
         moonPhase = item.optString("moonPhase");
@@ -331,7 +329,6 @@ public final class WPOpenWeather {
 
         try {
             URL weatherQueryUrl = new URL(weatherQueryUri.toString());
-            Log.d(LOG_TAG, "URL: " + weatherQueryUrl);
             return weatherQueryUrl;
         } catch (MalformedURLException e) {
             e.printStackTrace();

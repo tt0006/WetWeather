@@ -76,19 +76,16 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
 
                 holder.detailsDate.setVisibility(View.GONE);
                 holder.detailsWeatherDescription.setText(weatherForThisDay.getSummary());
-                holder.detailsHighTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureHigh));
-                holder.detailsLowTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.temperatureLow));
+                holder.detailsHighTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperatureHigh()));
+                holder.detailsLowTemp.setText(WetWeatherUtils.formatTemperature(mContext, weatherForThisDay.getTemperatureLow()));
 
                 holder.detailsWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
-                holder.detailsWindSpeed.setText(mContext.getString(R.string.format_wind_speed,
-                        weatherForThisDay.getWindSpeed()));
-                holder.detailsWindGust.setText(mContext.getString(R.string.format_wind_speed,
-                        WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
+                holder.detailsWindSpeed.setText(WetWeatherUtils.formatWindString(mContext, weatherForThisDay.getWindSpeed()));
 
-                holder.detailsRainProb.setText(mContext.getString(R.string.format_percent_value,
-                        Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100));
-                holder.detailsRainIntens.setText(mContext.getString(R.string.format_percip_intens,
-                        Float.parseFloat(weatherForThisDay.getPrecipIntensity())));
+                holder.detailsWindGust.setText(WetWeatherUtils.formatWindString(mContext, weatherForThisDay.getWindGust()));
+
+                holder.detailsRainProb.setText(WetWeatherUtils.formatPrecipitationProbability(mContext, weatherForThisDay.getPrecipProbability()));
+                holder.detailsRainIntens.setText(WetWeatherUtils.formatPrecipitationIntensity(mContext, weatherForThisDay.getPrecipIntensity()));
 
                 holder.detailsHumidity.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getHumidity() * 100));
@@ -98,10 +95,10 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
 
                 holder.detailsSunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
                 holder.detailsSunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
-                holder.detailsClouds.setText(mContext.getString(R.string.format_percent_value, weatherForThisDay.cloudCover * 100));
-                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.moonPhase));
-                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.moonPhase));
-                holder.detailsVisibility.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.visibility));
+                holder.detailsClouds.setText(mContext.getString(R.string.format_percent_value, weatherForThisDay.getCloudCover() * 100));
+                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.getMoonPhase()));
+                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.getMoonPhase()));
+                holder.detailsVisibility.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.getVisibility()));
 
                 break;
 
@@ -123,19 +120,15 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                 holder.hourlyTemperature.setText(WetWeatherUtils.formatTemperature(mContext,
                         weatherForThisDay.getTemperature()));
                 holder.hourlyRain.setText(String.format("%1$s %2$s",
-                        mContext.getString(R.string.format_percent_value,
-                                Float.parseFloat(weatherForThisDay.getPrecipProbability()) * 100),
-                        mContext.getString(R.string.format_percip_intens,
-                                Float.parseFloat(weatherForThisDay.getPrecipIntensity()))));
+                        WetWeatherUtils.formatPrecipitationProbability(mContext, weatherForThisDay.getPrecipProbability()),
+                        WetWeatherUtils.formatPrecipitationIntensity(mContext, weatherForThisDay.getPrecipIntensity())));
 
                 holder.hourlyWindIcon.setImageResource(WetWeatherUtils.getWindIcon(weatherForThisDay.getWindDirection()));
-                holder.hourlyWindSpeed.setText(mContext.getString(R.string.format_wind_speed,
-                        weatherForThisDay.getWindSpeed()));
-                holder.hourlyWindGust.setText(mContext.getString(R.string.format_wind_speed,
-                        WetWeatherUtils.getDoubleFromString(weatherForThisDay.windGust)));
+                holder.hourlyWindSpeed.setText(WetWeatherUtils.formatWindString(mContext, weatherForThisDay.getWindSpeed()));
+                holder.hourlyWindGust.setText(WetWeatherUtils.formatWindString(mContext, weatherForThisDay.getWindGust()));
 
                 holder.hourlyClouds.setText(mContext.getString(R.string.format_percent_value,
-                        weatherForThisDay.cloudCover * 100));
+                        weatherForThisDay.getCloudCover() * 100));
 
                 holder.hourlyHumidity.setText(mContext.getString(R.string.format_percent_value,
                         weatherForThisDay.getHumidity() * 100));
@@ -162,7 +155,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
 
         WeatherItem weatherForThisDay = mWeatherData.get(position);
 
-        switch (weatherForThisDay.weatherType){
+        switch (weatherForThisDay.getWeatherType()){
 
             case 1: view = VIEW_TYPE_DAILY;
                 break;

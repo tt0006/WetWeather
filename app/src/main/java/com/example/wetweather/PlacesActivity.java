@@ -103,6 +103,7 @@ public class PlacesActivity extends AppCompatActivity {
         viewModel.getWeathers().observe(this, new Observer<List<WeatherItem>>() {
             @Override
             public void onChanged(@Nullable List<WeatherItem> weatherEntries) {
+                if (weatherEntries != null)
                 setWeatherData(weatherEntries);
             }
         });
@@ -113,7 +114,7 @@ public class PlacesActivity extends AppCompatActivity {
         if (weatherEntries.size() == 0) return;
 
         WeatherItem weatherForThisDay = weatherEntries.get(0);
-        if (weatherForThisDay.weatherType == 5 & weatherEntries.size() >1){
+        if (weatherForThisDay.getWeatherType() == 5 & weatherEntries.size() >1){
             weatherForThisDay = weatherEntries.get(1);
         }
 
@@ -123,11 +124,10 @@ public class PlacesActivity extends AppCompatActivity {
                 WetWeatherPreferences.getPreferencesLocationName(this),
                 WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature())));
         percipProb.setText(String.format("%1$s %2$s", this.getString(R.string.hourly_rain_prob_label),
-                this.getString(R.string.format_percent_value,
-                        Float.parseFloat(weatherForThisDay.getPrecipProbability())*100)));
+                WetWeatherUtils.formatPrecipitationIntensity(this, weatherForThisDay.getPrecipIntensity())));
         updated.setText(WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeInSeconds()));
         feelsLike.setText(String.format("%1$s %2$s", this.getString(R.string.feels_like_label),
-                WetWeatherUtils.formatTemperature(this, weatherForThisDay.apparentTemperature)));
+                WetWeatherUtils.formatTemperature(this, weatherForThisDay.getApparentTemperature())));
         iconView.setImageResource(weatherImageId);
         descriptionView.setText(weatherForThisDay.getSummary());
         showWeatherDataView();
