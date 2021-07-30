@@ -47,9 +47,8 @@ public class WeatherWidget extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.widget_weather_description, weatherData.getSummary());
 
         remoteViews.setTextViewText(R.id.widget_temperature,
-                String.format("%1$s %2$s",
-                        context.getString(R.string.hourly_rain_prob_label),
-                        WetWeatherUtils.formatPrecipitationIntensity(context, weatherData.getPrecipIntensity())));
+                WetWeatherUtils.formatRainOrUVIndex(context,
+                        weatherData.getPrecipIntensity(), weatherData.getUvIndex()));
 
         remoteViews.setImageViewResource(R.id.widget_weather_icon,
                 WetWeatherUtils.getResourceIconIdForWeatherCondition(context, weatherData.getIcon(), weatherData.getPrecipIntensity()));

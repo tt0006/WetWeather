@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,7 +29,7 @@ public class AddLocationActivity extends AppCompatActivity {
     private EditText addressName;
     private ListView addressListView;
     private Context mContext;
-    private static final String TAG = AddLocationActivity.class.getSimpleName();
+    private static final String LOG_TAG = AddLocationActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class AddLocationActivity extends AppCompatActivity {
         addressName = findViewById(R.id.address_hint);
         addressListView = findViewById(R.id.addresses_lst);
         addressResultReceiver = new AddressListResultReceiver(new Handler());
-        mContext = getApplicationContext();
+        mContext = this;
     }
 
     public void getAddressesByName(View view){
@@ -47,12 +48,12 @@ public class AddLocationActivity extends AppCompatActivity {
 
     private void getAddresses(String addName) {
         if (!Geocoder.isPresent()) {
-            Toast.makeText(AddLocationActivity.this,
-                    "Can't find address, ",
+            Toast.makeText(mContext,
+                    "Can't find address",
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent = new Intent(this, AddressesByNameIntentService.class);
+        Intent intent = new Intent(mContext, AddressesByNameIntentService.class);
         intent.putExtra("address_receiver", addressResultReceiver);
         intent.putExtra("address_name", addName);
         startService(intent);
@@ -67,15 +68,15 @@ public class AddLocationActivity extends AppCompatActivity {
         protected void onReceiveResult(int resultCode, Bundle resultData) {
 
             if (resultCode == 0) {
-                Toast.makeText(AddLocationActivity.this,
-                        "Enter address name, " ,
+                Toast.makeText(mContext,
+                        "Enter address name" ,
                         Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (resultCode == 1) {
-                Toast.makeText(AddLocationActivity.this,
-                        "Address not found, " ,
+                Toast.makeText(mContext,
+                        "Address not found" ,
                         Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -98,19 +99,8 @@ public class AddLocationActivity extends AppCompatActivity {
                 j++;
             }
 
-            if (addresses.size()>0) {
-                Address address = addresses.get(0);
-                double lat = address.getLatitude();
-                double lng = address.getLongitude();
-
-                WetWeatherPreferences.updateLocationName(mContext, address.getLocality());
-                WetWeatherPreferences.setLatitudeLongitude(mContext, lat, lng);
-
-                showResults(addressList);
-
-                WeatherSyncUtils.startImmediateSync(mContext);
-                finish();
-            }
+            showResults(addressList);
+            addressListView.setOnItemClickListener(new DetailsClickHandler(addresses));
         }
     }
 
@@ -118,5 +108,28 @@ public class AddLocationActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, addressList);
         addressListView.setAdapter(arrayAdapter);
+    }
+
+    class DetailsClickHandler implements AdapterView.OnItemClickListener {
+        ArrayList<Address> addressData;
+        public DetailsClickHandler(ArrayList<Address> addressList){
+            addressData = addressList;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            if (addressData.size()>0) {
+                Address address = addressData.get(i);
+                double lat = address.getLatitude();
+                double lng = address.getLongitude();
+                String locName = address.getFeatureName();
+
+                WetWeatherPreferences.updateLocationName(mContext, locName);
+                WetWeatherPreferences.setLatitudeLongitude(mContext, lat, lng);
+
+                WeatherSyncUtils.startImmediateSync(mContext);
+                finish();
+            }
+        }
     }
 }

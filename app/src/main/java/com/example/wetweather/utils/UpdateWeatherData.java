@@ -31,7 +31,7 @@ public final class UpdateWeatherData {
 
         String latitude = WetWeatherPreferences.getPreferencesLatitude(context);
         if (latitude.length()<1){
-            Log.i(LOG_TAG, "!!!latitude is null");
+            Log.e(LOG_TAG, "!!!latitude is null");
             return false;
         }
         String weatherProvider = WetWeatherPreferences.getPreferencesWeatherProvider(context);
@@ -40,18 +40,18 @@ public final class UpdateWeatherData {
 
             List<WeatherItem> weatherListArray = null;
             if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_dark_sky_value))) {
-                Log.i(LOG_TAG, "Dark Sky path");
+                Log.d(LOG_TAG, "Dark Sky path");
                 weatherListArray = WPDarkSky.fetchWeatherData(context);
             } else if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_open_weather_value))) {
-                Log.i(LOG_TAG, "OpenWeather path");
+                Log.d(LOG_TAG, "OpenWeather path");
                 weatherListArray = WPOpenWeather.fetchWeatherData(context);
             } else if (weatherProvider.equals(context.getString(R.string.pref_weather_provider_clima_cell_value))) {
-                Log.i(LOG_TAG, "ClimaCell path");
+                Log.d(LOG_TAG, "ClimaCell path");
                 weatherListArray = WPClimaCell.fetchWeatherData(context);
             }
 
             if (weatherListArray == null){
-                Log.i(LOG_TAG, "Weather data is null");
+                Log.e(LOG_TAG, "Weather data is null");
                 return false;
             }
 

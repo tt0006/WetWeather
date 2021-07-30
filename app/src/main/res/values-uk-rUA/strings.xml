@@ -44,7 +44,7 @@
     <string name="action_settings">Параметри</string>
     <string name="add_widget">Додати віджет</string>
     <string name="cloud_cover_label">Хмари</string>
-    <string name="format_percip_intens"><xliff:g id="precip">%1$.1f</xliff:g> мм</string>
+    <string name="format_percip_intens"><xliff:g id="precip">%1$.2f</xliff:g> мм</string>
     <string name="format_pressure"><xliff:g id="pressure">%1.0f</xliff:g> ГПа</string>
     <string name="format_visibility"><xliff:g id="visibility">%1$.2s</xliff:g> км</string>
     <string name="format_wind_ms">

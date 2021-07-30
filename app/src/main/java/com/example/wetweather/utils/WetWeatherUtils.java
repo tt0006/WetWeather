@@ -240,6 +240,7 @@ public class WetWeatherUtils {
                 icon = R.drawable.ic_rain_vector;
                 break;
             case "11d":
+            case "10n":
             case "10d":
                 icon = R.drawable.ic_rain_light;
                 break;
@@ -267,6 +268,7 @@ public class WetWeatherUtils {
             case "wind":
                 return R.drawable.ic_wind_vector;
             default:
+                Log.i(LOG_TAG, weatherIcon);
                 icon =R.drawable.art_clear;
         }
         return icon;
@@ -453,11 +455,35 @@ public class WetWeatherUtils {
         }
     }
 
+    /**
+     * Format wind string
+     * @param context   Android Context to access preferences and resources
+     * @param value     String value to format
+     * @return  Formatted String value
+     */
     public static String formatWindString(Context context, String value){
         if (value == null || "".equals(value)){
             return context.getString(R.string.wind_label);
         } else {
             return context.getString(R.string.format_wind_speed, getDoubleFromString(value));
+        }
+    }
+
+    /**
+     * Format string to display precipitation intensity or UV index if no precipitation
+     * @param context   Android Context to access preferences and resources
+     * @param precipitationIntensityValue     String value for precipitation
+     * @param UVIndexValue     String value for uv index
+     * @return  Formatted String value
+     */
+    public static String formatRainOrUVIndex(Context context, String precipitationIntensityValue, String UVIndexValue){
+        Log.i(LOG_TAG, precipitationIntensityValue+"   "+UVIndexValue);
+
+        if (precipitationIntensityValue == null || "-1".equals(precipitationIntensityValue) || "0".equals(precipitationIntensityValue) || "0.0".equals(precipitationIntensityValue)){
+            return String.format("%1$s: %2$s", context.getString(R.string.uvindex_label), UVIndexValue);
+        } else {
+            return String.format("%1$s %2$s", context.getString(R.string.hourly_rain_prob_label),
+                    formatPrecipitationIntensity(context, precipitationIntensityValue));
         }
     }
 

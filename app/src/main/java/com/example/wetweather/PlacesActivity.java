@@ -75,9 +75,9 @@ public class PlacesActivity extends AppCompatActivity {
         setupViewModel();
 
         if (NetworkUtils.isNetworkAvailable(mActivityContext)) {
-            WeatherSyncUtils.initialize(this);
+            WeatherSyncUtils.initialize(mActivityContext);
         } else{
-            Toast.makeText(this, R.string.network_not_available, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivityContext, R.string.network_not_available, Toast.LENGTH_SHORT).show();
         }
 
         //set swipe to refresh
@@ -119,15 +119,15 @@ public class PlacesActivity extends AppCompatActivity {
         }
 
         int weatherImageId = WetWeatherUtils
-                .getResourceIconIdForWeatherCondition(this, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
+                .getResourceIconIdForWeatherCondition(mActivityContext, weatherForThisDay.getIcon(), weatherForThisDay.getPrecipIntensity());
         locationView.setText(String.format("%1$s %2$s",
-                WetWeatherPreferences.getPreferencesLocationName(this),
-                WetWeatherUtils.formatTemperature(this, weatherForThisDay.getTemperature())));
-        percipProb.setText(String.format("%1$s %2$s", this.getString(R.string.hourly_rain_prob_label),
-                WetWeatherUtils.formatPrecipitationIntensity(this, weatherForThisDay.getPrecipIntensity())));
-        updated.setText(WetWeatherUtils.getUpdateTime(this, weatherForThisDay.getDateTimeInSeconds()));
-        feelsLike.setText(String.format("%1$s %2$s", this.getString(R.string.feels_like_label),
-                WetWeatherUtils.formatTemperature(this, weatherForThisDay.getApparentTemperature())));
+                WetWeatherPreferences.getPreferencesLocationName(mActivityContext),
+                WetWeatherUtils.formatTemperature(mActivityContext, weatherForThisDay.getTemperature())));
+        percipProb.setText(WetWeatherUtils.formatRainOrUVIndex(mActivityContext,
+                weatherForThisDay.getPrecipIntensity(), weatherForThisDay.getUvIndex()));
+        updated.setText(WetWeatherUtils.getUpdateTime(mActivityContext, weatherForThisDay.getDateTimeInSeconds()));
+        feelsLike.setText(String.format("%1$s %2$s", mActivityContext.getString(R.string.feels_like_label),
+                WetWeatherUtils.formatTemperature(mActivityContext, weatherForThisDay.getApparentTemperature())));
         iconView.setImageResource(weatherImageId);
         descriptionView.setText(weatherForThisDay.getSummary());
         showWeatherDataView();
