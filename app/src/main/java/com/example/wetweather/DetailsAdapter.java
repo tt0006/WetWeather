@@ -96,8 +96,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
                 holder.detailsSunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
                 holder.detailsSunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
                 holder.detailsClouds.setText(mContext.getString(R.string.format_percent_value, weatherForThisDay.getCloudCover() * 100));
-                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.getMoonPhase()));
-                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.getMoonPhase()));
+                holder.detailsMoonPhaseLabel.setText(WetWeatherUtils.getMoonPhaselabel(mContext));
+                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.getMoonPhase(), weatherForThisDay.getUvIndex()));
+                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(mContext, weatherForThisDay.getMoonPhase()));
                 holder.detailsVisibility.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.getVisibility()));
 
                 break;
@@ -186,7 +187,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
         final TextView detailsDate, detailsWeatherDescription, detailsHighTemp,
                 detailsLowTemp, detailsRainProb, detailsRainIntens, detailsWindSpeed,
                 detailsWindGust, detailsHumidity, detailsPressure, detailsSunrise, detailsSunset,
-                detailsClouds, detailsMoonPhaseString, detailsVisibility,
+                detailsClouds, detailsMoonPhaseLabel,detailsMoonPhaseString, detailsVisibility,
                 hourlyDate, hourlyWeatherDescription, hourlyTemperature, hourlyRain, hourlyClouds,
                 hourlyWindSpeed, hourlyWindGust, hourlyHumidity, hourlyPressure;
 
@@ -213,6 +214,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsA
             detailsSunset = view.findViewById(R.id.details_sunset_value);
             detailsClouds = view.findViewById(R.id.details_clouds_value);
             detailsMoonPhaseString = view.findViewById(R.id.details_moon_phase_string_value);
+            detailsMoonPhaseLabel = view.findViewById(R.id.details_moon_phase_label);
             detailsMoonIcon = view.findViewById(R.id.details_moon_phase_icon);
             detailsVisibility = view.findViewById(R.id.details_visibility_value);
 

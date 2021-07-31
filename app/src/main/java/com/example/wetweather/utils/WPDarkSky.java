@@ -41,43 +41,9 @@ public class WPDarkSky {
 
         List<WeatherItem> weatherListArray = extractDarkSkyJSONResponse(response);
 
-        updateCurrentlySunriseSunset(weatherListArray);
+        WetWeatherUtils.updateCurrentlySunriseSunset(weatherListArray);
 
         return weatherListArray;
-    }
-
-    /**
-     * Helper method to update currently object with Sunrise and Sunset time
-     *
-     * @param weatherListArray list of WeatherItem objects to work with
-     */
-    private static void updateCurrentlySunriseSunset(List<WeatherItem> weatherListArray) {
-
-        if (weatherListArray.size() < 2) {
-            return;
-        }
-
-        WeatherItem currently = null;
-        for (WeatherItem item : weatherListArray) {
-            if (item.getWeatherType() == 1) {
-                currently = item;
-                break;
-            }
-        }
-
-        if (currently == null) {
-            return;
-        }
-
-        for (WeatherItem item : weatherListArray) {
-            if (item.getWeatherType() == 3 & DateUtils.isToday((item.getDateTimeInSeconds()) * 1000L)) {
-                currently.setSunriseTime(item.getSunriseTime());
-                currently.setSunsetTime(item.getSunsetTime());
-                currently.setMoonPhase(item.getMoonPhase());
-                break;
-            }
-        }
-
     }
 
     /**

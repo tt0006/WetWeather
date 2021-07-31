@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/drawable/ic_rain_light.xml" value="0.4107692307692308" />
         <entry key="app/src/main/res/drawable/ic_rain_moderate.xml" value="0.4107692307692308" />
         <entry key="app/src/main/res/drawable/ic_rain_vector.xml" value="0.4107692307692308" />
+        <entry key="app/src/main/res/layout/list_item_forecast_today.xml" value="0.1950354609929078" />
         <entry key="app/src/main/res/layout/weather_widget.xml" value="0.1950354609929078" />
       </map>
     </option>

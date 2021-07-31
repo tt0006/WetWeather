@@ -108,8 +108,9 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                 holder.detailsSunrise.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunriseTime()));
                 holder.detailsSunset.setText(WetWeatherUtils.getTime(mContext, weatherForThisDay.getSunsetTime()));
                 holder.detailsClouds.setText(mContext.getString(R.string.format_percent_value, weatherForThisDay.getCloudCover() * 100));
-                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.getMoonPhase()));
-                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(weatherForThisDay.getMoonPhase()));
+                holder.detailsMoonPhaseLabel.setText(WetWeatherUtils.getMoonPhaselabel(mContext));
+                holder.detailsMoonPhaseString.setText(WetWeatherUtils.getMoonPhase(mContext, weatherForThisDay.getMoonPhase(), weatherForThisDay.getUvIndex()));
+                holder.detailsMoonIcon.setImageResource(WetWeatherUtils.getMoonPhaseIcon(mContext, weatherForThisDay.getMoonPhase()));
                 holder.detailsVisibility.setText(mContext.getString(R.string.format_visibility, weatherForThisDay.getVisibility()));
 
                 break;
@@ -222,7 +223,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
                 detailsDate, detailsWeatherDescription, detailsHighTemp,
                 detailsLowTemp, detailsRainProb, detailsRainIntens, detailsWindSpeed,
                 detailsWindGust, detailsHumidity, detailsPressure, detailsSunrise, detailsSunset,
-                detailsClouds, detailsMoonPhaseString, detailsVisibility;
+                detailsClouds, detailsMoonPhaseString, detailsMoonPhaseLabel, detailsVisibility;
 
         LocationAdapterViewHolder(View view) {
             super(view);
@@ -257,6 +258,7 @@ class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationAdapt
             detailsSunrise = view.findViewById(R.id.details_sunrise_value);
             detailsSunset = view.findViewById(R.id.details_sunset_value);
             detailsClouds = view.findViewById(R.id.details_clouds_value);
+            detailsMoonPhaseLabel = view.findViewById(R.id.details_moon_phase_label);
             detailsMoonPhaseString = view.findViewById(R.id.details_moon_phase_string_value);
             detailsMoonIcon = view.findViewById(R.id.details_moon_phase_icon);
             detailsVisibility = view.findViewById(R.id.details_visibility_value);

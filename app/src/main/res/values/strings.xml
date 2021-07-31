@@ -216,5 +216,32 @@
 
     <string name="add_widget">Add widget</string>
     <string name="precip_label">Precipitation</string>
+    <string name="unknown_weather_code">Unknown</string>
+    <string name="clear_weather_code">Clear</string>
+    <string name="cloudy_weather_code">Cloudy</string>
+    <string name="mostly_clear_weather_code">Mostly Clear</string>
+    <string name="partly_cloudy_weather_code">Partly Cloudy</string>
+    <string name="mostly_cloudy_weather_code">Mostly Cloudy</string>
+    <string name="fog_weather_code">Fog</string>
+    <string name="light_fog_weather_code">Light Fog</string>
+    <string name="light_wind_weather_code">Light Wind</string>
+    <string name="wind_weather_code">Wind</string>
+    <string name="strong_wind_weather_code">Strong Wind</string>
+    <string name="drizle_weather_code">Drizle</string>
+    <string name="rain_weather_code">Rain</string>
+    <string name="light_rain_weather_code">Light Rain</string>
+    <string name="heavy_rain_weather_code">Heavy Rain</string>
+    <string name="snow_weather_code">Snow</string>
+    <string name="flurries_weather_code">Flurries</string>
+    <string name="light_snow_weather_code">Light Snow</string>
+    <string name="heavy_snow_weather_code">Heavy Snow</string>
+    <string name="freezing_drizle_weather_code">Freezing Drizzle</string>
+    <string name="freezing_rain_weather_code">Freezing Rain</string>
+    <string name="light_freezing_rain_weather_code">Light Freezing Rain</string>
+    <string name="heavy_freezing_rain_weather_code">Heavy Freezing Rain</string>
+    <string name="ice_pallets_weather_code">Ice Pellets</string>
+    <string name="heavy_ice_pallets_weather_code">Heavy Ice Pellets</string>
+    <string name="light_ice_pallets_weather_code">Light Ice Pellets</string>
+    <string name="thunderstorm_weather_code">Thunderstorm</string>
 
 </resources>
