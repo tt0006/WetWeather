@@ -14,7 +14,6 @@ Main panel shows current weather for selected location with more data inside.
   <tr>
     <td><image src="screenshots/main_panel.jpg" /></td>
     <td><image src="screenshots/location_weather.jpg" /></td>
-    <td><image src="screenshots/location_weather_current_forecast_expanded.jpg" /></td>
     <td><image src="screenshots/location_weather_tomorrow_day_expanded.jpg" /></td>
     <td><image src="screenshots/location_weather_tomorrow_hourly_forecast_expanded.jpg" /></td>
   </tr>
@@ -33,12 +32,10 @@ Temperature, Precipitation intensity, Pressure and Humidity forecasts are availa
 
 ### Warnings
 
-Sometimes weather providers add warnings for exceptional weather conditions.
+Sometimes weather data contains warnings for exceptional weather conditions.
 
 <table>
   <tr>
-    <td><image src="screenshots/warning1.jpg" /></td>
-    <td><image src="screenshots/warning2.jpg" /></td>
     <td><image src="screenshots/warning_location_weather.jpg" /></td>
     <td><image src="screenshots/warning_details.jpg" /></td>
   </tr>
@@ -66,9 +63,9 @@ You can change location from app main panel with 'Change Location' button.
   </tr>
 </table>
 
-### Weather preferences
+### Weather Preferences
 
-You can change language, units, update interval and weather provider in preferences.
+You can change Language, Units, set or change Update Interval and Weather Provider in Preferences.
 
 <table>
   <tr>
@@ -81,4 +78,4 @@ You can change language, units, update interval and weather provider in preferen
 
 ### Installation
 
-The app is not available in Play Store at the moment. Tor run it you will need api key for DarkSky, OpenWeather or/and Tomorrow.io v4. Download source code and open it in Android Studio, replace 'Demo' with your api key and run the app.
+The app is not available in Play Store at the moment. To run it you will need api key for DarkSky, OpenWeather or/and Tomorrow.io v4. Download source code and open it in Android Studio, replace 'Demo' with your api key and run the app.
