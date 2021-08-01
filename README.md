@@ -30,9 +30,9 @@ Temperature, Precipitation intensity, Pressure and Humidity forecasts are availa
   </tr>
 </table>
 
-### Warnings
+### Alerts
 
-Sometimes weather data contains warnings for exceptional weather conditions.
+Sometimes weather data contains alerts for exceptional weather conditions.
 
 <table>
   <tr>
